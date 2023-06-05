@@ -48,7 +48,8 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
 - Garantili Ödeme İste: Öİ mesajında yer alan Ödeme Garantisi Göstergesi (“OdemeGarantisiGostergesi”) alanının Alacaklı ÖHS tarafından kullanılması ve Borçlu ÖHS’nin bu talebe olumlu yanıt vermesi durumunda Borçlu ÖHS ile Alacaklı ÖHS arasında borç-alacak ilişkisi doğuran bir iş modeli kullanılabilir. Ödeme Garantisi Göstergesi bilgi olarak yer almakta olup, kullanımı katılımcılar arası ikili anlaşmalar gerektirmektedir. Bu anlaşmaların çerçevesi, Ödeme İste Sistemi kuralları kapsamında değildir.
-- Müşteri halihazırda çevrim içi (mobil bankacılık, internet bankacılığı vb.) erişebilir durumda ise, ÖHS'nin varsa Ödeme İste kanal veya yetki tanımını varsayılan değeri AÇIK/KAPALI olacak şekilde sunması gerekmektedir.
+
+&#8680; Müşteri halihazırda çevrim içi (mobil bankacılık, internet bankacılığı vb.) erişebilir durumda ise, ÖHS'nin varsa Ödeme İste kanal veya yetki tanımını varsayılan değeri AÇIK/KAPALI olacak şekilde sunması gerekmektedir.
 
 ## 3.2 RESTful API
 
@@ -388,10 +389,10 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 |ÖHS Markası	|marka	|AN1..140|	Z	|ÖHS'nin kod bilgisi|
 |ÖHS Kodu	|kod	|AN4|	Z	|Müşterinin kolaylıkla algılayabileceği kısa unvan bilgisi. ÖHS tarafından belirlenecektir.|
 |Açık Anahtar	|acikAnahtar	|AN1..1024|	Z	|ÖHS’nin mesaj imzalama için paylaştığı açık anahtar|
-|ÖHS Api Bilgileri	|apiBilgileri	|Kompleks: OhsApiBilgi[Array][0..N]|	Z	|Desteklenen Api ve sürüm bilgileri dönülecektir.|
+|ÖHS Api Bilgileri	|apiBilgileri	|Kompleks:<br> OhsApiBilgi[Array][0..N]|	Z	|Desteklenen Api ve sürüm bilgileri dönülecektir.|
 | > api	|api	|AN1..20|	Z	|Api İsmi Örnek :ois
 | > surum	|surum	|AN1..10|	Z	|Api Sürüm Kodu Örnek: s1.0, s2.0 s1.0|
-|Logo Bilgileri	|logoBilgileri	|Kompleks: LogoBilgisi [Array][1..N]|	Z	|ÖHS'ye ait logo bilgileri.|
+|Logo Bilgileri	|logoBilgileri	|Kompleks:<br>LogoBilgisi [Array][1..N]|	Z	|ÖHS'ye ait logo bilgileri.|
 | > logoTur	|logoTur	|AN3..50|	Z	|Logonun türünü belirler. TR.OIS.DataCode.LogoTur sıralı veri türü değerlerlerinden birini alır.
 | > logoAdr	|logoAdr	|AN1..255|	Z	|ÖHS tarafında tutulan ve paylaşılacak olan url adres bilgisidir.Örnek: https://via.placeholder.com/150?text=0001 
 | > logoArkaPlan	|logoArkaPlan	|AN1|	Z	|TR.OIS.DataCode.LogoArkaPlan sıralı veri türü değerlerlerinden birini alır.

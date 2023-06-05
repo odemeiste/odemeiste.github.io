@@ -1,5 +1,5 @@
 
-<h1> 2.Amaç ve Kapsam</h1>  
+# 2. Amaç ve Kapsam
 
 Bu belgenin amacı, Fonların Anlık ve Sürekli Transferi (FAST) sisteminin katman servislerinden biri olarak tanımlanan “Ödeme İste Sistemi” (ing. Request To Pay - R2P) ile bu sistemin kullandığı alt yapının işleyişine ilişkin genel kuralları açıklamaktır.
 Dokümanda, “Ödeme İste Sistemi” (Sistem), Katılımcılar tarafından gerçekleştirilecek “Ödeme İste” (Öİ) ile ilgili servisler, kullanım senaryoları ve iş akışları tanımlanmaktadır. 
