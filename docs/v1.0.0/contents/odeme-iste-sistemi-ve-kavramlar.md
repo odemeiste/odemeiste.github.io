@@ -10,7 +10,7 @@
 
 **Şekil 2: Ödeme İste Temel Bileşenleri**
 
-<img src="./images/oi-temel-bilesen.png" width="50%" >
+<img src="././images/oi-temel-bilesen.png" width="50%" >
 
 -	Ödemeye konu olan işlemin gerçekleştirilmesi (Öİ kuralları kapsamı dışındadır)
 -	Alacaklının talebi ile ÖHS’si tarafından, borçlunun hesap bilgileri kullanılarak Ödeme İste talebinin Borçlu’ya sunulması
