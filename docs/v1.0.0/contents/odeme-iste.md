@@ -19,7 +19,7 @@ Borçlu, ÖHS uygulamasında (mobil Uygulama/ web arayüzü) Ödeme İste için 
 
 **Şekil 7 : Ödeme İsteğinin Hazırlanması**
 
-<img src="./images/oi-odeme-hazirlik.png" width="80%" >
+<img src="./images/oi-odeme-hazirlik.PNG" width="80%" >
 
 **BAŞARILI İSTEK ve YANIT :**
 
@@ -69,7 +69,7 @@ Borçlu, ÖHS uygulamasında (mobil Uygulama/ web arayüzü) Ödeme İste için 
 
 **Şekil 8 : "OdemeIste" nesnesinin sorgulanması(isteğe bağlı)**
 
-<img src="./images/oi-odeme-sorgulama.png" width="80%" >
+<img src="./images/oi-odeme-sorgulama.PNG" width="80%" >
 
 **GET /odeme-iste/{ odemeIsteNo }**
 
@@ -92,7 +92,7 @@ PUT işleminin REQUEST gövdesini (BODY) oluşturan "OdemeIsteYaniti" nesnesi Ta
 
 **Şekil 9: "OdemeIsteYaniti"**
 
-<img src="./images/oi-bildirim.png" width="80%" >
+<img src="./images/oi-bildirim.PNG" width="80%" >
 
 
 **Tablo 9: OdemeIsteYaniti Nesnesi**
@@ -114,7 +114,7 @@ Başarılı PUT isteği sonucu HTTP 202 Accepted ile dönülmelidir.
 
 **Şekil 10: "OdemeIste" İptalinin sağlanması**
 
-<img src="./images/oi-iptal.png" width="80%" >
+<img src="./images/oi-iptal.PNG" width="80%" >
 
 Alacaklı, bir Öİ talebini Borçlu’ya gönderdikten sonra iptalini talep edebilir. İptal talebi, Alacaklı ÖHS tarafından Borçlu’nun bilgilendirilmesi için Borçlu ÖHS’ye Ödeme İste Sistemi kullanılarak iletilir.
 

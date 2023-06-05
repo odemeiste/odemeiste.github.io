@@ -2,7 +2,7 @@
 
 **Şekil 1: Ödeme İste Genel Akış Diyagramı**
 
-<img src="./images/OdemeIsteAkisDiyagrami.png" width="80%" >
+<img src="./images/OdemeIsteAkisDiyagrami.PNG" width="80%" >
 
 ## 5.1 Ödeme İste Akışı ve Temel Kavramlar
 
@@ -10,7 +10,7 @@
 
 **Şekil 2: Ödeme İste Temel Bileşenleri**
 
-<img src="././images/oi-temel-bilesen.png" width="50%" >
+<img src="./images/oi-temel-bilesen.PNG" width="50%" >
 
 -	Ödemeye konu olan işlemin gerçekleştirilmesi (Öİ kuralları kapsamı dışındadır)
 -	Alacaklının talebi ile ÖHS’si tarafından, borçlunun hesap bilgileri kullanılarak Ödeme İste talebinin Borçlu’ya sunulması
@@ -35,7 +35,7 @@ Aşağıdaki genel iş akışında gösterimlerin basit olabilmesi amacıyla öd
 
 **Şekil 3: Ödeme İste Genel Akış**
 
-<img src="./images/oi-odeme-akisi.png" width="80%" >
+<img src="./images/oi-odeme-akisi.PNG" width="80%" >
 
 (0)	Borçlu hesap bilgilerini (ad soyad, IBAN) doğrudan veya TR Karekod ile veya Kolay Adres bilgisi olarak Alacaklı ile paylaşır.(Kolay Adres paylaşılmış ise Alacaklı ÖHS’nin ilgili hesap bilgilerini alabilmek için KOLAS üzerinden sorgulama yapması gereklidir)
 <br> (1) Alacaklı, ilgili hesap bilgilerini girerek Öİ talimatını Alacaklı ÖHS’ye iletir.
@@ -54,7 +54,7 @@ Aşağıdaki iş akışı çerçevesinde işlemler yürütülür:
 
 
 
-<img src="./images/oi-kisiden-kisiye.png" width="80%" >
+<img src="./images/oi-kisiden-kisiye.PNG" width="80%" >
 
 (0) Borçlu, hesap bilgilerini (IBAN/Ad Soyad veya Kolay Adres veya Kişiden Kişiye Ödeme karekodu aracılığıyla) Alacaklı ile paylaşır.
 
@@ -92,7 +92,7 @@ Aşağıdaki iş akışı çerçevesinde işlemler yürütülür:
 
 **Şekil 5: Ödeme İste ile Ödeme Akışı (Havale)**
 
-<img src="./images/oi-havale-akisi.png" width="80%" >
+<img src="./images/oi-havale-akisi.PNG" width="80%" >
 
 Alacaklı ve Borçlu’nun aynı ÖHS ile çalıştığı durumlarda Öİ ve akabindeki ödeme akışı ile ilgili işlemler BKM tarafından işletilecek olan Ödeme İste Sistemi kullanılmadan ÖHS’nin iç sistemleri üzerinden gerçekleştirilebilir.
 

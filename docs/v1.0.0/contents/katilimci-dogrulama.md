@@ -22,5 +22,5 @@ gerekmektedir.
 
 **Tablo 10:FAST Doğrulama ve Kontrolleri Tablosu**
 
-<img src="./images/oi-fast-dogrulama.png" width="80%" >
+<img src="./images/oi-fast-dogrulama.PNG" width="80%" >
 
