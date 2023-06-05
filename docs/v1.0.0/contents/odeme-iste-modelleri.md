@@ -23,4 +23,4 @@ FAST ödemesi teknik bir sebeple gerçekleşmediği durumda Öİ işlemleri içi
 
 **Şekil 6: Sonra Kabul-Hemen Öde**
 
-<img src="./images/SonraKabulHemenOde.png" width="80%" >
+<img src="./images/img/SonraKabulHemenOde.png" width="80%" >
