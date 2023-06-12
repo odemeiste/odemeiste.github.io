@@ -80,10 +80,9 @@ Aşağıdaki iş akışı çerçevesinde işlemler yürütülür:
  <br>c. Alacaklı hesap adı/ünvanı, 
  <br>d. Alacaklı hesap numarası, 
  <br>e. Tutar, 
- <br>f. Ödeme Açıklaması, 
- <br>g. Ödeme Amacı, 
- <br>h. SGZ ve TEÖZ, 
- <br>ı. Öİ Akış Türü = “01” 
+ <br>f. Ödeme Amacı, 
+ <br>g. SGZ ve TEÖZ, 
+ <br>h. Öİ Akış Türü = “01” 
 	
 (10) T01 mesajını alan FAST, gerekli kontrolleri yaparak, mutabakat sürecini başlatır ve Alacaklı ÖHS ile Borçlu ÖHS’ye T02 sonuç bildirim mesajlarını iletir. 
 
@@ -109,7 +108,7 @@ Alacaklı ve Borçlu’nun aynı ÖHS ile çalıştığı durumlarda Öİ ve aka
 -	**Ödeme İste Oluşturulma Zamanı (ÖİOZ)**: Öİ’nin oluşturulduğu zamandır.
 -	**Son Geçerlilik Zamanı (SGZ)**: Borçlu’nun Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. 
 -	**Talep Edilen Ödeme Zamanı (TEÖZ)**: Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir. 
--	**Doğrulama Tolerans Süresi (DTS)**: Alacaklı ÖHS tarafından yapılacak doğrulama kontrollerinde iletişim hattında geçen sürenin de gözetilmesi için kullanılacak ilave süredir. Bu süre Sistem tarafından belirlenir.
+-	**Doğrulama Tolerans Süresi (DTS)**: Alacaklı ÖHS tarafından yapılacak doğrulama kontrollerinde iletişim hattında geçen sürenin de gözetilmesi için kullanılacak ilave süredir. Bu süre Sistem tarafından belirlenir ve 60 saniyedir.
 
 
 

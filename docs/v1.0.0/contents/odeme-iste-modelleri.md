@@ -19,7 +19,7 @@ Bu modelde, SGZ ile ÖİOZ arasındaki fark 180 saniyeden daha uzun bir süre ol
 
 Söz konusu senaryonun hesaplar arası (P2P) ödemelerde kullanılabileceği değerlendirilmektedir.
 
-FAST ödemesi teknik bir sebeple gerçekleşmediği durumda Öİ işlemleri için ikinci defa FAST ödemesi gönderilmeyecektir.Tek seferlik Öİ isteği yapılabilir.
+FAST ödemesi teknik bir sebeple gerçekleşmediği durumda Öİ işlemleri için ikinci defa FAST ödemesi gönderilmeyecektir.Tek bir Öİ talebi için en fazla 1 adet FAST işlemi gönderilebilir.
 
 **Şekil 6: Sonra Kabul-Hemen Öde**
 

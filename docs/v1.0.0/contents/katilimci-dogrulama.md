@@ -1,8 +1,8 @@
 
-# 7.Ödeme İste Zaman Aşımı ve FAST Doğrulama ve Kontrolleri
+# 8.Ödeme İste Zaman Aşımı ve FAST Doğrulama Kontrolleri
 
 
-Borçlu ve Alacaklı ÖHS’nin Öİ talepleri için zaman aşımı kontrollerini yapması, Alacaklı ÖHS’nin Öİ talebine yönelik olarak gelen A01 mesajını doğrularken Öİ kapsamında aşağıda yer alan ve Ödeme İste API İlke ve Kuralları Belgesinde detaylandırılan doğrulamaları gerçekleştirmesi beklenmektedir. 
+Borçlu ve Alacaklı ÖHS’nin Öİ talepleri için zaman aşımı kontrollerini yapması, Alacaklı ÖHS’nin Öİ talebine yönelik olarak gelen A01 mesajını doğrularken Öİ kapsamında aşağıda yer alan doğrulamaları gerçekleştirmesi beklenmektedir. 
 
 Borçlu ÖHS SGZ’ye kadar henüz yanıtlanmamış Öİ taleplerini; Alacaklı ÖHS ise 
 -	Hemen Öde senaryoları için SGZ+DTS’ye kadar A01 mesajı gelmemiş ilgili Öİ taleplerini,

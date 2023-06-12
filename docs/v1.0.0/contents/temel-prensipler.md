@@ -35,7 +35,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - FAST Sistemi katılımcıları katılabilir. Ancak, FAST Sistemine katılımları TCMB nezdinde onaylanmış katılımcı adayları da Ödeme İste Sistemine katılım sağlamak üzere hazırlıklara başlayabilir. 
 - Öİ sonrası gerçekleşen ödeme işlemleri gerçekleştiği ödeme sisteminin kurallarına tabidir.
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
-- Alacaklı ÖHS’lerin, Bölüm 4.2‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken mümkünken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. 
+- Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. 
 - Sistemdeki Öİ işlemleri arşivlenecektir.
 - Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir. 
 - Öİ ile gerçekleştirilecek işyeri ödemeleri, FAST İşyeri Ödemeleri kapsamında değerlendirilecek olup, üye işyeri ve takas komisyonu ile ilgili kurallar uygulanacaktır. 
@@ -48,8 +48,6 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
 - Garantili Ödeme İste: Öİ mesajında yer alan Ödeme Garantisi Göstergesi (“OdemeGarantisiGostergesi”) alanının Alacaklı ÖHS tarafından kullanılması ve Borçlu ÖHS’nin bu talebe olumlu yanıt vermesi durumunda Borçlu ÖHS ile Alacaklı ÖHS arasında borç-alacak ilişkisi doğuran bir iş modeli kullanılabilir. Ödeme Garantisi Göstergesi bilgi olarak yer almakta olup, kullanımı katılımcılar arası ikili anlaşmalar gerektirmektedir. Bu anlaşmaların çerçevesi, Ödeme İste Sistemi kuralları kapsamında değildir.
-
-&#8680; Müşteri halihazırda çevrim içi (mobil bankacılık, internet bankacılığı vb.) erişebilir durumda ise, ÖHS'nin varsa Ödeme İste kanal veya yetki tanımını varsayılan değeri AÇIK/KAPALI olacak şekilde sunması gerekmektedir.
 
 ## 3.2 RESTful API
 
@@ -248,7 +246,7 @@ private_key.pem ve public_key.pem dosyasinin içerikleri kod tarafında kullanı
 
 ÖHS'ler tarafından güvenilen bir Güven Otoritesi (Trust Anchor), taraflar için bir genel anahtar deposu sağlamaktan sorumludur.
 Güven Otoritesi, taraflardan herhangi birisinin oluşturduğu bir anahtar çiftinin açık bölümünü saklayan merkezi bir dizin (BKM tarafından tutulan merkezi kayıt sistemi vb.) olacaktır.
-Mesajları doğrulamak için tarafların açık anahtarlarının paylaşılması için BKM bir servis sağlayacaktır. HHS API olarak adlandırılımış olan bu servis ile ÖHS listesine ulaşılabildiği gibi doğrulama işlemi için ihtiyaç duyulacak olan açık anahtarlara da bu servis üzerinden erişilebilinecektir.
+Mesajları doğrulamak için tarafların açık anahtarlarının paylaşılması için BKM bir servis sağlayacaktır. OHS API olarak adlandırılımış olan bu servis ile ÖHS listesine ulaşılabildiği gibi doğrulama işlemi için ihtiyaç duyulacak olan açık anahtarlara da bu servis üzerinden erişilebilinecektir.
 
 ## 3.11. Durum Kodu
 
@@ -428,7 +426,7 @@ Aşağıdaki durumlarda ÖHS'nin statüsü Geçici Kapalı olarak güncellenebil
 
 |**Kod** |**Açıklama** |
 | --- | --- |
-|TR.OIS.DataCode.MusteriTip	| B: Bireysel <br>K: Kurumsal |
+|TR.OIS.DataCode.MusteriTip	| B: Bireysel <br>T: Ticari |
 |TR.OIS.DataCode.KimlikTur	| Kod, Tip, Format <br>K , TCKN , N11 <br>V, VKN, AN10 <br>Y , YKN , N11 <br>P , PNO , AN7..9|
 | TR.OIS.DataCode.OdemeAmaci | Ödemenin Amacına yönelik olarak aşağıdaki değerlerden birini alır:<br>01: Konut Kirası Ödemesi<br>02: İş yeri Kirası Ödemesi<br>03: Diğer Kira Ödemesi<br>04: E-Ticaret Ödemesi: Elektronik ticaret işlem amaçlı aktarımlar<br>05: Çalışan Ödemesi: Maaş, harcırah, prim gibi çalışan ödemeleri<br>06: Ticari ödeme: Ticari işletmelerin birbirlerine, kendi hesaplarına veya müşterilerine ödemeleri, borç, ithalat, ihracat, şirket satın alma, vb. kapsamında ödemeler<br>07: Bireysel Ödeme: Özel amaçlı (aile bireylerine, hediye, bağış, borç, alışveriş vs.) ödemeler<br>08: Yatırım: Mevduat, menkul kıymet, döviz, gayrı menkul, taşıt, varlık alımı, temettü ödeme, tahsilat vb. gibi yatırım amaçlı ödemeler<br>09: Finansal: Kredi, depo, repo, türev, finansal varlık alım/satımı vb. ödemeler<br>10: Eğitim ödemesi<br>11: Aidat ödemesi |
 |TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler|
