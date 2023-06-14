@@ -8,8 +8,8 @@
 | --- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
 | 1 | odeme-iste | POST | /odeme-iste | Z | İstemci Kimlik Bilgileri | İmzalı İstek ve Yanıt | OdemeIsteTalebi | OdemeIste | Borçlu 
 | 2 | odeme-iste | GET |  /odeme-iste | Z | İstemci Kimlik Bilgileri | İmzalı Yanıt |  | OdemeIste | Borçlu |
-| 3 | odeme-iste | DELETE |  /odeme-iste/{odemeIsteNo} | Z | İstemci Kimlik Bilgileri |  |  |  | Borçlu |
-| 4 | odeme-iste-yanit | PUT |  /odeme-iste-yanit/{odemeIsteNo}| Z | İstemci Kimlik Bilgileri | İmzalı İstek  | OdemeIsteYaniti |  | Alacaklı |
+| 3 | odeme-iste | DELETE |  /odeme-iste/{odemeIsteRefNo} | Z | İstemci Kimlik Bilgileri |  |  |  | Borçlu |
+| 4 | odeme-iste-yanit | PUT |  /odeme-iste-yanit/{odemeIsteRefNo}| Z | İstemci Kimlik Bilgileri | İmzalı İstek  | OdemeIsteYaniti |  | Alacaklı |
 
 ## 7.1. ADIM 0: Alacaklı'nın Borçlu’ya Ödeme İste talebinde bulunması:
 
@@ -49,7 +49,7 @@ Borçlu, ÖHS uygulamasında (mobil Uygulama/ web arayüzü) Ödeme İste için 
 |> Tutar	|tutar	|AN1..24| Alacaklı ÖHS’nin önyüzde kullanıcıdan aldığı tutar bilgisidir.	| Z | Z |Ttr |
 |> Para Birimi	|paraBirimi	|AN3| Para birimi. FAST işlemleri kapsamında sadece TL gönderimi olacaktır. 	| Z | Z | |
 |Ödeme İste Talep Detayı	|talepDetayi	|Kompleks:TalepDetay|	| Z | Z | |
-|> Ödeme İste Numarası	|odemeIsteNo	|AN41|Ödeme İste sistemi numarasıdır.Alacaklı ÖHS tarafından oluşturulmalıdır.Önerilen Format:  <br>{katilimciKodu}-{guid}  <br>Örn: 8000- f534e8f2-9fbf-48cc-914b-12fbaffd8104    (size: 41)| Z | Z | OiRef|
+|> Ödeme İste Referans Numarası	|odemeIsteRefNo	|AN41|Ödeme İste sistemi numarasıdır.Alacaklı ÖHS tarafından oluşturulmalıdır. Ödeme İste Referans Numarası'nın son 6 karakteri, alacaklı ile borçlu müşteriye işlem sırasında ilgili ekranlarda gösterilmelidir.Alacaklıya Ödeme İste talebi oluşturulacağı ekranda, borçluya ise ödeme iste detayının verildiği ekranda gösterilmelidir. <br>Önerilen Format:  <br>{alacakliOhsKodu}-{guid}  <br>Örn: 8000- f534e8f2-9fbf-48cc-914b-12fbaffd8104    (size: 41)| Z | Z | OiRef|
 |> Ödeme İste Oluşturulma Zamanı	|odemeIsteOlusturulmaZamani	|ISODateTime|Kaydın ilk oluşturulduğu gün ve zaman bilgisini içerir. YYYY-MM-DDThh:mm:ss+03:00 formatında Ödeme İste Sistemi tarafından oluşturulur. | Z | Z | |
 |> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | Z |OiAksTur |
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | Z |OdmAmc |
@@ -71,7 +71,7 @@ Borçlu, ÖHS uygulamasında (mobil Uygulama/ web arayüzü) Ödeme İste için 
 
 <img src="./images/img/OdemeIsteOdemeSorgulama.png" width="80%" >
 
-**GET /odeme-iste/{ odemeIsteNo }**
+**GET /odeme-iste/{ odemeIsteRefNo }**
 
 Alacaklı, ödeme isteğinin mevcut durumunu kontrol etmek için, oluşturulan bir OdemeIste kaynağının durumunu isteğe bağlı olarak alabilir.
 

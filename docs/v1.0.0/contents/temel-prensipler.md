@@ -86,7 +86,7 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 
 **[öhs-yol-ön-eki]/oi-api/[kaynak-grubu]/[sürüm]/ [kaynak]/[kaynak-no]**
 
-**[öhs-yol-ön-eki]/oi-api/ois/s1.0/odeme-iste/odemeIsteNo**
+**[öhs-yol-ön-eki]/oi-api/ois/s1.0/odeme-iste/odemeIsteRefNo**
 
 Bu, aşağıdaki unsurlardan oluşur:
 
@@ -358,7 +358,7 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 | --- | --- | --- | --- | --- |
 | 200 OK | **İstek Başarıyla Tamamlandı.**<br>Kaynak güncellemek için yapılan (örneğin, GET) ve başarıyla tamamlanan isteklerinde kullanılır.  | H | E | H |
 | 201 Created | **İstek Başarılı Oldu.**<br>Kaynak yaratma isteği (örneğin, POST /odeme-iste) başarıyla sonuçlandı. | E | H | H |
-| 204 No Content | **Silme işlemi başarıyla tamamlandı.**<br>Kaynak silme isteği (örneğin, **DELETE/odeme-iste/{odemeIsteNo}**) başarıyla sonuçlandı. | H | H | E |
+| 204 No Content | **Silme işlemi başarıyla tamamlandı.**<br>Kaynak silme isteği (örneğin, **DELETE/odeme-iste/{odemeIsteRefNo}**) başarıyla sonuçlandı. | H | H | E |
 | 400 Bad Request | **İstekte bozuk, eksik veya uyumlu olmayan JSON gövdesi, URL parametreleri veya başlık alanları var.** İstekle başlatılan işlem yapısal bozukluk, eksik veya tutarsız veri veya HHS tarafındaki kontrollerin hatalı sonuçlanması nedeniyle hata ile sonuçlanır ve hataya ilişkin veriler hata nesnesi içerisinde dönülür. | E | E | E |
 | 401 Unauthorized | **Yetkilendirme başlığı eksik, hatalı veya geçersiz olduğundan istek yetkilendirilmediğinde ve erişim reddedildiğinde http 401 kodu dönülmelidir.**| E | E | E |
 | 404 Not Found | **ÖHS geçerli bir API erişim adresini sağlamıyorsa, o URL'ye gelen istekler için 404 (Bulunamadı) ile yanıt vermelidir.**Uygulama esaslarında tanımlanmayan bir kaynak için bir URL'ye erişmeye çalışırsa (örneğin, GET /yurtdisi-odeme-iste), ÖHS, 404 (Bulunamadı) ile yanıt vermeyi seçebilir.| E | E | E |
@@ -368,59 +368,7 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 | 500 Internal Server Error | **API sunucu / servis katmanında sorun oluştu. İşlem başarısız.**<br> 5XX hata durumlarında yanıt gövde değeri olmadığı için mesaj imzalama yapılamaz ve x-jws-signature alanı boş olarak iletilir.<br> Bu durumda x-jws-signature kontrolü yapılmamalıdır.| E | E | E |
 | 503 Service Unavailable | Hizmet sürümü kullanımdan kaldırıldı veya hizmet verilemiyor durumu. | E | E | E |
 
-## 3.17. OHS API
-
-**GET /ohs/{ohsKod}**
-
--	https://gecit.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs (BKM GEÇİT)
--	https://gecit.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs/1234 (BKM GEÇİT)
-
-İşlem Sorgu Örneği = /ohs ⇨ bu sorgu yöntemi ile tüm ÖHS’lerin dizi şeklinde verileri listelenir.
-İşlem Sorgu Örneği = /ohs/1234 ⇨ bu sorgu yöntemi ile gönderilmiş olan ÖHS kodu’na ait bilgiler listelenir. Ya da “404 Not Found” hatası alır.
-
-**Tablo 5: ÖHS Bilgileri Sorgulama Yanıtı “OHS” nesnesi**
-
-|Alan Adı |Parametre Adı |Format |Zorunlu/Koşullu/İsteğe bağlı|Açıklama |
-| --- | --- | --- | --- | --- |
-|ÖHS Kodu	|kod	|AN4|	Z	|ÖHS'nin kod bilgisi|
-|ÖHS Unvanı	|unv	|AN3..140|	Z	|ÖHS'nin unvan bilgisi|
-|ÖHS Markası	|marka	|AN1..140|	Z	|ÖHS'nin kod bilgisi|
-|ÖHS Kodu	|kod	|AN4|	Z	|Müşterinin kolaylıkla algılayabileceği kısa unvan bilgisi. ÖHS tarafından belirlenecektir.|
-|Açık Anahtar	|acikAnahtar	|AN1..1024|	Z	|ÖHS’nin mesaj imzalama için paylaştığı açık anahtar|
-|ÖHS Api Bilgileri	|apiBilgileri	|Kompleks:<br> OhsApiBilgi[Array][0..N]|	Z	|Desteklenen Api ve sürüm bilgileri dönülecektir.|
-| > api	|api	|AN1..20|	Z	|Api İsmi Örnek :ois
-| > surum	|surum	|AN1..10|	Z	|Api Sürüm Kodu Örnek: s1.0, s2.0 s1.0|
-|Logo Bilgileri	|logoBilgileri	|Kompleks:<br>LogoBilgisi [Array][1..N]|	Z	|ÖHS'ye ait logo bilgileri.|
-| > logoTur	|logoTur	|AN3..50|	Z	|Logonun türünü belirler. TR.OIS.DataCode.LogoTur sıralı veri türü değerlerlerinden birini alır.
-| > logoAdr	|logoAdr	|AN1..255|	Z	|ÖHS tarafında tutulan ve paylaşılacak olan url adres bilgisidir.Örnek: https://via.placeholder.com/150?text=0001 
-| > logoArkaPlan	|logoArkaPlan	|AN1|	Z	|TR.OIS.DataCode.LogoArkaPlan sıralı veri türü değerlerlerinden birini alır.
-| > logoFormat	|logoFormat	|AN3|	Z	|TR.OIS.DataCode.LogoFormat sıralı veri türü değerlerlerinden birini alır.
-|Durum	|durum	|AN1|	Z	|ÖHS'nin durum bilgisidir.TR.OIS.DataCode.OHSDurumu sıralı veri tipinde alabileceği değerler belirtilmiştir.|
-
-ÖHS API'de; Açık, Yaygınlaştırma, Geçici Hizmet Veremiyor, Kapalı durumlarındaki ÖHS'ler listelenecektir.
-
-Sertifikasyon onayı alan ÖHS'ler, üretim ortamına geçişte "Yaygınlaştırma" durumuna sahip olabilir. ÖHS'nin, diğer ÖHS'ler ile "Yaygınlaştırma" kontrollerini yapacağı, kendi yönetiminde olacaktır. Böylece Üretim Ortamında ÖHS’nin kendisi tarafından tanımlanmış kısıtlı müşteriye hizmet vermesi ve servislerini test etmesi sağlanabilir olacaktır. ÖHS’ler kendi kurum kontrollerini yapana kadar, "Yaygınlaştırma" durumunda kalabilirler. ÖHS'nin BKM'ye yapacağı talep ile, ÖHS "Yaygınlaştırma" durumundan "Açık" durumuna geçebilecektir.
-
-Aşağıdaki durumlarda ÖHS'nin statüsü Geçici Kapalı olarak güncellenebilecektir:
-
--	ÖHS'nin talebi ile uzun süreli (minimum 1 saati aşan) yaşanan teknik sorunlarda G statüsüne alınabilecektir. G statüsüne alınma talebinin ÖHS tarafından odemeiste@bkm.com.tr ye mail atarak iletilmesi beklenmektedir.
--	İlgili resmi kurumlardan gelen talep üzerine ÖHS G statüsüne alınabilir.
-
-ÖHS’ler için geçerli olacak; logo gönderiminde dikkat edilmesi gerekenler şu şekilde tariflenmiştir:
-
-1.	Logoların ham dosya yerine kurumun yayınlayacağı bir URL üzerinden sunulması gerekmektedir. (Örn: logoURL = https://kurumadi.com.tr/logo.png) Logo BKM tarafında host edilmeyecektir.
-2.	Logo url’in public erişilebilir url olması gereklidir.
-3.	Logo, yatayda veya dikeyde taşma paysız tam oturacak, sınır boyutlarını geçmeyecek ve ortalanmış yerleşime sahip olmalıdır.
-4.	ÖHS uygulamasında gösterim esnasında logoların hızlı yüklenmesi ve düşük veri tüketmesi açısından; logo boyutu 250 KB’ın altında olmalıdır.
-5.	ÖHS’lerin tüm logo türlerini (8 farklı tipte logoyu) zorunlu olarak dönmesi beklenmektedir.
-6.	Circle logo kullanılması gerektiğinde ICON_LOGO logo türü kullanılmalıdır.
-7.	Logolarını güncellemek isteyen kurumların en az 3 iş günü öncesinde BKM’ye bu değişikliği GEÇİT Test/Üretim Ortamı Entegrasyon formu ile bildirmesi gereklidir. BKM de katılımcılara ÖHS API aracılığı ile güncel logonun çekilmesi gerektiğine dair bilgilendirme yapar.
-8.	Logoları anlık çeken katılımcıların, herhangi bir teknik nedenden dolayı güncel logoyu alamadığı durum olabilir. Bu durumda sistemlerine kaydetmiş olduğu kuruma ait ikon logoyu göstermesi gereklidir.
-9.	ÖHS’ler API aracılığı ile almış oldukları logoların formatı üzerinde değişiklik (kare, yuvarlak hale getirip resize etmek gibi) yapabilirler. Ancak logonun görsel ve yazılarını etkileyecek bir değişiklik yapmamalıdırlar.
-10.	ÖHS mobil uygulamasındaki dark mode ve light mode kullanımlarında, hangi logonun kullanılacağına uygulama sahibi karar verecektir.
-
-
-## 3.18. Sıralı Veri Türleri
+## 3.17. Sıralı Veri Türleri
 
 **Tablo 6: Sıralı Veri Türleri**
 

@@ -39,6 +39,10 @@ module.exports = [
                 title: '8. Ödeme İste Zaman Aşımı ve FAST Doğrulama Kontrolleri',
                 path: '/v1.0.0/contents/katilimci-dogrulama'
             },
+            {
+                title: '9. OHS API',
+                path: '/v1.0.0/contents/ohs-api'
+            },
     
         ]
     },
