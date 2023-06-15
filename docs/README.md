@@ -3,8 +3,7 @@
 **<font size=6>API İLKE VE KURALLARI  </font>**  
 
 
-https://github.com/odemeiste/ (opens new window)adresi üzerinden değişiklik açıklamaları ve tarihçesi incelenebilir.
-
+https://github.com/odemeiste/odemeiste.github.io/commits/master adresi üzerinden değişiklik açıklamaları ve tarihçesi incelenebilir.
 
 
 

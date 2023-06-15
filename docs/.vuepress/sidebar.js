@@ -31,7 +31,7 @@ module.exports = [
             },
 
             {
-                title: '7 .Ödeme İste',
+                title: '7. Ödeme İste',
                 path: '/v1.0.0/contents/odeme-iste'
             },
 
