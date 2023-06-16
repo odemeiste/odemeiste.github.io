@@ -8,7 +8,7 @@
 İşlem Sorgu Örneği = /ohs ⇨ bu sorgu yöntemi ile tüm ÖHS’lerin dizi şeklinde verileri listelenir.
 İşlem Sorgu Örneği = /ohs/1234 ⇨ bu sorgu yöntemi ile gönderilmiş olan ÖHS kodu’na ait bilgiler listelenir. Ya da “404 Not Found” hatası alır.
 
-**Tablo 5: ÖHS Bilgileri Sorgulama Yanıtı “OHS” nesnesi**
+**Tablo 12: ÖHS Bilgileri Sorgulama Yanıtı "OHS" nesnesi**
 
 |Alan Adı |Parametre Adı |Format |Zorunlu/Koşullu/İsteğe bağlı|Açıklama |
 | --- | --- | --- | --- | --- |

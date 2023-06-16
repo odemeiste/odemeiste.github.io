@@ -37,7 +37,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
 - Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. 
 - Sistemdeki Öİ işlemleri arşivlenecektir.
-- Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir. 
+- Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST için TL, havale için ÖHS'lerin desteklediği döviz türleri arasında transfer gerçekleştirilebilir.
 - Öİ ile gerçekleştirilecek işyeri ödemeleri, FAST İşyeri Ödemeleri kapsamında değerlendirilecek olup, üye işyeri ve takas komisyonu ile ilgili kurallar uygulanacaktır. 
 - Alacaklı ve Borçlu’nun aynı ÖHS nezdindeki hesapları arasındaki (İng. “onus”) Öİ ve akabindeki ödeme (Havale) akışları farklılaşabilecek olsa da (örneğin; Ödeme İste ve FAST Sistemi mesaj yapıları yerine banka içi mesaj yapıları kullanılacaktır) bu belge kapsamındaki kurallar (doğrulama kuralları, kullanım modelleri, hizmet seviyeleri vb.) gözetilerek uygulanmalıdır.
 - Öİ’nin başlatılabilmesi için gereken Borçlu bilgileri, Borçlu tarafından hesap bilgisi (Ad Soyad, IBAN) olarak paylaşılabileceği gibi TR Karekod veya Kolay Adres şeklinde de paylaşılabilir. 
@@ -273,8 +273,8 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır.   | Z |Z |Z  |
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
-|X-Recipient-Code |AN4| Alacaklı ÖHS Kod bilgisidir. |Z |Z|Z| 
-|X-Sender-Code|AN4|Borçlu ÖHS Kod bilgisidir.	|Z|Z|Z|
+|X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur.|Z |Z|Z| 
+|X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	|Z|Z|Z|
 |Authorization|AN1..4096|Katılımcı ile GEÇİT arasındaki otorizasyon için kullanılan token bilgisidir.	|Z|Z|Z|
 |X-JWS-Signature|AN1..4096|HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı İstek olarak belirtilmiştir.	|Z|Z|Z|
 
@@ -290,8 +290,8 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır. <br> **İlgili istek başlığındaki bilgi geri dönülür.**   | Z |Z |Z  |
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
-|X-Recipient-Code |AN4| Alacaklı ÖHS Kod bilgisidir. <br> **İlgili istek başlığındaki bilgi geri dönülür.**  |Z |Z|Z| 
-|X-Sender-Code|AN4|Borçlu ÖHS Kod bilgisidir. <br> **İlgili istek başlığındaki bilgi geri dönülür.**	|Z|Z|Z|
+|X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür**  |Z |Z|Z| 
+|X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür.**	|Z|Z|Z|
 |X-JWS-Signature|AN1..4096|HTTP yanıtının gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı Yanıt olarak belirtilmiştir.	|Z|Z|Z|
 
 ## 3.15. Idempotency Kuralları
@@ -385,3 +385,5 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 |TR.OIS.DataCode.LogoArkaPlan	| B : Logoların arka planının beyaz olması (Erkek Logo) <br>K : Logoların arka planının renkli/koyu olması (Dişi Logo) |
 |TR.OIS.DataCode.LogoFormat	| SVG : Logonun svg formatında olmasını ifade eder. Logonun 1:2 oranında olması gerekmektedir. <br>PNG : Logonun png formatında olmasını ifade eder. Logonun 500 X 1000 px olması gerekmektedir. |
 |TR.OIS.DataCode.LogoTur	| FULL_LOGO : Yazı ve ikon şekillerin bir arada olduğu logo <br>ICON_LOGO : İkon şekillerin olduğu ( Sadece görsel olan-yazısız ) logo |
+|TR.OIS.DataCode.OlayTip	| OHS_GUNCELLENDI |
+|TR.OIS.DataCode.KaynakTip	| OHS |

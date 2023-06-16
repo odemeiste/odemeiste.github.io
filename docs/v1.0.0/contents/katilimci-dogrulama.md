@@ -21,7 +21,7 @@ gerekmektedir.
 
 *Doğrulama Tolerans Süresi (DTS): Alacaklı ÖHS tarafından yapılacak doğrulama kontrollerinde iletişim hattında geçen sürenin de gözetilmesi için kullanılacak ilave süredir. Bu süre sistem tarafından belirlenir ve 60 saniyedir.
 
-**Tablo 10:FAST Doğrulama ve Kontrolleri Tablosu**
+**Tablo 11:FAST Doğrulama ve Kontrolleri Tablosu**
 
 <img src="./images/img/OdemeIsteFastDogrulama.png" width="80%" >
 
