@@ -37,14 +37,14 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
 - Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. 
 - Sistemdeki Öİ işlemleri arşivlenecektir.
-- Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST için TL, havale için ÖHS'lerin desteklediği döviz türleri arasında transfer gerçekleştirilebilir.
+- Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST ve Havale için sadece TL transfer gerçekleştirilebilir.
 - Öİ ile gerçekleştirilecek işyeri ödemeleri, FAST İşyeri Ödemeleri kapsamında değerlendirilecek olup, üye işyeri ve takas komisyonu ile ilgili kurallar uygulanacaktır. 
 - Alacaklı ve Borçlu’nun aynı ÖHS nezdindeki hesapları arasındaki (İng. “onus”) Öİ ve akabindeki ödeme (Havale) akışları farklılaşabilecek olsa da (örneğin; Ödeme İste ve FAST Sistemi mesaj yapıları yerine banka içi mesaj yapıları kullanılacaktır) bu belge kapsamındaki kurallar (doğrulama kuralları, kullanım modelleri, hizmet seviyeleri vb.) gözetilerek uygulanmalıdır.
 - Öİ’nin başlatılabilmesi için gereken Borçlu bilgileri, Borçlu tarafından hesap bilgisi (Ad Soyad, IBAN) olarak paylaşılabileceği gibi TR Karekod veya Kolay Adres şeklinde de paylaşılabilir. 
 - Öİ akışlarında kullanılan ilgili bilgilerin Borçlu ÖHS tarafından ödeme işleminin gerçekleştirileceği ödeme sistemine taşınması gerekmektedir.
 - Katılımcılar, Müşterilerinden gelen ve Müşterilerine gitmesi gereken talep ve sonuçlara ilişkin anlık olarak bildirim yapmalıdır.
 - Müşterilerin Borçlu olarak Öİ almama hakları bulunmakta olup, bu yönde tercihi bulunan Müşterilere Öİ sunulmaz. (Söz konusu tercihin güncellenebileceği araç/arayüzler müşterilere sunulmalıdır)
-- Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.
+- Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
 - Garantili Ödeme İste: Öİ mesajında yer alan Ödeme Garantisi Göstergesi (“OdemeGarantisiGostergesi”) alanının Alacaklı ÖHS tarafından kullanılması ve Borçlu ÖHS’nin bu talebe olumlu yanıt vermesi durumunda Borçlu ÖHS ile Alacaklı ÖHS arasında borç-alacak ilişkisi doğuran bir iş modeli kullanılabilir. Ödeme Garantisi Göstergesi bilgi olarak yer almakta olup, kullanımı katılımcılar arası ikili anlaşmalar gerektirmektedir. Bu anlaşmaların çerçevesi, Ödeme İste Sistemi kuralları kapsamında değildir.
@@ -266,15 +266,17 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 -	"Başlık isimleri" yorumlanırken küçük büyük harfe duyarlı olmamalıdır. Örneğin "x-ReQuEsT-Id"         geçerli bir başlık ismidir.
 -	"Başlık değerleri" yorumlanırken ise küçük büyük harf duyarlılığı olmalıdır. Örneğin "xyz123" ile "XYZ123" değerleri farklıdır.
 -	Başlık değerlerinde ISO-8859-1 standartında yer alan karakter kümesi kullanılmalıdır. Örneğin "X-Request-Id" değerinde "İOS12" yazmak, büyük "İ" harfinin ISO-8859-1 içerisinde yer almamasından dolayı, hataya yol açacaktır.
--	İstek ve Yanıt başlığında yer alan alanların; POST GET DELETE methodlarında, Zorunlu/Koşullu/İsteğe Bağlı/Yok kullanım durumları aşağıdaki tabloda listelenmiştir.
+-	İstek ve Yanıt başlığında yer alan alanların; POST GET DELETE metotlarında, Zorunlu/Koşullu/İsteğe Bağlı/Yok kullanım durumları aşağıdaki tabloda listelenmiştir.
+-  OdemeIste nesnesinde GET,POST,DELETE metotlarında isteği başlatan taraf alacaklı müşteri olacağı için alacaklı ÖHS kod ,x-source-code değeridir. OdemeIsteYaniti nesnesinde POST metotunda isteği başlatan borçlu olacağı için x-source-code değeri borçlu ÖHS kod bilgisidir.
+- BKM'nin yapacağı ÖHS olay bildirimlerinde x-target-code ve x-source-code aynı değer olacak olup değişiklik yapılan OHS'ye ait kurum kodunu içerecektir.
 
 **Tablo 2: İstek Başlığında Yer Alan Veriler**
 |Başlık İsimleri |Format |Notlar |POST |GET |DELETE |
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır.   | Z |Z |Z  |
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
-|X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur.|Z |Z|Z| 
-|X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	|Z|Z|Z|
+|X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. |Z |Z|Z| 
+|X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	 |Z|Z|Z|
 |Authorization|AN1..4096|Katılımcı ile GEÇİT arasındaki otorizasyon için kullanılan token bilgisidir.	|Z|Z|Z|
 |X-JWS-Signature|AN1..4096|HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı İstek olarak belirtilmiştir.	|Z|Z|Z|
 
@@ -284,6 +286,8 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 -	"Başlık değerleri" yorumlanırken ise küçük büyük harf duyarlılığı olmalıdır. Örneğin "xyz123" ile "XYZ123" değerleri farklıdır.
 -	 Başlık değerlerinde ISO-8859-1 standartında yer alan karakter kümesi kullanılmalıdır. Örneğin "X-Request-Id" değerinde "İOS12"  
     yazmak, büyük "İ" harfinin ISO-8859-1 içerisinde yer almamasından dolayı, hataya yol açacaktır.
+-  OdemeIste nesnesinde GET,POST,DELETE metotlarında isteği alan taraf borçlu müşteri olacağı için borçlu ÖHS kod ,x-target-code değeridir. OdemeIsteYaniti nesnesinde POST metotunda isteği alan alacaklı olacağı için x-target-code değeri alacaklı ÖHS kod bilgisidir.
+- BKM'nin yapacağı ÖHS olay bildirimlerinde x-target-code ve x-source-code aynı değer olacak olup değişiklik yapılan OHS'ye ait kurum kodunu içerecektir.
 
 **Tablo 3: Yanıt Başlığında Yer Alan Veriler**
 |Başlık İsimleri |Format |Notlar |POST |GET |DELETE |

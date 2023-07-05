@@ -7,6 +7,8 @@ K: Kabul Edildi – Ödeme İste talebi müşteri tarafından kabul edildiğinde
 O: Ödeme Sistemine Emir İletildi – Ödeme iste talebi müşteri kabulü sonrası FAST,Havale sistemlerine aktarıldığında
 I :İptal Edildi
 
+- Borçlunun yetkisi olmayan bir hesap numarasına ait başlatılan Ödeme İste talebinde ilgili hesap borçlu tarafından yetkisi olan bir hesap ile değiştirilebilir.Eğer borçlunun ödeme yapma yetkisine sahip bir hesabı bulunmuyorsa uygun olan iptal detay kodu ile işlemin iptal edilmesi gerekmektedir.
+
 Ödeme İste iptal durumu ise gerek raporlama gerekse müşteri deneyimi perspektifinden doğru bilgilendirmeler yapılabilmesi açısından aşağıdaki gibi detay kodları ile zenginleştirilmiştir:
 
 Ödeme İste İptal Detay Kodu:
