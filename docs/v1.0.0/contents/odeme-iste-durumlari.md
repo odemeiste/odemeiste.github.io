@@ -47,13 +47,13 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 
 - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde Alacaklı FAST sisteminin çalışmaması ya da FAST mesajının doğrulanamadığı durumlarda FAST işlemi gerçekleşmeyecektir. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
 
-|Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Açıklama |
-| --- | --- | --- |
-| B | K | Müşterinin kabul ettiği durumlarda güncellenebilecek durumdur. |
-| B | O | Borçlu Müşteri Kabul Ettikten sonra OdemeIsteYanıt nesnesi ile K durumunu iletmesi halinde hata alabilir. Hata alsa dahi Borçlu ÖHS tarafından ödeme iste talebi FAST ya da Havale sistemine gönderilir. İşlemin başarılı gerçekleşmesi durumunda Alacaklı ÖHS tarafında ödeme iste durumu O olarak güncellenebilecek durumdur. |
-| B | I | Ödeme iste talebi Borçlu müşteri tarafından rededildiği veya Alacaklı Müşteri tarafından iptal edildiği durumlarda güncellenebilecek durumdur. |
-| K | O | Borçlu müşteri kabul ettikten sonra ödeme sistemine iletilmesi ve ödemenin gerçekleşmesi durumlarında güncellenebilecek durumdur. |
-| K | I | Borçlu müşteri kabul ettikten sonra  ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında güncellenebilecek durumdur. |
-| O | O | O statüsünde bir güncelleme olabilecek durum bulunmamaktadır. |
-| I | I | I statüsünde bir güncelleme olabilecek durum bulunmamaktadır. |
+|Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Borçlu ÖHS |Alacaklı ÖHS |
+| --- | --- | --- | --- |
+| B | K | Müşterinin kabul ettiği durumlarda güncellenmelidir. K durumu Alacaklı ÖHS'ye iletilmelidir. |B statüsünde olan bir ödeme iste talebi için Borçlu ÖHS tarafından K durumunun OdemeIsteYanit nesnesi ile iletilmesi durumunda güncellenmelidir.|
+| B | O | -| Borçlu Müşteri Kabul Ettikten sonra OdemeIsteYanıt nesnesi ile K durumunu iletmesi halinde hata alabilir. Hata alsa dahi Borçlu ÖHS tarafından ödeme iste talebi FAST ya da Havale sistemine gönderilir. İşlemin başarılı gerçekleşmesi durumunda Alacaklı ÖHS tarafında ödeme iste durumunu  O olarak güncellemelidir.|
+| B | I | Ödeme iste talebi Borçlu müşteri tarafından reddedildiği durumlarda güncellenmelidir.I durumu Alacaklı ÖHS'ye iletilmelidir. | Ödeme iste talebi Alacaklı Müşteri tarafından iptal edildiği durumlarda güncellenmelidir. |
+| K | O | Borçlu müşteri kabul ettikten sonra ödeme sistemine iletilmesi ve ödemenin gerçekleşmesi durumlarında güncellenmelidir. | Borçlu müşteri kabul ettikten sonra ödeme sistemine iletilmesi ve ödemenin gerçekleşmesi durumlarında güncellenebilecek durumdur. |
+| K | I |Borçlu müşteri kabul ettikten sonra ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında güncellenebilecek durumdur.O durumu Alacaklı ÖHS'ye iletilmelidir. | Borçlu müşteri kabul ettikten sonra ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında FAST'tan ya da Alacaklı ÖHS'den OdemeIsteYanit Nesnesi ile I durumuyla güncellenmelidir. |
+| O | - | O statüsünden farklı bir statüye güncelleme yapılamamaktadır. | O statüsünden farklı bir statüye güncelleme yapılamamaktadır.| 
+| I | - | I statüsünden farklı bir statüye güncelleme yapılamamaktadır. | I statüsünden farklı bir statüye güncelleme yapılamamaktadır.|
 
