@@ -42,7 +42,8 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Alacaklı ve Borçlu’nun aynı ÖHS nezdindeki hesapları arasındaki (İng. “onus”) Öİ ve akabindeki ödeme (Havale) akışları farklılaşabilecek olsa da (örneğin; Ödeme İste ve FAST Sistemi mesaj yapıları yerine banka içi mesaj yapıları kullanılacaktır) bu belge kapsamındaki kurallar (doğrulama kuralları, kullanım modelleri, hizmet seviyeleri vb.) gözetilerek uygulanmalıdır.
 - Öİ’nin başlatılabilmesi için gereken Borçlu bilgileri, Borçlu tarafından hesap bilgisi (Ad Soyad, IBAN) olarak paylaşılabileceği gibi TR Karekod veya Kolay Adres şeklinde de paylaşılabilir. 
 - Öİ akışlarında kullanılan ilgili bilgilerin Borçlu ÖHS tarafından ödeme işleminin gerçekleştirileceği ödeme sistemine taşınması gerekmektedir.
-- Katılımcılar, Müşterilerinden gelen ve Müşterilerine gitmesi gereken talep ve sonuçlara ilişkin anlık olarak bildirim yapmalıdır.
+- Katılımcılar, Müşterilerinden gelen ve Müşterilerine gitmesi gereken talep ve sonuçlara ilişkin anlık olarak bildirim yapmalıdır.Anlık bildirimler ÖHS tarafından iletilecek SMS ya da push notifikasyon olabilir. Müşterinin iletişim tercihi birincil iletişim kanalı olmak üzere en azından SMS ile bilgilendirme yapılması beklenmektedir. 
+- Alacaklı ÖHS olarak borçlu ÖHS'den kabul ya da red durum değişikliği bildirimi geldiğinde Alacaklı ÖHS'nin müşterisini bilgilendirmesi zorunludur.
 - Müşterilerin Borçlu olarak Öİ almama hakları bulunmakta olup, bu yönde tercihi bulunan Müşterilere Öİ sunulmaz. (Söz konusu tercihin güncellenebileceği araç/arayüzler müşterilere sunulmalıdır)
 - Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
@@ -329,22 +330,33 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 **errorCode Alanında Kullanılabilecek Sıralı Hata Tipleri :**
 
 >**TR.OIS.Resource**
->>**&#8680;	InvalidFormat**    
+>>**&#8680;	InvalidFormat**     **<br>InvalidFormat hata kodlarında fieldErrors içeriği gönderilmeli ve anlaşılır açıklama ile message , messageTr alanları doldurulmalıdır.**      
 >>**&#8680;	NotFound**  
->>**&#8680;	InvalidSignature**  
+>>**&#8680;	InvalidSignature**    
 >>**&#8680;	MissingSignature**  
+>>**&#8680;	RecipientMismatch**     
+>>**&#8680;	SenderMismatch**    
 >>**&#8680;	MethodNotAllowed**  
 >>**&#8680;	NotAcceptable**  
 >>**&#8680;	UnsupportedMediaType**  
 
 >**TR.OIS.Business**  
 >>**&#8680;	InvalidContent**   
->>**&#8680;	InvalidAccount**
+>>**&#8680;	InvalidAccount**    
+>>**&#8680;	RecipientAccountMismatch**  
+>>**&#8680;	SenderAccountMismatch**     
+>>**&#8680;	InvalidSenderTitle**    
+>>**&#8680;	InvalidSenderAccount**  
+>>**&#8680;	RestrictedAccount**
+>>**&#8680;	SenderRestrict**     
+>>**&#8680;	InvalidExpireTime**     
+>>**&#8680;	RtpStatusMismatch**
 
 >**TR.OIS.Connection** 
 >>**&#8680;	InvalidCertificate**  
 >>**&#8680;	InvalidSender**  
->>**&#8680;	InvalidRecipient**  
+>>**&#8680;	InvalidRecipient**      
+>>**&#8680; InvalidToken** 
 
 >**TR.OIS.Server**  
 >>**&#8680;	InternalError**  
@@ -355,6 +367,37 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 >**TR.OIS.Field**	  
 >>**&#8680;	Missing**   
 >>**&#8680;	Invalid**  
+
+**Veri Tipi Örneği:**
+
+```JSON
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "b6ac3b8f-d604-12b6-bne1-3a800e270219",
+    "timestamp": "2023-07-01T10:33:15+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "Validation error",
+    "moreInformationTr": "Şema kontrolleri başarısız",
+    "fieldErrors": [
+        {
+            "objectName": "odemeIsteTalebi",
+            "field": "tutarBilgi.paraBirimi",
+            "messageTr": "boş değer olamaz",
+            "message": "must not be null",
+            "code": "TR.OIS.Field.Missing"
+        },
+        {
+            "objectName": "odemeIsteTalebi",
+            "field": "alacakliBilgi.musteriTipi.kimlik.kimlikDegeri",
+            "messageTr": "boyut '1' ile '30' arasında olmalı",
+            "message": "size must be between 1 and 30",
+            "code": "TR.OIS.Field.Invalid"
+        }
+    ],
+    "errorCode": "TR.OIS.Resource.InvalidFormat"
+} 
+```  
 
 **Tablo 4: HTTP Durum Kodları**
 
@@ -372,6 +415,245 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 | 500 Internal Server Error | **API sunucu / servis katmanında sorun oluştu. İşlem başarısız.**<br> 5XX hata durumlarında yanıt gövde değeri olmadığı için mesaj imzalama yapılamaz ve x-jws-signature alanı boş olarak iletilir.<br> Bu durumda x-jws-signature kontrolü yapılmamalıdır.| E | E | E |
 | 503 Service Unavailable | Hizmet sürümü kullanımdan kaldırıldı veya hizmet verilemiyor durumu. | E | E | E |
 
+**Hata Örnekleri:**
+
+<ins>**400 Bad Request**</ins>
+
+**TR.OIS.Business.InvalidContent** hatası Borçlu ÖHS tarafından yapılacak iş kuralı kontrollerinin başarısız olduğu durumda verilmelidir.  
+**TR.OIS.Resource.InvalidFormat** hatası şema validasyonu, alan uzunluk ve varlık kontrollerinin başarısız olduğu durumda verilmelidir. 
+**<br>InvalidFormat hata kodlarında fieldErrors içeriği gönderilmeli ve anlaşılır açıklama ile message , messageTr alanları doldurulmalıdır.**
+
+```JSON
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "b6ac3b8f-d604-12b6-bne1-3a800e270219",
+    "timestamp": "2023-07-01T10:33:15+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "Validation error",
+    "moreInformationTr": "Şema kontrolleri başarısız",
+    "fieldErrors": [
+        {
+            "objectName": "odemeIsteTalebi",
+            "field": "tutarBilgi.paraBirimi",
+            "messageTr": "boş değer olamaz",
+            "message": "must not be null",
+            "code": "TR.OIS.Field.Missing"
+        },
+        {
+            "objectName": "odemeIsteTalebi",
+            "field": "alacakliBilgi.musteriTipi.kimlik.kimlikDegeri",
+            "messageTr": "boyut '1' ile '30' arasında olmalı",
+            "message": "size must be between 1 and 30",
+            "code": "TR.OIS.Field.Invalid"
+        }
+    ],
+    "errorCode": "TR.OIS.Resource.InvalidFormat"
+} 
+```  
+
+Zorunlu header alanlarından biri ya da birkaçı eksik olarak gönderilirse aşağıdaki gibi bir hata dönüşü gerçekleşebilir.
+
+Borçlu ÖHS uygulaması tarafından dönülebilecek hata örnekleri:
+```JSON 
+
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
+    "timestamp": "2023-07-02T10:39:26+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "Validation error",
+    "moreInformationTr": "Şema kontrolleri başarısız",
+    "errorCode": "TR.OIS.Resource.InvalidFormat",
+    "fieldErrors": [
+        {         
+            "field": "X-Request-ID",
+            "messageTr": "X-Request-ID değeri boş olamaz.",
+            "message": "X-Request-ID cannot be null.",
+            "code": "TR.OIS.Field.Invalid"
+        }
+    ]
+} 
+
+```
+İstek başlığında yer alan x-target-code ile istek gövdesi içerisinde yer alan Borçlu ÖHS kod aynı olmadığı durumda dönülecek hata örneği:
+
+```JSON 
+
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
+    "timestamp": "2023-07-02T10:39:26+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "Recipient Code Error",
+    "moreInformationTr": "Borçlu ÖHS kod istek ve gövde değeri eşleşmiyor",
+    "errorCode": "TR.OIS.Resource.SenderMismatch"
+    
+} 
+
+```
+İstek başlığında yer alan x-source-code ile istek gövdesi içerisinde yer alan Alacaklı ÖHS kod aynı olmadığı durumda dönülecek hata örneği:
+
+```JSON 
+
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
+    "timestamp": "2023-07-02T10:39:26+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "Recipient Code Error",
+    "moreInformationTr": "Alacaklı ÖHS kod istek ve gövde değeri eşleşmiyor",
+    "errorCode": "TR.OIS.Resource.RecipientMismatch"
+    
+} 
+
+```
+
+Business hata örneği - 1:  
+```JSON 
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "677cfd9d-77c1-4ea3-8bdf-74a6e9887177",
+    "timestamp": "2023-07-04T11:05:59+03:00",
+    "httpCode": 400,
+    "httpMessage": "Bad Request",
+    "moreInformation": "sender title wrong",
+    "moreInformationTr": "Gönderen Ünvan hatalı",
+    "errorCode": "TR.OIS.Business.InvalidSenderTitle"
+} 
+```
+GEÇİT'te yapılan zorunlu header kontrollerinde aşağıdaki hatalar dönebilir:
+```JSON 
+
+{
+    "timestamp": "2023-07-04T10:40:28+03:00",
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "d4375748-6fc7-4f7e-94f3-6411cab1d59f",
+    "moreInformationTr": "Geçersiz ÖHS kodu.",
+    "errorCode": "TR.OIS.Connection.InvalidRecipient",
+    "moreInformation": "Invalid Recipient Code",
+    "httpCode": 400,
+    "httpMessage": "Bad Request"
+} 
+ ```
+GEÇİT tarafından dönülecek hata örneği:
+```JSON 
+
+{
+    "timestamp": "2023-07-05T10:40:28+03:00",
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "d4375748-6fc7-4f7e-94f3-6411cab1d59f",
+    "moreInformationTr": "Geçersiz ÖHS kodu.",
+    "errorCode": "TR.OIS.Connection.InvalidSender",
+    "moreInformation": "Invalid Sender Code",
+    "httpCode": 400,
+    "httpMessage": "Bad Request"
+} 
+ ```
+
+GEÇİT tarafından dönülecek hata örneği:
+```JSON 
+
+{
+    "timestamp": "2023-07-03T11:14:05+03:00",
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "ee1e3ea7-a5e5-468b-bb02-314148f84e6a",
+    "moreInformationTr": "Geçersiz öhs rolü. İlgili api çağrısı için yetkisi yok.",
+    "errorCode": "TR.OIS.Connection.InvalidSenderRole",
+    "moreInformation": "Invalid Sender Role",
+    "httpCode": 403,
+    "httpMessage": "Forbidden"
+} 
+
+ ```
+
+ <ins>**401 Unauthorized**</ins>
+
+**Borçlu ÖHS, İstek Başlığı içerisinde BKM tarafından iletilecek olan Authorization  hatalı olmasu durumunda 401 (Yetkisiz) http kodu ile aşağıdaki hata kodunu dönmelidir.**
+
+```json 
+
+{
+    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "id": "ed3fd667-fc58-40ad-a982-e8937faccd15",
+    "timestamp": "2023-07-06T11:17:33+03:00",
+    "httpCode": 401,
+    "httpMessage": "Unauthorized",
+    "moreInformation": "Authorization Invalid",
+    "moreInformationTr": "Token bilgisi hatalıdır.",
+    "errorCode": "TR.OIS.Connection.InvalidToken"
+} 
+ 
+
+```
+
+<ins>**403 Forbidden**</ins>
+
+X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource.MissingSignature, hatalı gelmesi durumunda TR.OIS.Resource.InvalidSignature hata kodları Borçlu ÖHS tarafından dönülür ve Alacaklı ÖHS işleme devam edemez.
+
+
+```json 
+{
+  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "id": "3e48ea98-f889-48b9-aa6e-28aabc6cfb14",
+  "timestamp": "2023-07-06T11:20:05+03:00",
+  "httpCode": 403,
+  "httpMessage": "Forbidden",
+  "moreInformation": "X-JWS-Signature header not found in the Recipient request",
+  "moreInformationTr": "Alacaklı OHS den gelen istekte X-JWS-Signature basligi bulunamadi.",
+  "errorCode": "TR.OIS.Resource.MissingSignature"
+} 
+```
+
+```json 
+{
+  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "id": "1a36bc78-d381-16a2-aa6e-28bcab3af633",
+  "timestamp": "2023-07-05T11:20:05+03:00",
+  "httpCode": 403,
+  "httpMessage": "Forbidden",
+  "moreInformation": "X-JWS-Signature header in the Recipient request could not be parsed",
+  "moreInformationTr": "Alacaklı OHS den gelen istekte X-JWS-Signature basligi okunamadi.",
+  "errorCode": "TR.OIS.Resource.InvalidSignature"
+} 
+```
+
+<ins>**500 Internal Server Error**</ins>
+
+```json 
+{
+  "id": "1b90c6dc-0277-4755-8b05-9297ddfab743",
+  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "timestamp": "2023-07-07T11:41:34+03:00",
+  "httpCode": 500,
+  "httpMessage": "Internal Server Error",
+  "moreInformation": "Unexpected condition was encountered.",
+  "moreInformationTr": "Beklenmeyen bir durumla karşılaşıldı.",
+  "errorCode": "TR.OIS.Server.InternalError"
+} 
+
+```
+
+
+<ins>**503 Service Unavailable**</ins>
+
+```json 
+{
+  
+  "id": "e76315b7-09f4-4295-b6d8-1f7fec632159",
+  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "timestamp": "2023-07-07T23:18:56+03:00",
+  "httpCode": 503,
+  "httpMessage": "Service Unavailable",
+  "moreInformation": "OHS is currently unavailable",
+  "moreInformationTr": "ÖHS şu anda hizmet veremiyor.",
+  "errorCode": "TR.OIS.Server.ServiceUnavailable"
+}
+```
+
 ## 3.17. Sıralı Veri Türleri
 
 **Tablo 6: Sıralı Veri Türleri**
@@ -383,7 +665,7 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 | TR.OIS.DataCode.OdemeAmaci | Ödemenin Amacına yönelik olarak aşağıdaki değerlerden birini alır:<br>01: Konut Kirası Ödemesi<br>02: İş yeri Kirası Ödemesi<br>03: Diğer Kira Ödemesi<br>04: E-Ticaret Ödemesi: Elektronik ticaret işlem amaçlı aktarımlar<br>05: Çalışan Ödemesi: Maaş, harcırah, prim gibi çalışan ödemeleri<br>06: Ticari ödeme: Ticari işletmelerin birbirlerine, kendi hesaplarına veya müşterilerine ödemeleri, borç, ithalat, ihracat, şirket satın alma, vb. kapsamında ödemeler<br>07: Bireysel Ödeme: Özel amaçlı (aile bireylerine, hediye, bağış, borç, alışveriş vs.) ödemeler<br>08: Yatırım: Mevduat, menkul kıymet, döviz, gayrı menkul, taşıt, varlık alımı, temettü ödeme, tahsilat vb. gibi yatırım amaçlı ödemeler<br>09: Finansal: Kredi, depo, repo, türev, finansal varlık alım/satımı vb. ödemeler<br>10: Eğitim ödemesi<br>11: Aidat ödemesi |
 |TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler|
 |TR.OIS.DataCode.OHSDurumu | A : Açık. Üretim Ortamında ÖHS’nin aktif bir şekilde hizmet vermesi durumu.<br> Y : Yaygınlaştırma. Üretim Ortamında ÖHS’nin kendisi tarafından tanımlanmış kısıtlı müşteriye hizmet vermesi durumu. <br>  G : Geçici Hizmet Veremiyor. ÖHS servislerinde teknik bir sorun olması nedeniyle ÖHS’nin hizmet verememesi durumu. <br>K: Kapalı. ÖHS’nin hizmet vermeme durumu. |
-| TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Sistemine Emir İletildi<br> I: İptal Edildi |
+| TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
 | TR.OIS.DataCode.OdemeIsteIptDtyKod | ‘01’ :Borçlu Ödeme İsteğini Reddetti<br>‘02’ :Borçlu Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>‘03’ :Borçlu İptal Etti<br>‘04’ :Beklenen Sürede Ödeme Sistemine Emir İletilmedi<br>‘05’ :Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>‘06’ :Alacaklının Ödeme İste Yetkisinin Kapalı Olması<br>‘07’ :Alacaklı Ödeme İste Talebinden B Statüsünde Vazgeçti<br>‘08’ :Alacaklı Ödeme İste Talebinden K Statüsünde Vazgeçti<br>‘09’ :Alacaklı Ödeme İste Talebinden K Statüsünde Vazgeçti<br>‘10’ : Müşteri ÖHS kontrollerini Aşamadı<br>‘99’ : Diğer<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
 |TR.OIS.DataCode.LogoArkaPlan	| B : Logoların arka planının beyaz olması (Erkek Logo) <br>K : Logoların arka planının renkli/koyu olması (Dişi Logo) |

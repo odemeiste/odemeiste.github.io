@@ -2,35 +2,58 @@
 
 Müşteri, Borçlu ÖHS uygulaması üzerinden başlattığı ödeme iste işlemleri neticesinde ödemeye ait durumlar değişebilir. Ödeme durumunun alabileceği durum kodları şu şekilde belirlenmiştir.
 
-B: Yanıt Bekleniyor – İlk Ödeme İste talebinde
-K: Kabul Edildi – Ödeme İste talebi müşteri tarafından kabul edildiğinde
-O: Ödeme Sistemine Emir İletildi – Ödeme iste talebi müşteri kabulü sonrası FAST,Havale sistemlerine aktarıldığında
-I :İptal Edildi
-
-- Borçlunun yetkisi olmayan bir hesap numarasına ait başlatılan Ödeme İste talebinde ilgili hesap borçlu tarafından yetkisi olan bir hesap ile değiştirilebilir.Eğer borçlunun ödeme yapma yetkisine sahip bir hesabı bulunmuyorsa uygun olan iptal detay kodu ile işlemin iptal edilmesi gerekmektedir.
+**B: Yanıt Bekleniyor** – İlk Ödeme İste talebinde  
+**K: Kabul Edildi** – Ödeme İste talebi müşteri tarafından kabul edildiğinde    
+**O: Ödeme Gerçekleşti** – Ödeme iste talebi müşteri kabulü sonrası FAST,Havale sistemlerine aktarıldığında     
+**I: İptal Edildi** 
 
 Ödeme İste iptal durumu ise gerek raporlama gerekse müşteri deneyimi perspektifinden doğru bilgilendirmeler yapılabilmesi açısından aşağıdaki gibi detay kodları ile zenginleştirilmiştir:
 
 Ödeme İste İptal Detay Kodu:
 
->>**&#8680;'01' :Borçlu Ödeme İsteğini Reddetti** <br>
->>**&#8680;'02' :Borçlu Beklenen Sürede Ödeme İsteğine Yanıt Vermedi**<br>
->>**&#8680;'03' :Borçlu İptal Etti**<br>
->>**&#8680;'04' :Borçlu Tarafından Beklenen Sürede Ödeme Sistemine Emir İletilmedi**<br>
->>**&#8680;'05' :Borçlu ÖHS Fraud Nedeniyle İptal Etti**<br>
->>**&#8680;'06' :Alacaklının Ödeme İste Yetkisinin Kapalı Olması**<br>
->>**&#8680;'07' :Alacaklı Ödeme İste Talebinden B Statüsünde Vazgeçti**<br>
->>**&#8680;'08' :Alacaklı Ödeme İste Talebinden K Statüsünde Vazgeçti**<br>
->>**&#8680;'09' :Alacaklı ÖHS Fraud Nedeniyle İptal Etti**<br>
->>**&#8680;'10' : Müşteri ÖHS kontrollerini Aşamadı**<br>
->>**&#8680;'99' : Diğer**
+>>**&#8680;'01' :Borçlu Müşteri Ödeme İsteğini Reddetti** <br>
+>>**&#8680;'02' :Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi**<br>
+>>**&#8680;'03' :Borçlu ÖHS Fraud Nedeniyle İptal Etti**<br>
+>>**&#8680;'04' :Borçlu ÖHS Ödeme Sistemine İletemedi**<br>
+>>**&#8680;'11' : Alacaklı Müşteri Ödeme İste Talebinden B Statütüsünde Vazgeçti**<br> 
+>>**&#8680;'12' : Alacaklı ÖHS Fraud Nedeniyle İptal Etti**<br> 
+>>**&#8680;'13' : Borçlu ÖHS Ödeme İste Talebine Yanıt Vermedi**<br>
+>>**&#8680;'21' : FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası**<br>
+
+ÖHS'ler sunmuş oldukları Ödeme İste Talebi İptal ekranını hangi kanallardan ödeme iste talebi yapılmasına izin veriliyorsa (web/mobil) aynı ortamdan müşteriye sunmalıdır.
+
+Örneğin; bir ÖHS bireysel müşterileri için web ve mobil, kurumsal müşteriler için mobil üzerinden ödeme iste imkanı sunuyor ise, minimumda bireysel müşteriler için web ve mobil ortamlarından, kurumsal müşteriler için mobil kanaldan Ödeme İste İptal ekranı aracılığı ile ödeme iste talebinin iptaline izin vermelidir. 
+Bunun dışında çağrı merkezi ya da şube gibi ortamlardan sunacağı Ödeme İste İptal imkanı ÖHS inisiyatifindedir.
+
 
 ## 4.1. Ödeme İste Ödeme Durumu Değişiklikleri
 
-"iptalDetay" : "01" borçlu ödeme isteğini red etti.B durumdayken B->I<br>
-"iptalDetay" : "02" borçlu beklenen sürede ödeme isteğine yanıt vermedi. B durumdayken B->I<br>
-"iptalDetay" : "03" borçlu iptal etti. K durumdayken K->I<br>
-"iptalDetay" : "04" beklenen sürede ödeme sistemine emir iletilmedi. K -> I<br>
-"iptalDetay" : "05" borçlu ÖHS fraud nedeniyle iptal etti. B,K -> I<br>
-"iptalDetay" : "11" alacaklı ödeme iste talebinden vazgeçti. B,K -> I<br>
-"iptalDetay" : "12" alacaklı ÖHS fraud nedeniyle iptal etti. B,K -> I<br>
+Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referans numaraları ile oluşturması gerekmektedir. 
+Ödeme İste Talebi Alacaklı ÖHS tarafından Borçlu ÖHS’ye iletilir. Borçlu ÖHS; kendisine gelen ödeme iste talebini, ödeme iste durumu Yanıt Bekleniyor - B  olacak şekilde yanıtlar. Aşağıdaki maddeler özelinde ödeme iste durumu Borçlu ÖHS tarafından B statüsünden I statüsüne güncellendiğinde OdemeIsteYanit nesnesi ile Alacaklı ÖHS’ye bildirilir.
+
+- Borçlu ÖHS ilgili ödeme iste talebini müşterisine gösterdikten sonra red yanıtının alınması durumunda ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 01
+
+- Borçlu ÖHS ilgili ödeme iste talebini müşterisine gösterdikten sonra ödeme iste son geçerlilik zamanına kadar müşteri tarafından yanıt verilmemesi durumunda ödeme iste durumunu B statüsünden I durumuna günceller.<br> Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 02
+
+- Borçlu ÖHS ilgili ödeme iste talebi için herhangi bir onay ya da iptal verilmediği ve son geçerlilik zamanına kadar beklenen sürede Fraud şüphesiyle ödeme iste talebini iptal edebilir. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 03
+
+- Borçlu ÖHS ilgili ödeme iste talebi için borçlu müşteri kabul yanıtı verdikten sonra yaptığı işlem limiti,hesap yetki gibi kontroller sonucunda ödeme sistemlerine ilgili taelbi gönderemediği için ödeme iste talebini iptal edebilir. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 04
+
+- Alacaklı ÖHS tarafında B statüsünde olan bir ödeme iste talebi alacaklı müşteri tarafından iptal edilebilir. İptal edilmesi durumunda Ödeme İste Durumunu B statüsünden I durumuna günceller. <br>Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 11
+
+- Alacaklı ÖHS ödeme iste talebinin B statüsünde iken Fraud şüphesiyle ödeme iste talebini iptal edebilir. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 12
+	
+- Alacaklı ÖHS tarafından Borçlu ÖHS’ye POST/odeme-iste sonucunda 504 hata alması ve yapılan sorgulamalar sonucunda başarısız yanıt almasıyla Alacaklı tarafta ilgili ödeme iste talebi iptal edilir. Kendi tarafında oluşturduğu ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 13
+
+- Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde Alacaklı FAST sisteminin çalışmaması ya da FAST mesajının doğrulanamadığı durumlarda FAST işlemi gerçekleşmeyecektir. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
+
+|Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Açıklama |
+| --- | --- | --- |
+| B | K | Müşterinin kabul ettiği durumlarda güncellenebilecek durumdur. |
+| B | O | Borçlu Müşteri Kabul Ettikten sonra OdemeIsteYanıt nesnesi ile K durumunu iletmesi halinde hata alabilir. Hata alsa dahi Borçlu ÖHS tarafından ödeme iste talebi FAST ya da Havale sistemine gönderilir. İşlemin başarılı gerçekleşmesi durumunda Alacaklı ÖHS tarafında ödeme iste durumu O olarak güncellenebilecek durumdur. |
+| B | I | Ödeme iste talebi Borçlu müşteri tarafından rededildiği veya Alacaklı Müşteri tarafından iptal edildiği durumlarda güncellenebilecek durumdur. |
+| K | O | Borçlu müşteri kabul ettikten sonra ödeme sistemine iletilmesi ve ödemenin gerçekleşmesi durumlarında güncellenebilecek durumdur. |
+| K | I | Borçlu müşteri kabul ettikten sonra  ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında güncellenebilecek durumdur. |
+| O | O | O statüsünde bir güncelleme olabilecek durum bulunmamaktadır. |
+| I | I | I statüsünde bir güncelleme olabilecek durum bulunmamaktadır. |
+

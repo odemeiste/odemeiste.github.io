@@ -1,4 +1,27 @@
-**Ödeme İste Hizmeti için Erişim Adresleri (Endpoints)**
+# 7.	Ödeme İste
+
+## Genel Bilgiler
+
+Alacaklı ÖHS; alacaklı müşterinin “Ödeme İste” talebi için OdemeIsteTalebi nesnesi ile Borçlu ÖHS’nin sunacağı ödeme iste erişim adresine bir POST isteğinde bulunur ve Borçlu tarafta bir OdemeIste nesnesi oluşturulur. Borçlu ÖHS ödeme istenin durumunu belirten bir statü döner(odemeIsteDurumu).Ödeme İste talebi borçlu müşterinin kabulü sonrası havale ya da FAST işlemiyle sonuçlanabilir. 
+
+Ödeme İste Talebi 6 temel akışdan oluşur:
+
+**1.** Alacaklı Müşterinin Borçlu Müşteriden Ödeme İste için talepte bulunması: Alacaklı müşteri ÖHS mobil uygulama ya da web uygulamasından zorunlu alanların seçimini ve girişini yaparak ödeme iste talebi başlatır.
+
+**2.**	Ödeme İste Talebinin Hazırlanması: Alacaklı ÖHS, “Ödeme İste” talebi için zorunlu alanları doldurarak Borçlu ÖHS’ye iletir.
+
+**3.**	Ödeme İste Talebinin Yanıtlanması: Borçlu ÖHS, müşterisine Ödeme İste Talebini bildirim aracılığı ya da kendi belirleyeceği metotlar ile yönlendirir. Müşteriyi doğruladıktan sonra ödeme iste talebine ait detaylı bilgileri gösterip  Kabul ya da Red seçeneklerinin Son Geçerlilik Zamanına kadar yanıt dönebilmesine olanak sağlar. 
+
+**4.**	Ödeme İste Kabul ya da Red Yanıtının İletilmesi: Borçlu ÖHS,müşteriden alınan yanıtı OdemeIsteYanit Nesnesi ile Alacaklı ÖHS’ye bildirir.
+
+**5.**	Ödeme İste Talebinin Ödeme Sistemine İletilmesi: 4.adımda Kabul statüsü iletildiği durumda;Borçlu ÖHS, Borçlu müşteriden olumlu yanıt aldığı durumda Alacaklı ÖHS’ye Ödeme İste talebinin kabul edildiğine dair bildirim yapar. Aynı zamanda ödeme işlemini FAST ya da Havale ile gerçekleştirmek üzere ilgili sistemlere aktarır.
+
+**6.**	Ödeme İste Gerçekleşti ya da İptal Yanıtının İletilmesi: FAST ya da Havale sistemlerine aktarılan Ödeme İste talebi başarılı olması durumunda ödeme gerçekleşir ve ödeme iste durumu güncellenir. Borçlu ÖHS tarafından OdemeIsteYanit nesnesi ile alacaklı ÖHS bilgilendirilir. Başarısız olması durumunda da iptal statüsü ile Alacaklı ÖHS bilgilendirilir.
+
+
+
+
+## Ödeme İste Hizmeti için Erişim Adresleri (Endpoints)
 
 **Tablo 7: Ödeme Emri Başlatma Hizmeti İçin Erişim Adresleri**
 
@@ -23,6 +46,47 @@ Alacaklı ÖHS ile Alacaklı IBAN bilgileri uyumlu olmalıdır. Alacaklı IBAN b
 
 <img src="./images/img/OdemeIsteOdemeHazirlik.png" width="80%" >
 
+-	Alacaklı ÖHS, uygulamadan borçlu bilgilerini (Borçlu tarafından hesap bilgisi (Ad Soyad, IBAN) olarak paylaşılabileceği gibi TR     Karekod veya Kolay Adres şeklinde de paylaşılabilir) girerek ödeme iste (odemeIste) talebinde bulunur.
+-	POST isteği TLS protokolü tesis edilen iletişim katmanı üzerinden gerçekleştirilir. TLS için nitelikli sertifikalar kullanılır.
+-	POST isteğinin başlığındaki alanlar ve istemcinin sertifikasındaki özel alanlar kullanılarak istemcinin yetkilendirilmesi sağlanır:
+    -   İstekte bulunan ÖHS yetkilendirilmiş mi?
+    -   İstekte bulunulan ÖHS kodu doğru mu?
+-	POST başarılı olursa, Borçlu ÖHS, Ödeme İste talebi için ödeme durumunu içeren odemeIsteDurumu yanıt olarak döner.
+-	Alacaklı ÖHS tarafında odemeIsteDurumu değişkeninin durumu “Yanıt Bekleniyor” olarak güncellenir.
+
+**POST /odeme-iste**
+
+İSTEK:<br>
+Alacaklı ÖHS, bu API erişim adresinden Borçlu ÖHS’ye yeni bir OdemeIsteTalebi oluşturulması için istekte bulunur:
+-	Alacaklı ÖHS, yaptığı ödeme iste talebi içersinde benzersiz “odemeIsteRefNo” referans numarasını Borçlu ÖHS’ye iletir. 
+Ödeme İste referans numarası Alacaklı ÖHS tarafından oluşturulmalıdır. Ödeme İste Referans Numarası'nın son 6 karakteri, alacaklı ile borçlu müşteriye işlem sırasında ilgili ekranlarda gösterilmelidir. Alacaklıya Ödeme İste talebi oluşturulacağı ekranda, borçluya ise ödeme iste detayının verildiği ekranda gösterilmelidir.
+ÖnerilenFormat:
+{alacakliOhsKodu}-{guid}
+Örn: 8000- f534e8f2-9fbf-48cc-914b-12fbaffd8104 (size: 41)
+
+-	**Sonra Kabul Hemen Öde** Akışında  Alacaklı ÖHS tarafından iletilecek olan Son Geçerlilik Zamanı (SGZ) min. 3 dakika max. 90 gün olmalıdır. Alacaklı ÖHS tarafından Son Geçerlilik Zamanı 90 günden fazla ya da 3 dakikadan az iletilirse Borçlu ÖHS tarafından;
+**TR.OIS.Business.InvalidExpireTime** hatası verilmelidir.
+
+- 	Alacaklı ÖHS, ödeme iste talebini Borçlu ÖHS’ye bildirir. Borçlu müşterinin ödeme iste yetkisinin olmaması durumunda borçlu ÖHS tarafından; **TR.OIS.Business.RestrictedAccount** hatası verilmelidir.
+
+- 	Alacaklı ÖHS kendisine gelen Ödeme İste talebinde Alacaklı müşteri tarafında hesap yetkisi veya limit konusuyla ilgili kontrolleri sağlaması durumunda hata verilmesi ya da Ödeme İste talebinin devam ettirilmesi kendi inisiyatifindedir. Hata verilmesi durumunda **TR.OIS.Business.SenderRestrict** hatası dönülmelidir. Hata verilmez ve Ödeme İste nesnesi oluşturulduktan sonra Borçlu müşteri tarafından kabul yanıtı verilmesi ile limit ve yetki kontrolüne takılabilir. Bu durumda Ödeme İste talebinin iptal edilmesi ve uygun iptal detay kodu ile dönülmesi sağlanabilir ya da Ödeme İste talebini iptal etmeyip SGZ’ye kadar Ödeme İste talebini gösterip borçlu müşterinin limit ve yetki durumlarını güncelleyerek ilgili talebin onaylanması sağlanabilir. Bu tercihler ÖHS inisiyatifindedir.
+
+- 	Borçlu ÖHS, Alacaklı ÖHS tarafından gönderilen Ödeme İste talebi istek mesajında yer alan alanların  API dokümanında belirtilen şartları sağlayacak şekilde zorunluluk, uzunluk ve içerik kontrollerini yapar. (Zorunlu) 
+- 	Kontrollere istinaden hata oluşması durumunda TR.OIS.Resource.InvalidFormat hata kodu iletilmeli ve fieldErrors dolu olacak şekilde hatalı alanı belirten detaylı açıklama gönderilmelidir. **InvalidFormat hata kodlarında fieldErrors içeriği gönderilmeli ve anlaşılır açıklama ile message, messageTr alanları doldurulması zorunludur.**
+- **TR.OIS.Business.InvalidContent** hatası Borçlu ÖHS tarafından yapılacak iş kuralı kontrollerinin başarısız olduğu durumda verilmelidir.
+- Alacaklı ve Borçlu Hesap bilgileri ile ilgili kontroller yapılmalıdır. (Zorunlu)
+- Alacaklı müşteriye ait IBAN bilgisi içerisindeki kurum kod ile katılımcı Bilgi içerisindeki alacaklı ÖHS kod bilgisi eşleşmemesi durumunda ; **TR.OIS.Business.RecipientAccountMismatch** hatası verilmelidir.
+- Borçlu IBAN bilgisi Borçlu ÖHS tarafından kontrol edilmeli.İlgili IBAN kendi kurumuna ait değilse; **TR.OIS.Business.SenderAccountMismatch** hatası verilmelidir.
+-	İlgili IBAN kendi kurumuna ait ancak borçlu unvan bilgisi ile uyuşmaması durumunda ; **TR.OIS.Business.InvalidSenderTitle** ,ilgili IBAN kendi kurumuna ait ancak kapalı bir hesap olması durumunda ; **TR.OIS.Business.InvalidSenderAccount** hatası verilmelidir.
+- 	Borçlu ÖHS, ödeme iste talebi için tüm kontrollerin geçerli olması durumunda ödeme iste durumunu “Yanıt Bekleniyor” olarak kaydeder ve 201 yanıtını döner.
+-   Alacaklı ÖHS, ödeme iste talebi Borçlu ÖHS de oluşturulduğu anda durumunu “Yanıt Bekleniyor” olarak kaydeder.
+- 	Borçlu ÖHS kendisine gelen Ödeme İste talebini müşterisine anlık bildirim olarak gönderir. Anlık bildirimler ÖHS tarafından iletilecek SMS ya da push notifikasyon olabilir. Müşterinin iletişim tercihi birincil iletişim kanalı olmak üzere en azından SMS ile bilgilendirme yapılması beklenmektedir. 
+- 	Borçlu Müşteri tarafından Ödeme İste Talebi onaylandığında Borçlu ÖHS durumunu “Kabul Edildi” olarak günceller ve Alacaklı ÖHS’ye OdemeIsteYanit nesnesi ile güncel durumu bildirir. (B->K)
+- 	Borçlu müşteri tarafından Ödeme İste talebi iptal edilirse Borçlu ÖHS durumunu İptal Edildi” olarak günceller ve Alacaklı ÖHS’ye OdemeIsteYanit nesnesi ile güncel durumu bildirir. (B->I)
+-  Alacaklı ÖHS olarak borçlu ÖHS'den kabul ya da red durum değişikliği bildirimi geldiğinde Alacaklı ÖHS'nin müşterisini bilgilendirmesi zorunludur.
+- 	Alacaklı ÖHS; 504 hata yanıtı alması durumunda işlemin Borçlu ÖHS’de gerçekleşme durumu belirsizdir. Bu durumda alacaklı ÖHS GET/odeme-iste/{odemeIsteRefNo} ile sorgulama yapar. Sorgulama adeti 1 dakika içerisinde max. 3 defa olacak şekilde gerçekleşir. Başarılı yanıt alması durumunda ödeme iste durumunu kendi tarafında günceller. 3.denemeden sonra hala hata alması durumunda DELETE /odeme-iste/{odemeIsteRefNo} isteği yapar ve ödeme isteğini iptale çeker.  Borçlu tarafta kendisine gelen DELETE isteği ile ilgili ödeme iste talebini iptale çeker. DELETE işlemi sırasında hata alınması durumunda alacaklı taraf yine iptale çekmelidir.
+
+
 **BAŞARILI İSTEK ve YANIT :**
 
 **Tablo 8: OdemeIsteTalebi ve Odeme Iste Nesnesi**
@@ -35,7 +99,7 @@ Alacaklı ÖHS ile Alacaklı IBAN bilgileri uyumlu olmalıdır. Alacaklı IBAN b
 | > Alacaklı ÖHS Kod	|alacakliOhsKod	|AN4| Alacaklı ÖHS’ye ait kuruluş kodu	| Z | Z | |
 | > Borçlu ÖHS Kod	|borcluOhsKod	|AN4| Borçlu ÖHS’ye ait kuruluş kodu	| Z | Z | |
 |Alacaklı Bilgisi	|alacakliBilgi	|Kompleks:AlacakliBilgi| Alacaklıya ait bilgilerdir.	| Z | Z | |
-| > Alacaklı Hesap/Müşteri Tipi	| musteriTipi	|AN1| Alacaklı müşterinin hesap numarasına ilişkin Ticari-Bireysel hesap bilgisi ayrımının belirtildiği alandır.  Ödeme İste Sistemi'nde tanımlı değerlerden biri olmalıdır.<br>B:Bireysel <br>T: Ticari| Z | Z | |
+| > Alacaklı Hesap/Müşteri Tipi	| musteriTipi	|AN1| Alacaklı müşterinin hesap numarasına ilişkin Kurumsal-Bireysel hesap bilgisi ayrımının belirtildiği alandır.  Ödeme İste Sistemi'nde tanımlı değerlerden biri olmalıdır.<br>B:Bireysel <br>K: Kurumsal| Z | Z | |
 | > Kimlik	|kimlik	|Kompleks:Kimlik| 	| Z | Z | |
 |  >> Alacaklı Kimlik Tipi	|kimlikTipi	|AN1| TR.OIS.DataCode.KimlikTur sıralı veri türü değerlerinden birini alır.| Z | Z | |
 |  >> Alacaklı Kimlik No ( TCKN/VKN/YKN/Pasaport No ) |kimlikDegeri|AN7..11| Alacaklı müşteriye ait geçerli bir TC Kimlik Numarası, Vergi Kimlik Numarası, Yabancı Kimlik Numarası ya da Pasaport Numarası bilgilerinden birinin bulunduğu alandır.| Z | Z | AlKmlkN |
@@ -57,8 +121,9 @@ Alacaklı ÖHS ile Alacaklı IBAN bilgileri uyumlu olmalıdır. Alacaklı IBAN b
 |> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | Z |OiAksTur |
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | Z |OdmAmc |
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu’nun Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Son geçerlilik zamanı Öİ Oluşturulma Zamanından en fazla 3 ay sonrası olabilir.Alacaklı müşteri tarafından ödeme isteği oluşturulurken seçilir.<br>Bugün : 31.11.2019<br>Bugün + 3 Ay : 29.02.2020<br>Bugün : 30.09.2022<br>Bugün + 3 Ay : 30.12.2022<br>Bugün : 14.07.2022<br>Bugün + 3 Ay : 14.10.2022 | Z | Z | |
-|>Talep Edilen Ödeme Zamanı (TEÖZ)	|talepEdilenOdemeZamani	|ISODateTime| Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir.Hemen Öde seçeneğinde TEÖZ bilgisi boş iletilmelidir.Dolu iletilmesi durumunda borçlu ÖHS tarafından hata mesajı üretilmelidir.<br>TEÖZ tarih formatı:<br>YYYY-MM-DDThh:mm:ss| Z | Z | |
-|> İşlem Açıklaması	|islemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.Borçlu açıklamayı güncelleyebilmelidir.Borçlu Açıklama bilgisi FAST mesajına taşınacaktır.| İ | İ |Acklm |
+|>Talep Edilen Ödeme Zamanı (TEÖZ)	|talepEdilenOdemeZamani	|ISODateTime| Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir.Hemen Öde seçeneğinde TEÖZ bilgisi boş iletilmelidir.Dolu iletilmesi durumunda borçlu ÖHS tarafından hata mesajı üretilmelidir.<br>TEÖZ tarih formatı:<br>YYYY-MM-DDThh:mm:ss| K | K | |
+|> Alacaklı İşlem Açıklaması	|alacakliIslemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.| İ | İ | |
+|> Borçlu İşlem Açıklaması	|borcluIslemAciklamasi	|AN1..200| Alacaklı ÖHS tarafından iletilen alacaklı açıklama alanı Borçlu ÖHS ekranlarında borçlu müşteriye birebir gösterilmelidir. Borçlu müşteri tarafından değişiklik yapılabilmesi sağlanmalıdır.Borçlu Açıklama bilgisi FAST mesajına taşınacaktır.| NA | K |Acklm |
 |Ödeme İste Yanıt Detayı	|yanitDetayi	|Kompleks:YanıtDetayı|	| NA | Z | |
 |> Ödeme İste Durumu	|odemeIsteDurumu	|AN1|TR.OIS.DataCode.OdemeIsteDurumu sıralı veri tipini değerlerinden birini alır. Örn; ödeme iste'ye ait ilk istek mesajına dönüşte “B: Yanıt Bekleniyor” değerini alması beklenir.| NA | Z | |
 |> Ödeme İste İptal Detay Kodu	|odemeIsteIptalDetayKodu	|AN2|Rıza durumunun iptal olduğu durumda zorunludur.| NA | K | |
@@ -76,7 +141,8 @@ Alacaklı ÖHS ile Alacaklı IBAN bilgileri uyumlu olmalıdır. Alacaklı IBAN b
 
 **GET /odeme-iste/{ odemeIsteRefNo }**
 
-Alacaklı, ödeme isteğinin mevcut durumunu kontrol etmek için, oluşturulan bir OdemeIste kaynağının durumunu isteğe bağlı olarak alabilir.
+- Alacaklı, ödeme isteğinin mevcut durumunu kontrol etmek için, oluşturulan bir OdemeIste kaynağının durumunu isteğe bağlı olarak alabilir. 
+- Genel olarak servis çağrımlarında oluşabilecek timeout hataları nedeniyle alacaklı ve borçlu ÖHS’de ödeme iste durum farklılıklarının önüne geçilebilmesi için günlük belirli zaman aralıklarında sorgulama yapılması ve ödeme iste durumunun eşlenik olması sağlanmalıdır.
 
 **Durum**
 
@@ -84,10 +150,30 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
 
 -	Yanıt Bekleniyor
 -	Kabul Edildi
--	Ödeme Sistemine Emir İletildi
+-	Ödeme Gerçekleşti
 -	İptal Edildi
 
 ## 7.4. ADIM 3: Ödeme İste Yanıtı
+
+- 	Borçlu ÖHS tarafından ödeme iste durum değişikliklerinin Alacaklı ÖHS’ye bildirilmesi için kullanılacak olan servistir. İşlem açıklaması ve borçluya ait hesap bilgileri borçlu müşteri tarafından ödeme iste talebinin kabul edileceği anda değiştirilebilmektedir. İşlem açıklaması borçlu müşteriye alacaklı ÖHS’den geldiği gibi gösterilmelidir. Borçlu müşteri açıklamayı güncellemesi durumunda güncel açıkla “borcluAciklama” alanında Alacaklı ÖHS’ye iletilir. Borçlu müşterinin açıklama alanında değişiklik yapmaması durumunda Alacaklı ÖHS’nin ilettiği açıklama bilgisi “borcluAciklama” alanında Alacaklı ÖHS’ye iletilir. Açıklamada değişiklik bilgisinin alacaklı müşteriye gösterilmesi Alacaklı ÖHS inisiyatifindedir.
+
+- Borçluya ait ödeme yapılacak hesap bilgisi değiştirilirse Alacaklı ÖHS’ye yanıt nesnesi içerisinde iletilmeyecektir. 
+
+- Borçlu ÖHS , FAST sistemine ödeme iste talebini ilettikten sonra işlemin başarılı ya da başarısız olması durumlarında FAST sisteminden hem Alacaklı hem Borçlu ÖHS’ye olumlu ya da olumsuz mesaj gitmesi beklenmektedir. Aynı zamanda Borçlu ÖHS ; K durumundan “O” durumuna ya da “I” durumuna geçen ödeme iste durumlarını Alacaklı ÖHS’ye bildirir. Alacaklı ÖHS’ye hem FAST sisteminden hem de Borçlu ÖHS tarafından güncel ödeme iste durum bilgileri iletilmiş olacaktır. Ödeme sistemine gönderilmiş bir işlem Borçlu ÖHS’de borçlu müşteri tarafından iptal edilemez. Borçlu ÖHS’de bu kontrolün sağlanması gerekmektedir.
+- 	Borçlu müşterinin ödeme iste talebini reddettiği durumda ise  Borçlu ÖHS “odemeIsteDurumu”: “I” ve “odemeIsteIptalDetayKodu” : “01”- Borçlu Ödeme İsteğini Reddetti olacak şekilde Alacaklı ÖHS’ye istek yapar ve Alacaklı ÖHS tarafından 202-Accepted yanıtının alındığı görülür.
+
+- 	Borçlu ÖHS’de; borçlu müşteri kendisine gelen ödeme iste talebini kabul etmesi durumunda OdemeIsteYanit nesnesi ile Alacaklı ÖHS’ye “odemeIsteDurumu” : “K” (Kabul Edildi) olacak şekilde bir istek yapılır. OdemeIsteYanit nesnesi ile bildirim yapılmasıyla birlikte ödeme iste talebi FAST ya da havale sistemlerine aktarılır. **Ödeme sistemlerine aktarım için PUT/odeme-iste-yanit isteği için Alacaklı ÖHS’den gelecek yanıta (202,4**,5**) bakılmasına ya da beklenmesine gerek bulunmamaktadır.**
+
+-	Ödeme sistemlerine aktarıldıktan sonra FAST sisteminde işlem gerçekleşmesi durumunda borçlu ve alacaklı ÖHS tarafında ödeme iste durumu “O” (Ödeme Gerçekleşti) olarak güncellenir. Alacaklı ÖHS iki yöntem ile ödemenin gerçekleştiğinden bilgisi olur. Bu iki bilgiden herhangi birinin gelmesi durumunda Alacaklı ÖHS tarafından Ödeme İste Durumu “O” olarak güncellenir. FAST sisteminden olumlu yanıt gelmesi ile alacaklı ÖHS tarafında “O” statüsüne çekildikten sonra Borçlu ÖHS tarafından “O” statüsü değişiklik bildirimi gelmesi durumunda statü aynı şekilde korunmalıdır. Borçlu ÖHS’den durum değişikliğinin FAST sisteminden olumlu sonuçtan önce gelmesi durumunda da aynı durum geçerlidir.
+    - FAST sisteminden alacaklı ÖHS’ye olumlu sonucun iletilmesi, 
+    - Borçlu ÖHS tarafından OdemeIsteYanit nesnesi ile “O” statüsünün iletilmesi.
+- 	Borçlu ÖHS tarafından OdemeIsteYanit Nesnesi ile “O” durumu iletildiğinde Alacaklı ÖHS tarafından 4** ya da 5**’lü hatalar alınması durumunda FAST mesajından gelecek olumlu yanıt ile kendi tarafında ödeme iste durumunu “O” olarak günceller.
+Her iki şekilde iletilebilecek olan ödeme durum bilgisinin Alacaklı ÖHS’ye hiç gelmemesi durumunda Alacaklı ÖHS tarafından odemeIsteRefNo ile GET sorgusu yapılmalıdır.
+- 	Borçlu ÖHS’nin ödeme iste talebini FAST’a iletmesi , Alacaklı FAST sisteminin çalışmaması halinde FAST işlemi gerçekleşmeyecektir. FAST sisteminden de Alacaklı ÖHS’ye iletilen mesaj da alınamayacakır. Borçlu ÖHS FAST sisteminden gelen mesaj (olumsuz,zaman aşımı vb.) ile ödeme iste durumunu “I” , odemeIsteIptalDetayKodu’nu ise “21” olacak şekilde güncellemelidir. Güncellenen ödeme iste durumu OdemeIsteYanit nesnesi ile Alacaklı ÖHS’ye bildirilmelidir. Bildirilememesi durumunda Alacaklı ÖHS güncel statüyü alabilmek için OdemeIsteRefNo ile GET sorgusu yapmalıdır.
+- 	Borçlu ÖHS’nin ödeme iste talebini FAST’a iletmesi, Alacaklı tarafında FAST mesajının doğrulanamaması durumunda FAST işlemi gerçekleşmeyecektir. FAST sisteminden hem alacaklı ÖHS hem borçlu ÖHS’ye olumsuz mesaj iletilecektir. Alacaklı ve Borçlu ÖHS FAST sisteminden gelen olumsuz mesaj ile ödeme iste durumunu “I” , odemeIsteIptalDetayKodu’nu ise “21” olacak şekilde güncellemelidir.
+Borçlu tarafında ödeme iste durumu değiştiği için güncel bilgi OdemeIsteYanit nesnesi ile Alacaklı ÖHS’ye bildirilmelidir
+
+
 
 **BAŞARILI İSTEK:**
 
@@ -105,16 +191,13 @@ PUT işleminin REQUEST gövdesini (BODY) oluşturan "OdemeIsteYaniti" nesnesi Ta
 |Katılımcı Bilgisi | katilimciBilgi | Kompleks:KatilimciBilgisi | Katılımcılara atanmış kod bilgileridir.	 | Z |
 | > Alacaklı ÖHS Kod	|alacakliOhsKod	|AN4| Alacaklı ÖHS’ye ait kuruluş kodu	| Z | 
 | > Borçlu ÖHS Kod	|borcluOhsKod	|AN4| Borçlu ÖHS’ye ait kuruluş kodu	| Z |
-|Borçlu Hesap | borcluHesap | Kompleks:Hesap| Borçluya ait güncellenebilen  bilgilerdir.	 | Z |
-| > Borçlu Ad Soyad/Ticari Unvan	|hesapSahibi	|AN3..140| Borçlu müşterinin ad-soyad veya ticari ünvan bilgisidir.İşyeri için ilgili acquirer üye tarafından tahsis edilmiş olan işyeri adı bilgisidir.(Mercant Name)İşyerinin sık kullanılan adı ya da tabela ünvanı olmalıdır.Alfanumerik karakterler, '.' , '-' , '&' ve boşluk karakteri içerebilir.| Z |
-| > Borçlu IBAN |hesapNo	|AN26|Borçlu müşteriye ait bir IBAN olmalıdır. TR ile başlamalı ve 26 karakter uzunluğunda iletilmelidir. Borçlu IBAN gönderimi zorunludur. Borçlu IBAN bilgisi borçlu müşteri tarafından değiştirilebilir.Bu sebeple istekte iletilen IBAN bilgisi alacaklı ÖHS tarafından kontrol edilmemelidir.	| Z | 
 | Ödeme İste Referans Numarası	|odemeIsteRefNo	|AN41|Ödeme İste sistemi numarasıdır.Alacaklı ÖHS tarafından oluşturulmalıdır. Ödeme İste Referans Numarası'nın son 6 karakteri, alacaklı ile borçlu müşteriye işlem sırasında ilgili ekranlarda gösterilmelidir.Alacaklıya Ödeme İste talebi oluşturulacağı ekranda, borçluya ise ödeme iste detayının verildiği ekranda gösterilmelidir. <br>Önerilen Format:  <br>{alacakliOhsKodu}-{guid}  <br>Örn: 8000- f534e8f2-9fbf-48cc-914b-12fbaffd8104    (size: 41)| Z |
 | Ödeme İste Durumu | odemeIsteDurumu | AN1 | "B": borçludan yanıt bekleniyor<br>"K": borçlu kabul etti. <br>"O": ödeme sistemine emir iletildi. <br>"I": iptal.| Z |
 | Ödeme İste İptal Detay Kodu | odemeIsteIptalDetayKodu | AN2 | "iptalDetay" : "01" borçlu ödeme isteğini red etti.B durumdayken B->I <br>"iptalDetay" : "02" borçlu beklenen sürede ödeme isteğine yanıt vermedi. B durumdayken B->I<br>"iptalDetay" : "03" borçlu iptal etti. K durumdayken K->I<br>"iptalDetay" : "04" beklenen sürede ödeme sistemine emir iletilmedi. K -> I<br>"iptalDetay" : "05" borçlu ÖHS fraud nedeniyle iptal etti. B,K -> I<br>"iptalDetay" : "11" alacaklı ödeme iste talebinden vazgeçti. B,K -> I<br> "iptalDetay" : "12" alacaklı ÖHS fraud nedeniyle iptal etti. B,K -> I| K |
 | Borçlu Yanıt Zamanı | borcluYanitZamani | ISODateTime | Kabul ya da red durumunda gönderilebilecektir. | K |
 | Beklenen Ödeme Tarihi | beklenenOdemeTarihi | ISODate | Borçlu’nun ödemeyi taahhüt ettiği tarih bilgisidir. Sonra öde seçeneklerinde Borçlu’nun ödeme yapacağı tarih bilgisidir. Hemen öde seçeneklerinde ise Borçlu’nun kabul ettiği tarih bilgisidir.  | K |
 | Ödeme Sistemi Gönderim Zamanı | odemeSistemineGonderimZamani | ISODateTime | Borçlu ÖHS tarafından ödemenin ödeme sistemine gönderilme zamanıdır. | K |
-|İşlem Açıklaması	|islemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.Borçlu açıklamayı güncelleyebilmelidir.Borçlu Açıklama bilgisi FAST mesajına taşınacaktır.| İ |
+|Borçlu İşlem Açıklaması	|borcluIslemAciklamasi	|AN1..200|Alacaklı ÖHS tarafından iletilen alacaklı açıklama alanı Borçlu ÖHS ekranlarında borçlu müşteriye birebir gösterilmelidir. Borçlu müşteri tarafından değişiklik yapılabilmesi sağlanmalıdır.Borçlu müşterinin değişiklik yapması veya yapmaması durumunda açıklama bilgisi Borçlu ÖHS tarafından bu alana işlenmelidir.Borçlu Açıklama bilgisi FAST mesajına taşınacaktır.| K |
 **BAŞARILI YANIT:**
 
 Başarılı PUT isteği sonucu HTTP 202 Accepted ile dönülmelidir.
