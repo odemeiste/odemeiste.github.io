@@ -97,7 +97,7 @@ GEÇİT üzerinden yapılan çağrılarda BKM tarafından belirlenen sistem adı
 -	ois, ois-api
 Sabit metin “ois” (Ödeme İste Servisleri kısaltması)
 -	[kaynak-grubu]
-Kaynak grubu, API’ye erişmek için kullanılan ödeme hizmetine (HBH, ÖBH) göre erişim adresi (end point) grubunu tanımlar (“hbh” veya “obh”).
+Kaynak grubu, API’ye erişmek için kullanılan ödeme iste hizmeti için erişim adresi (end point) grubunu tanımlar ("ois").
 -	[sürüm]
 API sürümünü ifade eder (“/s[ana-sürüm].[alt-sürüm]/”).
 -	[kaynak]/[kaynak-no]
@@ -185,7 +185,7 @@ private_key.pem ve public_key.pem dosyasinin içerikleri kod tarafında kullanı
 --public_key.pem => Açık anahtarın ismi openssl rsa -in private.pem -pubout -outform PEM -out public_key.pem
 --private_key.pem => Özel anahtarın PCKS8 formatına çevrilmesi (Java açısından PCKS8 formatında olma ihtiyacı nedeniyle) openssl pkcs8 -topk8 -inform PEM -in private.pem -out private_key.pem –nocrypt
 
--	Açık ve Özel anahtarlar oluşturulduktan sonra Açık Anahtar BKM ile paylaşılır. BKM bu açık anahtarı diğer katılımcıların ulaşabilmesi ve alabilmesi için bir Anahtar Deposu yaklaşımı ile bünyesinde tutar. İlgili anahtarı iletebilmek ve alabilmek için kullanılacak OHS API’ye erişim detayları 3.16.OHS API içerisinde detaylı olarak paylaşılmıştır. Eğer kurumun ilgili anahtar çiftinin yenilenme durumu söz konusu ise yenilemenin hemen ardından açık anahtar yeni bir imzalama yapılmadan önce mutlaka BKM ile paylaşılmalıdır.
+-	Açık ve Özel anahtarlar oluşturulduktan sonra Açık Anahtar BKM ile paylaşılır. BKM bu açık anahtarı diğer katılımcıların ulaşabilmesi ve alabilmesi için bir Anahtar Deposu yaklaşımı ile bünyesinde tutar. İlgili anahtarı iletebilmek ve alabilmek için kullanılacak OHS API’ye erişim detayları 9.OHS API içerisinde detaylı olarak paylaşılmıştır. Eğer kurumun ilgili anahtar çiftinin yenilenme durumu söz konusu ise yenilemenin hemen ardından açık anahtar yeni bir imzalama yapılmadan önce mutlaka BKM ile paylaşılmalıdır.
 
 -	İmzalı mesajı açacak olan kurum mesajı imzalayan kurumun açık anahtarını her sorguda yeniden almak durumunda değildir. Belirli periyodlarda kendi ortamındaki anahtarı yenileyerek sistemi işletebilir. Ancak imzalayan kurum anahtar çifti yenilemesi yaptığında BKM ile açık anahtarını paylaşsa dahi imzalı mesajı doğrulayacak taraf eski açık anahtar ile doğrulama yapmaya çalıştığı için hata alacaktır. Bu ilk hata durumunda hızlıca BKM üzerinden yeni anahtarı alıp mesajı tekrar doğrulamayı denemelidir. Eğer yine hata alıyor ise doğrulama işlemini hata statüsüne almalıdır. Bu sebeple anahtar yenileyen kurum yeni açık anahtarını yeni bir mesaj imzalama yapmadan önce mutlaka BKM ile paylaşmalıdır.
 
@@ -347,7 +347,7 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 >>**&#8680;	SenderAccountMismatch**     
 >>**&#8680;	InvalidSenderTitle**    
 >>**&#8680;	InvalidSenderAccount**  
->>**&#8680;	RestrictedAccount**
+>>**&#8680;	RestrictedAccount**     
 >>**&#8680;	SenderRestrict**     
 >>**&#8680;	InvalidExpireTime**     
 >>**&#8680;	RtpStatusMismatch**
@@ -390,8 +390,8 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
         {
             "objectName": "odemeIsteTalebi",
             "field": "alacakliBilgi.musteriTipi.kimlik.kimlikDegeri",
-            "messageTr": "boyut '1' ile '30' arasında olmalı",
-            "message": "size must be between 1 and 30",
+            "messageTr": "boyut '7' ile '11' arasında olmalı",
+            "message": "size must be between 7 and 11",
             "code": "TR.OIS.Field.Invalid"
         }
     ],
@@ -660,13 +660,13 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 
 |**Kod** |**Açıklama** |
 | --- | --- |
-|TR.OIS.DataCode.MusteriTip	| B: Bireysel <br>T: Ticari |
+|TR.OIS.DataCode.MusteriTip	| B: Bireysel <br>K: Kurumsal |
 |TR.OIS.DataCode.KimlikTur	| Kod, Tip, Format <br>K , TCKN , N11 <br>V, VKN, AN10 <br>Y , YKN , N11 <br>P , PNO , AN7..9|
 | TR.OIS.DataCode.OdemeAmaci | Ödemenin Amacına yönelik olarak aşağıdaki değerlerden birini alır:<br>01: Konut Kirası Ödemesi<br>02: İş yeri Kirası Ödemesi<br>03: Diğer Kira Ödemesi<br>04: E-Ticaret Ödemesi: Elektronik ticaret işlem amaçlı aktarımlar<br>05: Çalışan Ödemesi: Maaş, harcırah, prim gibi çalışan ödemeleri<br>06: Ticari ödeme: Ticari işletmelerin birbirlerine, kendi hesaplarına veya müşterilerine ödemeleri, borç, ithalat, ihracat, şirket satın alma, vb. kapsamında ödemeler<br>07: Bireysel Ödeme: Özel amaçlı (aile bireylerine, hediye, bağış, borç, alışveriş vs.) ödemeler<br>08: Yatırım: Mevduat, menkul kıymet, döviz, gayrı menkul, taşıt, varlık alımı, temettü ödeme, tahsilat vb. gibi yatırım amaçlı ödemeler<br>09: Finansal: Kredi, depo, repo, türev, finansal varlık alım/satımı vb. ödemeler<br>10: Eğitim ödemesi<br>11: Aidat ödemesi |
 |TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler|
 |TR.OIS.DataCode.OHSDurumu | A : Açık. Üretim Ortamında ÖHS’nin aktif bir şekilde hizmet vermesi durumu.<br> Y : Yaygınlaştırma. Üretim Ortamında ÖHS’nin kendisi tarafından tanımlanmış kısıtlı müşteriye hizmet vermesi durumu. <br>  G : Geçici Hizmet Veremiyor. ÖHS servislerinde teknik bir sorun olması nedeniyle ÖHS’nin hizmet verememesi durumu. <br>K: Kapalı. ÖHS’nin hizmet vermeme durumu. |
 | TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
-| TR.OIS.DataCode.OdemeIsteIptDtyKod | ‘01’ :Borçlu Ödeme İsteğini Reddetti<br>‘02’ :Borçlu Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>‘03’ :Borçlu İptal Etti<br>‘04’ :Beklenen Sürede Ödeme Sistemine Emir İletilmedi<br>‘05’ :Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>‘06’ :Alacaklının Ödeme İste Yetkisinin Kapalı Olması<br>‘07’ :Alacaklı Ödeme İste Talebinden B Statüsünde Vazgeçti<br>‘08’ :Alacaklı Ödeme İste Talebinden K Statüsünde Vazgeçti<br>‘09’ :Alacaklı Ödeme İste Talebinden K Statüsünde Vazgeçti<br>‘10’ : Müşteri ÖHS kontrollerini Aşamadı<br>‘99’ : Diğer<br>|
+| TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden B Statüsünde Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'13': Borçlu ÖHS Ödeme İste Talebine Yanıt Vermedi<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
 |TR.OIS.DataCode.LogoArkaPlan	| B : Logoların arka planının beyaz olması (Erkek Logo) <br>K : Logoların arka planının renkli/koyu olması (Dişi Logo) |
 |TR.OIS.DataCode.LogoFormat	| SVG : Logonun svg formatında olmasını ifade eder. Logonun 1:2 oranında olması gerekmektedir. <br>PNG : Logonun png formatında olmasını ifade eder. Logonun 500 X 1000 px olması gerekmektedir. |
