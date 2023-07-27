@@ -350,7 +350,10 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 >>**&#8680;	RestrictedAccount**     
 >>**&#8680;	SenderRestrict**     
 >>**&#8680;	InvalidExpireTime**     
->>**&#8680;	RtpStatusMismatch**
+>>**&#8680;	RtpStatusMismatch**     
+>>**&#8680;	FastLimitExceeded**     
+>>**&#8680;	StateMismatch**     
+>>**&#8680;	InvalidApproveTime** 
 
 >**TR.OIS.Connection** 
 >>**&#8680;	InvalidCertificate**  
@@ -666,7 +669,7 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 |TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler|
 |TR.OIS.DataCode.OHSDurumu | A : Açık. Üretim Ortamında ÖHS’nin aktif bir şekilde hizmet vermesi durumu.<br> Y : Yaygınlaştırma. Üretim Ortamında ÖHS’nin kendisi tarafından tanımlanmış kısıtlı müşteriye hizmet vermesi durumu. <br>  G : Geçici Hizmet Veremiyor. ÖHS servislerinde teknik bir sorun olması nedeniyle ÖHS’nin hizmet verememesi durumu. <br>K: Kapalı. ÖHS’nin hizmet vermeme durumu. |
 | TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
-| TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden B Statüsünde Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'13': Borçlu ÖHS Ödeme İste Talebine Yanıt Vermedi<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
+| TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'05': Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden B Statüsünde Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
 |TR.OIS.DataCode.LogoArkaPlan	| B : Logoların arka planının beyaz olması (Erkek Logo) <br>K : Logoların arka planının renkli/koyu olması (Dişi Logo) |
 |TR.OIS.DataCode.LogoFormat	| SVG : Logonun svg formatında olmasını ifade eder. Logonun 1:2 oranında olması gerekmektedir. <br>PNG : Logonun png formatında olmasını ifade eder. Logonun 500 X 1000 px olması gerekmektedir. |
