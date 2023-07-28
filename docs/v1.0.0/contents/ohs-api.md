@@ -20,11 +20,6 @@
 |ÖHS Api Bilgileri	|apiBilgileri	|Kompleks:<br> OhsApiBilgi[Array][0..N]|	Z	|Desteklenen Api ve sürüm bilgileri dönülecektir.|
 | > api	|api	|AN1..20|	Z	|Api İsmi Örnek :ois
 | > surum	|surum	|AN1..10|	Z	|Api Sürüm Kodu Örnek: s1.0, s2.0 s1.0|
-|Logo Bilgileri	|logoBilgileri	|Kompleks:<br>LogoBilgisi [Array][1..N]|	Z	|ÖHS'ye ait logo bilgileri.|
-| > logoTur	|logoTur	|AN3..50|	Z	|Logonun türünü belirler. TR.OIS.DataCode.LogoTur sıralı veri türü değerlerlerinden birini alır.
-| > logoAdr	|logoAdr	|AN1..255|	Z	|ÖHS tarafında tutulan ve paylaşılacak olan url adres bilgisidir.Örnek: https://via.placeholder.com/150?text=0001 
-| > logoArkaPlan	|logoArkaPlan	|AN1|	Z	|TR.OIS.DataCode.LogoArkaPlan sıralı veri türü değerlerlerinden birini alır.
-| > logoFormat	|logoFormat	|AN3|	Z	|TR.OIS.DataCode.LogoFormat sıralı veri türü değerlerlerinden birini alır.
 |Durum	|durum	|AN1|	Z	|ÖHS'nin durum bilgisidir.TR.OIS.DataCode.OHSDurumu sıralı veri tipinde alabileceği değerler belirtilmiştir.|
 
 ÖHS API'de; Açık, Yaygınlaştırma, Geçici Hizmet Veremiyor, Kapalı durumlarındaki ÖHS'ler listelenecektir.

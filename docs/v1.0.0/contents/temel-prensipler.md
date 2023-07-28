@@ -85,9 +85,9 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 
 ÖHS’lerin başlattığı çağrılarda URI yolu aşağıdaki yapıyı takip eder:
 
-**[öhs-yol-ön-eki]/oi-api/[kaynak-grubu]/[sürüm]/ [kaynak]/[kaynak-no]**
+**[öhs-yol-ön-eki]/odeme-iste-api/[kaynak-grubu]/[sürüm]/ [kaynak]/[kaynak-no]**
 
-**[öhs-yol-ön-eki]/oi-api/ois/s1.0/odeme-iste/odemeIsteRefNo**
+**[öhs-yol-ön-eki]/odeme-iste-api/ois/s1.0/odeme-iste/odemeIsteRefNo**
 
 Bu, aşağıdaki unsurlardan oluşur:
 
@@ -105,8 +105,8 @@ Kaynak detaylarını ifade eder.
 
 ÖHS, tüm kaynakları için aynı katılımcı yolu ön ekini ve sistem adını kullanmalıdır. BKM API’lerine erişmek isteyen uygulamaların yetkilerine göre aşağıdaki API’ye abone olmaları gerekmektedir.
 OIS (Ödeme İste Servisleri) :
--	https://xbank.com.tr/api-portal/oi-api/ois/s1.0/odeme-iste (ÖHS)
--	https://gecit.api-preprod.bkm.com.tr/oi-api/ois/s1.0/odeme-iste (BKM GEÇİT)
+-	https://xbank.com.tr/api-portal/odeme-iste-api/ois/s1.0/odeme-iste (ÖHS)
+-	https://gecit.api-preprod.bkm.com.tr/odeme-iste-api/ois/s1.0/odeme-iste (BKM GEÇİT)
 
 ## 3.5.	Karakter Kodlama
 
@@ -375,7 +375,7 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 
 ```JSON
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "b6ac3b8f-d604-12b6-bne1-3a800e270219",
     "timestamp": "2023-07-01T10:33:15+03:00",
     "httpCode": 400,
@@ -428,7 +428,7 @@ TR.OIS.Resource.InvalidFormat hatası alındığı durumda; fieldErrors nesnesi 
 
 ```JSON
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "b6ac3b8f-d604-12b6-bne1-3a800e270219",
     "timestamp": "2023-07-01T10:33:15+03:00",
     "httpCode": 400,
@@ -461,7 +461,7 @@ Borçlu ÖHS uygulaması tarafından dönülebilecek hata örnekleri:
 ```JSON 
 
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
     "timestamp": "2023-07-02T10:39:26+03:00",
     "httpCode": 400,
@@ -485,7 +485,7 @@ Borçlu ÖHS uygulaması tarafından dönülebilecek hata örnekleri:
 ```JSON 
 
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
     "timestamp": "2023-07-02T10:39:26+03:00",
     "httpCode": 400,
@@ -502,7 +502,7 @@ Borçlu ÖHS uygulaması tarafından dönülebilecek hata örnekleri:
 ```JSON 
 
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "2005515d-f0e6-4a07-a439-0ef3b0f56011",
     "timestamp": "2023-07-02T10:39:26+03:00",
     "httpCode": 400,
@@ -518,7 +518,7 @@ Borçlu ÖHS uygulaması tarafından dönülebilecek hata örnekleri:
 Business hata örneği - 1:  
 ```JSON 
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "677cfd9d-77c1-4ea3-8bdf-74a6e9887177",
     "timestamp": "2023-07-04T11:05:59+03:00",
     "httpCode": 400,
@@ -533,7 +533,7 @@ GEÇİT'te yapılan zorunlu header kontrollerinde aşağıdaki hatalar dönebili
 
 {
     "timestamp": "2023-07-04T10:40:28+03:00",
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "d4375748-6fc7-4f7e-94f3-6411cab1d59f",
     "moreInformationTr": "Geçersiz ÖHS kodu.",
     "errorCode": "TR.OIS.Connection.InvalidRecipient",
@@ -547,7 +547,7 @@ GEÇİT tarafından dönülecek hata örneği:
 
 {
     "timestamp": "2023-07-05T10:40:28+03:00",
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "d4375748-6fc7-4f7e-94f3-6411cab1d59f",
     "moreInformationTr": "Geçersiz ÖHS kodu.",
     "errorCode": "TR.OIS.Connection.InvalidSender",
@@ -562,7 +562,7 @@ GEÇİT tarafından dönülecek hata örneği:
 
 {
     "timestamp": "2023-07-03T11:14:05+03:00",
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "ee1e3ea7-a5e5-468b-bb02-314148f84e6a",
     "moreInformationTr": "Geçersiz öhs rolü. İlgili api çağrısı için yetkisi yok.",
     "errorCode": "TR.OIS.Connection.InvalidSenderRole",
@@ -580,7 +580,7 @@ GEÇİT tarafından dönülecek hata örneği:
 ```json 
 
 {
-    "path": "/oi-api/ois/s1.0/odeme-iste",
+    "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
     "id": "ed3fd667-fc58-40ad-a982-e8937faccd15",
     "timestamp": "2023-07-06T11:17:33+03:00",
     "httpCode": 401,
@@ -600,7 +600,7 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 
 ```json 
 {
-  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
   "id": "3e48ea98-f889-48b9-aa6e-28aabc6cfb14",
   "timestamp": "2023-07-06T11:20:05+03:00",
   "httpCode": 403,
@@ -613,7 +613,7 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 
 ```json 
 {
-  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
   "id": "1a36bc78-d381-16a2-aa6e-28bcab3af633",
   "timestamp": "2023-07-05T11:20:05+03:00",
   "httpCode": 403,
@@ -629,7 +629,7 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 ```json 
 {
   "id": "1b90c6dc-0277-4755-8b05-9297ddfab743",
-  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
   "timestamp": "2023-07-07T11:41:34+03:00",
   "httpCode": 500,
   "httpMessage": "Internal Server Error",
@@ -647,7 +647,7 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 {
   
   "id": "e76315b7-09f4-4295-b6d8-1f7fec632159",
-  "path": "/oi-api/ois/s1.0/odeme-iste",
+  "path": "/odeme-iste-api/ois/s1.0/odeme-iste",
   "timestamp": "2023-07-07T23:18:56+03:00",
   "httpCode": 503,
   "httpMessage": "Service Unavailable",
@@ -671,8 +671,5 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 | TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
 | TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'05': Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden B Statüsünde Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
-|TR.OIS.DataCode.LogoArkaPlan	| B : Logoların arka planının beyaz olması (Erkek Logo) <br>K : Logoların arka planının renkli/koyu olması (Dişi Logo) |
-|TR.OIS.DataCode.LogoFormat	| SVG : Logonun svg formatında olmasını ifade eder. Logonun 1:2 oranında olması gerekmektedir. <br>PNG : Logonun png formatında olmasını ifade eder. Logonun 500 X 1000 px olması gerekmektedir. |
-|TR.OIS.DataCode.LogoTur	| FULL_LOGO : Yazı ve ikon şekillerin bir arada olduğu logo <br>ICON_LOGO : İkon şekillerin olduğu ( Sadece görsel olan-yazısız ) logo |
 |TR.OIS.DataCode.OlayTip	| OHS_GUNCELLENDI |
 |TR.OIS.DataCode.KaynakTip	| OHS |
