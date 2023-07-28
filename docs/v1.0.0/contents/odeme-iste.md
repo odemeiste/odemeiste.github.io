@@ -298,7 +298,58 @@ Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülme
 |Ödeme İste Durum Bilgi | durumBilgi | Kompleks:DurumBilgi | 	 | Z |
 |> Ödeme İste Durumu | odemeIsteDurumu | AN1 | "I": iptal.| Z |
 |> Ödeme İste İptal Detay Kodu | odemeIsteIptalDetayKodu | AN2 | "iptalDetay" : "11" Alacaklı Müşteri Ödeme İste Talebinden B Statütüsünde Vazgeçti<br>"iptalDetay" : "12" Alacaklı ÖHS Fraud Nedeniyle İptal Etti| Z |
+|> Ödeme İste Oluşturulma Zamanı	|odemeIsteOlusturulmaZamani	|ISODateTime|Ödeme iste talebi'nin borçlu ÖHS tarafından oluşturulduğu zaman bilgisidir.odemeIsteDurumu'nun "B" olduğu zaman için oluşacak bilgidir.| Z | 
+|> Borçlu Kabul Zamanı	|kabulZamani	|ISODateTime|Kabul durumunda gönderilebilecektir.odemeIsteDurumu'nun "K" olduğu zaman için oluşacak bilgidir. Bilgi olması halinde iptal isteğinde iletilebilir.| K | 
+|> Ödeme Sistemi Gönderim Zamanı	|odemeSistemineGonderimZamani	|ISODateTime|Borçlu ÖHS tarafından ödemenin ödeme sistemine gönderilme zamanıdır.odemeIsteDurumu'nun "G" olduğu zaman için oluşacak bilgidir.Bilgi olması halinde iptal isteğinde iletilebilir.| K | 
+|> Borçlu ÖHS Ödeme Zamanı	|odemeZamani	|ISODateTime|Ödeme'nin gerçekleştiği zaman bilgisidir.odemeIsteDurumu'nun "O" olduğu zaman için oluşacak bilgidir.Bilgi olması halinde iptal isteğinde iletilebilir.| K | 
+|> Borçlu İptal Zamanı	|iptalZamani	|ISODateTime|İptal durumunda gönderilebilecektir.odemeIsteDurumu'nun "I" olduğu zaman için oluşacak bilgidir.Bilgi olması halinde iptal isteğinde iletilebilir.| K | 
 
+**BAŞARILI YANIT:**
+
+Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülmelidir.
+
+**Tablo 11: OdemeIste Nesnesi**
+|Alan Adı |Json Alan Adı |Format: Veri Modeli İsmi |Açıklama| Yanıt |
+| --- | --- | --- | --- | --- | --- | --- |
+|> Ödeme İste Referans Numarası	|odemeIsteRefNo	|AN41|Ödeme İste sistemi numarasıdır.Alacaklı ÖHS tarafından oluşturulmalıdır. Ödeme İste Referans Numarası'nın son 6 karakteri, alacaklı ile borçlu müşteriye işlem sırasında ilgili ekranlarda gösterilmelidir.Alacaklıya Ödeme İste talebi oluşturulacağı ekranda, borçluya ise ödeme iste detayının verildiği ekranda gösterilmelidir. <br>Önerilen Format:  <br>{alacakliOhsKodu}-{guid}  <br>Örn: 8000- f534e8f2-9fbf-48cc-914b-12fbaffd8104    (size: 41)| Z |
+|> Ödeme İste Oluşturulma Zamanı	|odemeIsteOlusturulmaZamani	|ISODateTime|Kaydın ilk oluşturulduğu gün ve zaman bilgisini içerir. YYYY-MM-DDThh:mm:ss+03:00 formatında Ödeme İste Sistemi tarafından oluşturulur. | Z |
+|Katılımcı Bilgisi | katilimciBilgi | Kompleks:KatilimciBilgisi | Katılımcılara atanmış kod bilgileridir.	 | Z | 
+| > Alacaklı ÖHS Kod	|alacakliOhsKod	|AN4| Alacaklı ÖHS’ye ait kuruluş kodu	| Z |
+| > Borçlu ÖHS Kod	|borcluOhsKod	|AN4| Borçlu ÖHS’ye ait kuruluş kodu	| Z | 
+|Alacaklı Bilgisi	|alacakliBilgi	|Kompleks:AlacakliBilgi| Alacaklıya ait bilgilerdir.	| Z | 
+| > Alacaklı Hesap/Müşteri Tipi	| musteriTipi	|AN1| Alacaklı müşterinin hesap numarasına ilişkin Kurumsal-Bireysel hesap bilgisi ayrımının belirtildiği alandır.  Ödeme İste Sistemi'nde tanımlı değerlerden biri olmalıdır.<br>B:Bireysel <br>K: Kurumsal|  Z |
+| > Kimlik	|kimlik	|Kompleks:Kimlik| 	| Z |
+|  >> Alacaklı Kimlik Tipi	|kimlikTipi	|AN1| TR.OIS.DataCode.KimlikTur sıralı veri türü değerlerinden birini alır.| Z |
+|  >> Alacaklı Kimlik No ( TCKN/VKN/YKN/Pasaport No ) |kimlikDegeri|AN7..11| Alacaklı müşteriye ait geçerli bir TC Kimlik Numarası, Vergi Kimlik Numarası, Yabancı Kimlik Numarası ya da Pasaport Numarası bilgilerinden birinin bulunduğu alandır.| Z |
+| > Hesap	|hesap	|Kompleks:Hesap| 	| Z |
+|  >> Alacaklı Ad Soyad/Ticari Unvan |hesapSahibi	|AN3..140| Alacaklı müşterinin ad-soyad veya ticari ünvan bilgisidir. <br>İşyeri için ilgili acquirer üye tarafından tahsis edilmiş olan işyeri adı bilgisidir.(Merchant Name) İşyerinin sık kullanılan adı ya da tabela ünvanı olmalıdır.<br> Alfanumerik karakterler, '.' , '-' , '&' ve boşluk karakteri içerebilir.Borçlu ÖHS’ye Alacaklı ÖHS tarafından Unvan bilgisi açık bir şekilde iletilmelidir. Borçluya ÖHS ekranlarında gösterimi açık olmalıdır.| Z |
+|  >> Alacaklı IBAN	|hesapNo	|AN26| Alacaklı müşteriye ait bir IBAN olmalıdır. TR ile başlamalı ve 26 karakter uzunluğunda iletilmelidir.Borçlu ÖHS’ye Alacaklı ÖHS tarafından IBAN açık bir şekilde iletilmelidir. Borçluya ÖHS ekranlarında gösterimi açık olmalıdır.| Z | 
+|Borçlu Bilgisi	|borcluBilgi	|Kompleks:BorcluBilgi| Borçluya ait bilgilerdir.	| Z | 
+| > Hesap	|hesap	|Komlepks:Hesap|	| Z |
+| >> Borçlu Ad Soyad/Ticari Unvan	|hesapSahibi	|AN3..140| Borçlu müşterinin ad-soyad veya ticari ünvan bilgisidir.İşyeri için ilgili acquirer üye tarafından tahsis edilmiş olan işyeri adı bilgisidir.(Mercant Name)İşyerinin sık kullanılan adı ya da tabela ünvanı olmalıdır.Alfanumerik karakterler, '.' , '-' , '&' ve boşluk karakteri içerebilir.| Z |
+| >> Borçlu IBAN |hesapNo	|AN26|Borçlu müşteriye ait bir IBAN olmalıdır. TR ile başlamalı ve 26 karakter uzunluğunda iletilmelidir. Borçlu IBAN gönderimi zorunludur. Borçlu IBAN bilgisi borçlu müşteri tarafından değiştirilebilir.Bu sebeple istekte iletilen IBAN bilgisi alacaklı ÖHS tarafından kontrol edilmemelidir.	| Z | 
+| > KOLAS Referans Numarası	|kolasRefNo	|N12| Kolay Adres bilgisi ile başlatılan Ödeme İste taleplerinde, Borçlu müşteriye ait Kolay Adres bilgisine ait hesap bilgisine erişebilmek amacıyla Alıcı müşterinin Ödeme Hizmet Sağlayıcısı tarafından KOLAS’a iletilen Alıcı Sorgu mesajına KOLAS tarafından dönülen referans numarasıdır. 	| K | 
+| > TR Karekod Referans Numarası	|karekodRefNo	|AN1..12|TR Karekod ile başlatılan Ödeme İste taleplerinde TR Karekod için oluşturulan tekil referans numarasıdır. İşyeri uygulaması veya TR Karekod üreticisi tarafından sağlanır ve uçtan uca doğrulama, işlem kaydı veya fiş oluşturmada kullanılır. 	| K | 
+|Tutar Bilgileri	|tutarBilgi	|Kompleks: TutarBilgi|	| Z | 
+|> Tutar	|tutar	|AN1..24| Alacaklı ÖHS’nin önyüzde kullanıcıdan aldığı tutar bilgisidir.	| Z |
+|> Para Birimi	|paraBirimi	|AN3| Para birimi. FAST işlemleri kapsamında sadece TL gönderimi olacaktır. 	| Z |
+|Ödeme İste Talep Detayı	|talepDetayi	|Kompleks:TalepDetay|	| Z | 
+|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | 
+|> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | 
+|> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu’nun Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Son geçerlilik zamanı Öİ Oluşturulma Zamanından en fazla 3 ay sonrası olabilir.Alacaklı müşteri tarafından ödeme isteği oluşturulurken seçilir.<br>Bugün : 31.11.2019<br>Bugün + 3 Ay : 29.02.2020<br>Bugün : 30.09.2022<br>Bugün + 3 Ay : 30.12.2022<br>Bugün : 14.07.2022<br>Bugün + 3 Ay : 14.10.2022 | Z | 
+|>Talep Edilen Ödeme Zamanı (TEÖZ)	|talepEdilenOdemeZamani	|ISODateTime| Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir.Hemen Öde seçeneğinde TEÖZ bilgisi boş iletilmelidir.Dolu iletilmesi durumunda borçlu ÖHS tarafından hata mesajı üretilmelidir.<br>TEÖZ tarih formatı:<br>YYYY-MM-DDThh:mm:ss| K |
+|> Alacaklı İşlem Açıklaması	|alacakliIslemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.|İ| 
+|Ödeme İste Durum Bilgi	|durumBilgi	|Kompleks:DurumBilgi|	| Z | 
+|> Ödeme İste Durumu	|odemeIsteDurumu	|AN1|TR.OIS.DataCode.OdemeIsteDurumu sıralı veri tipini değerlerinden birini alır. Örn; ödeme iste'ye ait ilk istek mesajına dönüşte “B: Yanıt Bekleniyor” değerini alması beklenir.| Z | 
+|> Ödeme İste İptal Detay Kodu	|odemeIsteIptalDetayKodu	|AN2|Rıza durumunun iptal olduğu durumda zorunludur.| K | 
+|> Ödeme İste Oluşturulma Zamanı	|odemeIsteOlusturulmaZamani	|ISODateTime|Ödeme iste talebi'nin borçlu ÖHS tarafından oluşturulduğu zaman bilgisidir.odemeIsteDurumu'nun "B" olduğu zaman için oluşacak bilgidir.| Z | 
+|> Borçlu Kabul Zamanı	|kabulZamani	|ISODateTime|Kabul durumunda gönderilebilecektir.odemeIsteDurumu'nun "K" olduğu zaman için oluşacak bilgidir.| K | 
+|> Ödeme Sistemi Gönderim Zamanı	|odemeSistemineGonderimZamani	|ISODateTime|Borçlu ÖHS tarafından ödemenin ödeme sistemine gönderilme zamanıdır.odemeIsteDurumu'nun "G" olduğu zaman için oluşacak bilgidir.| K | 
+|> Borçlu ÖHS Ödeme Zamanı	|odemeZamani	|ISODateTime|Ödeme'nin gerçekleştiği zaman bilgisidir.odemeIsteDurumu'nun "O" olduğu zaman için oluşacak bilgidir.| K | 
+|> Borçlu İptal Zamanı	|iptalZamani	|ISODateTime|İptal durumunda gönderilebilecektir.odemeIsteDurumu'nun "I" olduğu zaman için oluşacak bilgidir.| Z | 
+|Ödeme İste Yanıt Detayı	|yanitDetayi	|Kompleks:YanıtDetayı| |	K | 
+|> Beklenen Ödeme Tarihi	|beklenenOdemeTarihi	|ISODate|Borçlu’nun ödemeyi taahhüt ettiği tarih bilgisidir. Sonra öde seçeneklerinde Borçlu’nun ödeme yapacağı tarih bilgisidir. | K | 
+|> Borçlu İşlem Açıklaması	|borcluIslemAciklamasi	|AN1..200| Alacaklı ÖHS tarafından iletilen alacaklı açıklama alanı Borçlu ÖHS ekranlarında borçlu müşteriye birebir gösterilmelidir. Borçlu müşteri tarafından değişiklik yapılabilmesi sağlanmalıdır.Borçlu Açıklama bilgisi FAST mesajına taşınacaktır.| K |
 
 ## 7.6. Ödeme İste Sistem Olay Dinleme
 
