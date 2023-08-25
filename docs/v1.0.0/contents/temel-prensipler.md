@@ -48,7 +48,16 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
-- Garantili Ödeme İste: Öİ mesajında yer alan Ödeme Garantisi Göstergesi (“OdemeGarantisiGostergesi”) alanının Alacaklı ÖHS tarafından kullanılması ve Borçlu ÖHS’nin bu talebe olumlu yanıt vermesi durumunda Borçlu ÖHS ile Alacaklı ÖHS arasında borç-alacak ilişkisi doğuran bir iş modeli kullanılabilir. Ödeme Garantisi Göstergesi bilgi olarak yer almakta olup, kullanımı katılımcılar arası ikili anlaşmalar gerektirmektedir. Bu anlaşmaların çerçevesi, Ödeme İste Sistemi kuralları kapsamında değildir.
+- Ödeme İste Hizmeti'nin Alacaklı ve Borçlu akışları için müşteri tipleri özelinde destekleme bilgisi aşağıdaki şekildedir.
+
+| Alacaklı ÖHS Müşteri Tipi | Alacaklı ÖHS Desteği(İsteğe Bağlı/Zorunlu)    |  Borçlu ÖHS Müşteri Tipi | Borçlu ÖHS Desteği(İsteğe Bağlı/Zorunlu)  | Borçlu ÖHS Aksiyon  | 
+| --- | --- | --- | --- | --- |
+| Kurumsal | İ | Kurumsal | İ | Kurumsal müşteri desteği verilmediği durumda hata kodu üretilecektir. |
+| Kurumsal | İ | Bireysel | Z | - |
+| Bireysel | Z | Kurumsal | İ | Kurumsal müşteri desteği verilmediği durumda hata kodu üretilecektir. |
+| Bireysel | Z | Bireysel | Z | - |
+
+**"İsteğe bağlı" olan alanların "zorunlu" olacağı tarih 30 Haziran 2024 olarak belirlenmiştir.**
 
 ## 3.2 RESTful API
 
@@ -106,7 +115,7 @@ Kaynak detaylarını ifade eder.
 ÖHS, tüm kaynakları için aynı katılımcı yolu ön ekini ve sistem adını kullanmalıdır. BKM API’lerine erişmek isteyen uygulamaların yetkilerine göre aşağıdaki API’ye abone olmaları gerekmektedir.
 OIS (Ödeme İste Servisleri) :
 -	https://xbank.com.tr/api-portal/odeme-iste-api/ois/s1.0/odeme-iste (ÖHS)
--	https://gecit.api-preprod.bkm.com.tr/odeme-iste-api/ois/s1.0/odeme-iste (BKM GEÇİT)
+-	https://secure.api-preprod.bkm.com.tr/odeme-iste-api/ois/s1.0/odeme-iste (BKM GEÇİT)
 
 ## 3.5.	Karakter Kodlama
 
@@ -166,11 +175,11 @@ Sunucu sertifikalarının endpoint bilgisini (Fqdn) içerecek ve global bir Cert
 
 ## 3.9. İstek/Cevap Mesajlarında Kullanılan Nesne Yapıları
 
-İstek ve Cevap mesajlarında kullanılacak olan nesneler tüm elemanlarını kapsayacak şekilde TRİP uygulaması üzerinden swagger dokümanları ilerleyen zamanlarda yayınlanacaktır.
+İstek ve Cevap mesajlarında kullanılacak olan nesneler tüm elemanlarını kapsayacak şekilde Ödeme İste Swagger dosyasında detaylı olarak paylaşılmıştır.
 
 ## 3.10. Mesaj İmzalama
 
-Dijital imzalama yapısı, ÖHVPS API’de gerçekleştirilen işlemlerin ve taşınan verilerin bütünlük ve inkâr edilemezliğini sağlamak amacıyla kurgulanmıştır. İmzaların kaynak bazında hangi istek ve yanıtlara uygulandığı belirlidir.
+Dijital imzalama yapısı, Ödeme İste API’de gerçekleştirilen işlemlerin ve taşınan verilerin bütünlük ve inkâr edilemezliğini sağlamak amacıyla kurgulanmıştır. İmzaların kaynak bazında hangi istek ve yanıtlara uygulandığı belirlidir.
 
 API yalnızca TLS'ye dayanırsa, dijital kayıtları ve inkâr edilemezlik kanıtlarını tutmak zor olur. Bu nedenle, TLS'ye dayanmayan bir inkâr edilemezlik çözümü olarak API isteğinin HTTP başlığında bir JWS kullanılarak sağlanabilir.
 
@@ -668,8 +677,8 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 | TR.OIS.DataCode.OdemeAmaci | Ödemenin Amacına yönelik olarak aşağıdaki değerlerden birini alır:<br>01: Konut Kirası Ödemesi<br>02: İş yeri Kirası Ödemesi<br>03: Diğer Kira Ödemesi<br>04: E-Ticaret Ödemesi: Elektronik ticaret işlem amaçlı aktarımlar<br>05: Çalışan Ödemesi: Maaş, harcırah, prim gibi çalışan ödemeleri<br>06: Ticari ödeme: Ticari işletmelerin birbirlerine, kendi hesaplarına veya müşterilerine ödemeleri, borç, ithalat, ihracat, şirket satın alma, vb. kapsamında ödemeler<br>07: Bireysel Ödeme: Özel amaçlı (aile bireylerine, hediye, bağış, borç, alışveriş vs.) ödemeler<br>08: Yatırım: Mevduat, menkul kıymet, döviz, gayrı menkul, taşıt, varlık alımı, temettü ödeme, tahsilat vb. gibi yatırım amaçlı ödemeler<br>09: Finansal: Kredi, depo, repo, türev, finansal varlık alım/satımı vb. ödemeler<br>10: Eğitim ödemesi<br>11: Aidat ödemesi |
 |TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler|
 |TR.OIS.DataCode.OHSDurumu | A : Açık. Üretim Ortamında ÖHS’nin aktif bir şekilde hizmet vermesi durumu.<br> Y : Yaygınlaştırma. Üretim Ortamında ÖHS’nin kendisi tarafından tanımlanmış kısıtlı müşteriye hizmet vermesi durumu. <br>  G : Geçici Hizmet Veremiyor. ÖHS servislerinde teknik bir sorun olması nedeniyle ÖHS’nin hizmet verememesi durumu. <br>K: Kapalı. ÖHS’nin hizmet vermeme durumu. |
-| TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
-| TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'05': Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden B Statüsünde Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
+| TR.OIS.DataCode.OdemeIsteDurumu | B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>G: Ödeme Sistemine İletildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
+| TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'05': Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'13':  Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti<br>'21': FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
 |TR.OIS.DataCode.OlayTip	| OHS_GUNCELLENDI |
 |TR.OIS.DataCode.KaynakTip	| OHS |

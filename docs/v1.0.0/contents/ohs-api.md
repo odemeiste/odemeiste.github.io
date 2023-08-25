@@ -2,8 +2,8 @@
 
 **GET /ohs/{ohsKod}**
 
--	https://gecit.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs (BKM GEÇİT)
--	https://gecit.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs/1234 (BKM GEÇİT)
+-	https://secure.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs (BKM GEÇİT)
+-	https://secure.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs/1234 (BKM GEÇİT)
 
 İşlem Sorgu Örneği = /ohs ⇨ bu sorgu yöntemi ile tüm ÖHS’lerin dizi şeklinde verileri listelenir.
 İşlem Sorgu Örneği = /ohs/1234 ⇨ bu sorgu yöntemi ile gönderilmiş olan ÖHS kodu’na ait bilgiler listelenir. Ya da “404 Not Found” hatası alır.
@@ -14,7 +14,7 @@
 | --- | --- | --- | --- | --- |
 |ÖHS Kodu	|kod	|AN4|	Z	|ÖHS'nin kod bilgisi|
 |ÖHS Unvanı	|unv	|AN3..140|	Z	|ÖHS'nin unvan bilgisi|
-|ÖHS Markası	|marka	|AN1..140|	Z	|ÖHS'nin kod bilgisi|
+|ÖHS Markası	|marka	|AN1..140|	Z	|ÖHS'nin marka bilgisi|
 |ÖHS Kodu	|kod	|AN4|	Z	|Müşterinin kolaylıkla algılayabileceği kısa unvan bilgisi. ÖHS tarafından belirlenecektir.|
 |Açık Anahtar	|acikAnahtar	|AN1..1024|	Z	|ÖHS’nin mesaj imzalama için paylaştığı açık anahtar|
 |ÖHS Api Bilgileri	|apiBilgileri	|Kompleks:<br> OhsApiBilgi[Array][0..N]|	Z	|Desteklenen Api ve sürüm bilgileri dönülecektir.|

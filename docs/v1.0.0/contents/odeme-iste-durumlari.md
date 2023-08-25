@@ -17,8 +17,9 @@ Müşteri, Borçlu ÖHS uygulaması üzerinden başlattığı ödeme iste işlem
 >>**&#8680;'03' : Borçlu ÖHS Fraud Nedeniyle İptal Etti**<br>
 >>**&#8680;'04' : Borçlu ÖHS Ödeme Sistemine İletemedi**<br>
 >>**&#8680;'05' : Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi**<br>
->>**&#8680;'11' : Alacaklı Müşteri Ödeme İste Talebinden B Statütüsünde Vazgeçti**<br> 
+>>**&#8680;'11' : Alacaklı Müşteri Ödeme İste Talebinden Vazgeçti**<br> 
 >>**&#8680;'12' : Alacaklı ÖHS Fraud Nedeniyle İptal Etti**<br> 
+>>**&#8680;'13' : Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti**<br> 
 >>**&#8680;'21' : FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası**<br>
 
 ÖHS'ler sunmuş oldukları Ödeme İste Talebi İptal ekranını hangi kanallardan ödeme iste talebi yapılmasına izin veriliyorsa (web/mobil) aynı ortamdan müşteriye sunmalıdır.
@@ -45,8 +46,9 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 - Alacaklı ÖHS tarafında B statüsünde olan bir ödeme iste talebi alacaklı müşteri tarafından iptal edilebilir. İptal edilmesi durumunda Ödeme İste Durumunu B statüsünden I durumuna günceller. <br>Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 11
 
 - Alacaklı ÖHS ödeme iste talebinin B statüsünde iken Fraud şüphesiyle ödeme iste talebini iptal edebilir. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 12
-	
 
+- Alacaklı ÖHS ÖdemeIsteTalebi için istekte gönderdiği değerlerin , Borçlu ÖHS tarafından verilen yanıt içerisindeki değerlerle birebir kontrolünü sağlar. İstekte iletilen değerlerin yanıtta dönülen değerlerle uyuşmaması durumunda ilgili ödeme iste talebini iptal eder. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 13
+	
 - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde Alacaklı FAST sisteminin çalışmaması ya da FAST mesajının doğrulanamadığı durumlarda FAST işlemi gerçekleşmeyecektir. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
 
 |Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Borçlu ÖHS |Alacaklı ÖHS |
