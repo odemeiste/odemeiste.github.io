@@ -48,6 +48,8 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
+- Müşteri halihazırda çevrimiçi (mobil bankacılık) erişebilir durumda ise, ÖHS'nin varsa Ödeme İste kanal veya yetki tanımını varsayılan değeri AÇIK olacak şekilde sunması gerekmektedir. Borçlu müşteriye ilk Ödeme İste talebi geldiğinde Borçlu ÖHS tarafından müşteriye sorulup kanal/yetki kapatılabilmesi sağlanmalıdır.
+- Alacaklı ÖHS alacaklı müşteriden Öİ talebini aldığı sırada kendi tarafındaki güvenlik süreçlerini işletmesi ve Öİ talebini Borçlu ÖHS’ye iletmeden işlemi sonlandırması tavsiye edilmektedir.
 - Ödeme İste Hizmeti'nin Alacaklı ve Borçlu akışları için müşteri tipleri özelinde destekleme bilgisi aşağıdaki şekildedir.
 
 | Alacaklı ÖHS Müşteri Tipi | Alacaklı ÖHS Desteği(İsteğe Bağlı/Zorunlu)    |  Borçlu ÖHS Müşteri Tipi | Borçlu ÖHS Desteği(İsteğe Bağlı/Zorunlu)  | Borçlu ÖHS Aksiyon  | 
@@ -276,12 +278,12 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 -	"Başlık isimleri" yorumlanırken küçük büyük harfe duyarlı olmamalıdır. Örneğin "x-ReQuEsT-Id"         geçerli bir başlık ismidir.
 -	"Başlık değerleri" yorumlanırken ise küçük büyük harf duyarlılığı olmalıdır. Örneğin "xyz123" ile "XYZ123" değerleri farklıdır.
 -	Başlık değerlerinde ISO-8859-1 standartında yer alan karakter kümesi kullanılmalıdır. Örneğin "X-Request-Id" değerinde "İOS12" yazmak, büyük "İ" harfinin ISO-8859-1 içerisinde yer almamasından dolayı, hataya yol açacaktır.
--	İstek ve Yanıt başlığında yer alan alanların; POST GET DELETE metotlarında, Zorunlu/Koşullu/İsteğe Bağlı/Yok kullanım durumları aşağıdaki tabloda listelenmiştir.
--  OdemeIste nesnesinde GET,POST,DELETE metotlarında isteği başlatan taraf alacaklı müşteri olacağı için alacaklı ÖHS kod ,x-source-code değeridir. OdemeIsteYaniti nesnesinde POST metotunda isteği başlatan borçlu olacağı için x-source-code değeri borçlu ÖHS kod bilgisidir.
+-	İstek ve Yanıt başlığında yer alan alanların; POST GET PUT metotlarında, Zorunlu/Koşullu/İsteğe Bağlı/Yok kullanım durumları aşağıdaki tabloda listelenmiştir.
+-  OdemeIste nesnesinde POST,GET,PUT metotlarında isteği başlatan taraf alacaklı müşteri olacağı için alacaklı ÖHS kod ,x-source-code değeridir. OdemeIsteYaniti nesnesinde POST metotunda isteği başlatan borçlu olacağı için x-source-code değeri borçlu ÖHS kod bilgisidir.
 - BKM'nin yapacağı ÖHS olay bildirimlerinde x-target-code ve x-source-code aynı değer olacak olup değişiklik yapılan OHS'ye ait kurum kodunu içerecektir.
 
 **Tablo 2: İstek Başlığında Yer Alan Veriler**
-|Başlık İsimleri |Format |Notlar |POST |GET |DELETE |
+|Başlık İsimleri |Format |Notlar |POST |GET |PUT |
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır.   | Z |Z |Z  |
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
@@ -289,6 +291,13 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 |X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	 |Z|Z|Z|
 |Authorization|AN1..4096|Katılımcı ile GEÇİT arasındaki otorizasyon için kullanılan token bilgisidir.	|Z|Z|Z|
 |X-JWS-Signature|AN1..4096|HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı İstek olarak belirtilmiştir.	|Z|Z|Z|
+|PSU-Fraud-Check | AN1..4096 |ÖHS'lerin çeşitli güvenlik kontrollerini gerçekleştirerek, önemli görülen aşağıdaki bilgileri birbirleri ile paylaşmaları gerekmektedir.<br> PSU-Fraud-Check alanının POST/odeme-iste servisi içerisinde gönderimi zorunludur. Flagler, JWT claims içine key value şeklinde eklenerek gönderilecektir. 3.10. Mesaj İmzalama Akışı'nda belirtilen yöntemle imzalanarak oluşturulan JWT PSU-Fraud-Check alanına konularak Alacaklı ÖHS tarafından Borçlu ÖHS'ye iletilmelidir. <br><br> Paylaşılacak bilgiler şu şekildedir.<br> <br><b>CustomerOpenDate</b> : Alıcı ÖHS tarafından, alıcı hesap sahibinin müşteri olma tarihi üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>AccountOpenDate</b> : Ödeme iste talebi içerisinde yer alan alıcı hesabın (Alıcı IBAN) açılma tarihi üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>CustomerAgeFlag</b> : Alıcı müşteriye ait yaş aralığını ifade eden değerdir. <br>**Gönderilmesi zorunlu alandır. Bireysel müşteriler için TR.OIS.DataCode.YasAralik veri tiplerinden 1,2,3,4,5 değerleri iletilmelidir. Tüzel/Kurumsal müşteriler için ise 0 değeri iletilmelidir.** <br><br><b>RemoteCustomerFlag</b> : Alıcı müşterinin uzaktan müşteri edinimi ile oluşturulmuş bir müşteri bilgisi olup olmadığını belirten değerdir. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.VarYok sıralı veri tipinin alabileceği değerleri alabilir. Örneğin; uzaktan müşteri edinimi ile kazanılmış bir müşteri ise değerin "1:Kayıt Var" olarak iletilmesi gerekmektedir.<br> <br><b>CustomerSalaryFlag</b> : Alıcı müşterinin Alıcı ÖHS içerisinde maaş müşterisi olup olmadığını belirten değerdir. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.VarYok sıralı veri tipinin alabileceği değerleri alabilir. Örneğin; maaş müşterisi olan bir müşteri için değerin "1:Kayıt Var" olarak iletilmesi gerekmektedir.<br> <br><b>FirstRequestTimeFlag</b> : Alacaklı müşterinin Alacaklı ÖHS nezdinde ilk Ödeme İste talebi yaptığı tarih üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>DeviceFirstLoginFlag</b> : Alıcı müşterinin kullandığı mobil uygulamaya (cihaz bazlı) ilk giriş yapıldıktan sonraki geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br> | Z | - | - |
+
+PSU-Fraud-Check için imza bilgisi isteği alan ÖHS tarafından doğrulanmalıdır. Doğrulama işlemi başarısız olması durumunda **TR.OIS.Resource.PsuFraudInvalidSignature** kodu ile hata üretilmelidir.
+
+PSU-Fraud-Check bilgisinin iletilmediği durumlarda ise **TR.OIS.Resource.PsuFraud.MissingSignature** kodu ile hata üretilmelidir.
+
+PSU-Fraud-Check içerisinde yer alan zorunlu alanlardan(Örn: CustomerOpenDate) herhangi birinin eksik olması durumunda iletilen eksik imza bilgisi için **TR.OIS.Resource.PsuFraudInvalidFormat** kodu ile hata üretilmelidir.
 
 ## 3.14. Yanıt Başlığı
 
@@ -300,7 +309,7 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 - BKM'nin yapacağı ÖHS olay bildirimlerinde x-target-code ve x-source-code aynı değer olacak olup değişiklik yapılan OHS'ye ait kurum kodunu içerecektir.
 
 **Tablo 3: Yanıt Başlığında Yer Alan Veriler**
-|Başlık İsimleri |Format |Notlar |POST |GET |DELETE |
+|Başlık İsimleri |Format |Notlar |POST |GET |PUT |
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır. <br> **İlgili istek başlığındaki bilgi geri dönülür.**   | Z |Z |Z  |
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
@@ -682,3 +691,6 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
 |TR.OIS.DataCode.OlayTip	| OHS_GUNCELLENDI |
 |TR.OIS.DataCode.KaynakTip	| OHS |
+|TR.OIS.DataCode.VarYok	| 0: Kayıt Yok <br>1: Kayıt Var |
+|TR.OIS.DataCode.ZmnAralik	| 1: 0-1 gün <br>2: 1-14 gün <br>3: 14-30 gün <br>4: 30-90 gün <br>5: 90 gün ve üstü |
+|TR.OIS.DataCode.YasAralik	| 0:Tüzel/Kurumsal Müşteriler <br> 1: 0-20 yaş <br>2: 20-30 yaş <br>3: 30-40 yaş <br>4: 40-50 yaş <br>5: 50 yaş ve üzeri |

@@ -1,5 +1,9 @@
 # 9.OHS API
 
+OHS API, ÖHS’lerin detay bilgilerini sunan servistir. Bu servis ile aşağıdaki istek/yanıt yapıları ile ihtiyaç duyulabilecek ilgili bilgiler temin edilebilir. OHS API için “ohs_read” scope bilgisi kullanılır.
+
+Production ortamında OHS API içerisinde sisteme dahil olmuş, sertifikasyonu başarı ile tamamlamış paydaşlar listelenecektir. 
+
 **GET /ohs/{ohsKod}**
 
 -	https://secure.api-preprod.bkm.com.tr/ohs-api/s1.0/ohs (BKM GEÇİT)
