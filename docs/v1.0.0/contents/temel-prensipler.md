@@ -48,7 +48,6 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil kanalda hizmet vermeyen katılımcıların web kanalında Ödeme İste katman servisini müşterilerine sunması gerekmektedir.Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
-- Müşteri halihazırda çevrimiçi (mobil bankacılık) erişebilir durumda ise, ÖHS'nin varsa Ödeme İste kanal veya yetki tanımını varsayılan değeri AÇIK olacak şekilde sunması gerekmektedir. Borçlu müşteriye ilk Ödeme İste talebi geldiğinde Borçlu ÖHS tarafından müşteriye sorulup kanal/yetki kapatılabilmesi sağlanmalıdır.
 - Alacaklı ÖHS alacaklı müşteriden Öİ talebini aldığı sırada kendi tarafındaki güvenlik süreçlerini işletmesi ve Öİ talebini Borçlu ÖHS’ye iletmeden işlemi sonlandırması tavsiye edilmektedir.
 - Ödeme İste Hizmeti'nin Alacaklı ve Borçlu akışları için müşteri tipleri özelinde destekleme bilgisi aşağıdaki şekildedir.
 
