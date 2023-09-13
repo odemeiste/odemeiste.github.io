@@ -49,6 +49,9 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Müşterilerin Öİ’ye karşılık verdikleri yanıtın içeriği, onların yasal yükümlülüklerini değiştirmez. Örneğin, fatura ödemesine ilişkin bir Öİ talebi alan Borçlu’nun olumsuz yanıt vermesi, onun faturayı ödeme yükümlülüğünü ortadan kaldırmaz.
 - TR Karekod ile başlatılan ödeme iste akışlarının, FAST TR Karekod Teknik İlke ve Kurallar Rehberi’nde belirlenen zorunlu üretime geçiş tarihleri gözetilerek desteklenmesi gerekmektedir.
 - Alacaklı ÖHS alacaklı müşteriden Öİ talebini aldığı sırada kendi tarafındaki güvenlik süreçlerini işletmesi ve Öİ talebini Borçlu ÖHS’ye iletmeden işlemi sonlandırması tavsiye edilmektedir.
+- Ödeme İste kanal veya yetki tanımı varsayılan değerinin Açık ya da Kapalı olarak sunulması ÖHS inisiyatifindedir.
+<br> - Kanal veya yetki tanımı varsayılan değerinin AÇIK olması önkoşulu olarak Müşteri’nin mobil bankacılık (çevrimiçi) kanalının açık olması beklenmektedir. Ek olarak, Borçlu müşteriye ilk Ödeme İste talebi geldiğinde Borçlu ÖHS tarafından Ödeme İste kanal/yetki tanımının kapatılabilmesi seçeneği sunulmalıdır. 
+<br> -  Kanal veya yetki tanımı varsayılan değerinin KAPALI tanımlanması durumunda, Borçlu müşteriye ilk Ödeme İste talebi geldiğinde işlem reddedilecek(Alacaklı ÖHS’ye ilgili hata kodu ile dönülecek) ancak, Borçlu ÖHS tarafından müşteriye kendisine bir Ödeme İste talebi geldiği bilgisi verilmeli ve kanal/yetki açabilme seçeneği sunulmalıdır.
 - Ödeme İste Hizmeti'nin Alacaklı ve Borçlu akışları için müşteri tipleri özelinde destekleme bilgisi aşağıdaki şekildedir.
 
 | Alacaklı ÖHS Müşteri Tipi | Alacaklı ÖHS Desteği(İsteğe Bağlı/Zorunlu)    |  Borçlu ÖHS Müşteri Tipi | Borçlu ÖHS Desteği(İsteğe Bağlı/Zorunlu)  | Borçlu ÖHS Aksiyon  | 
