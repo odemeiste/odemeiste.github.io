@@ -19,8 +19,11 @@ Müşteri, Borçlu ÖHS uygulaması üzerinden başlattığı ödeme iste işlem
 >>**&#8680;'05' : Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi**<br>
 >>**&#8680;'11' : Alacaklı Müşteri Ödeme İste Talebinden Vazgeçti**<br> 
 >>**&#8680;'12' : Alacaklı ÖHS Fraud Nedeniyle İptal Etti**<br> 
->>**&#8680;'13' : Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti**<br> 
->>**&#8680;'21' : FAST Mesajı Doğrulanamadı ya da FAST Sistem Hatası**<br>
+>>**&#8680;'13' : Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti**<br>
+>>**&#8680;'14' : Alacaklı ÖHS Ödeme İste Hatalı İmza Nedeniyle İptal Etti**<br>
+>>**&#8680;'21' : FAST Sistem Hatası**<br>
+>>**&#8680;'22' : FAST Ödeme İste Bilgileri Doğrulanamadı**<br>
+>>**&#8680;'23' : FAST Ödeme İste Zaman Kontrolleri Doğrulanamadı**<br>
 
 ÖHS'ler sunmuş oldukları Ödeme İste Talebi İptal ekranını hangi kanallardan ödeme iste talebi yapılmasına izin veriliyorsa (web/mobil) aynı ortamdan müşteriye sunmalıdır.
 
@@ -47,9 +50,15 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 
 - Alacaklı ÖHS ödeme iste talebinin B statüsünde iken Fraud şüphesiyle ödeme iste talebini iptal edebilir. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 12
 
-- Alacaklı ÖHS ÖdemeIsteTalebi için istekte gönderdiği değerlerin , Borçlu ÖHS tarafından verilen yanıt içerisindeki değerlerle birebir kontrolünü sağlar. İstekte iletilen değerlerin yanıtta dönülen değerlerle uyuşmaması durumunda ilgili ödeme iste talebini iptal eder. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 13
+- Alacaklı ÖHS ÖdemeIsteTalebi için istek gövdesinde gönderdiği değerlerin , Borçlu ÖHS tarafından verilen yanıt gövdesindeki  gövdesindeki değerlerle birebir kontrolünü sağlar. İstekte iletilen değerlerin yanıtta dönülen değerlerle uyuşmaması durumunda ilgili ödeme iste talebini iptal eder. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 13
+
+- Alacaklı ÖHS ÖdemeIsteTalebi için yapmış olduğu istek sonucunda , Borçlu ÖHS tarafından verilen yanıt başlığında iletilen imza bilgisinin kontrolünü sağlar. Borçlu ÖHS tarafından yanıtta iletilen imza bilgisinin hatalı/eksik olması durumunda ilgili ödeme iste talebini iptal eder. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 14
 	
-- Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde Alacaklı FAST sisteminin çalışmaması ya da FAST mesajının doğrulanamadığı durumlarda FAST işlemi gerçekleşmeyecektir. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
+- Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; Alacaklı FAST sisteminin çalışmaması durumlarında FAST işlemi gerçekleşmeyecektir. FAST sisteminden 28 ve 29 teyit kodu dışında iletilen/gelen kodlar için ödeme iste iptal detay kodu olarak 21 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
+
+- Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; tutar bilgisinin farklılaşması durumunda işlem gerçekleşmeyecektir. Alacaklı ÖHS tarafından tutar değişikliği tespit edilip 28 teyit kodu ile FAST mesajında dönülecektir. 28 teyit kodu (Öİ bilgileri doğrulanamadı) ile FAST tarafında olumsuz olan işlemler için ödeme iste iptal detay kodu olarak 22 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 22
+
+- - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; SGZ süresi geçtikten sonra FAST'a gönderilen işlem gerçekleşmeyecektir. Alacaklı ÖHS tarafından SGZ süre aşımı tespit edilip 29 teyit kodu ile FAST mesajında dönülecektir. 29 teyit kodu (Öİ zaman kontrolleri doğrulanamadı) ile FAST tarafında olumsuz olan işlemler için ödeme iste iptal detay kodu olarak 23 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 23
 
 |Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Borçlu ÖHS |Alacaklı ÖHS |
 | --- | --- | --- | --- |

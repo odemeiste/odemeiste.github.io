@@ -51,7 +51,8 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Alacaklı ÖHS alacaklı müşteriden Öİ talebini aldığı sırada kendi tarafındaki güvenlik süreçlerini işletmesi ve Öİ talebini Borçlu ÖHS’ye iletmeden işlemi sonlandırması tavsiye edilmektedir.
 - Ödeme İste kanal veya yetki tanımı varsayılan değerinin Açık ya da Kapalı olarak sunulması ÖHS inisiyatifindedir.
 <br> - Kanal veya yetki tanımı varsayılan değerinin AÇIK olması önkoşulu olarak Müşteri’nin mobil bankacılık (çevrimiçi) kanalının açık olması beklenmektedir. Ek olarak, Borçlu müşteriye ilk Ödeme İste talebi geldiğinde Borçlu ÖHS tarafından Ödeme İste kanal/yetki tanımının kapatılabilmesi seçeneği sunulmalıdır. 
-<br> -  Kanal veya yetki tanımı varsayılan değerinin KAPALI tanımlanması durumunda, Borçlu müşteriye ilk Ödeme İste talebi geldiğinde işlem reddedilecek(Alacaklı ÖHS’ye ilgili hata kodu ile dönülecek) ancak, Borçlu ÖHS tarafından müşteriye kendisine bir Ödeme İste talebi geldiği bilgisi verilmeli ve kanal/yetki açabilme seçeneği sunulmalıdır.
+<br> -  Kanal veya yetki tanımı varsayılan değerinin KAPALI tanımlanması durumunda, Borçlu müşteriye ilk Ödeme İste talebi geldiğinde işlem reddedilecek(Alacaklı ÖHS’ye TR.OIS.Business.RestrictedAccount hata kodu ile dönülecek) ancak, Borçlu ÖHS tarafından müşteriye kendisine bir Ödeme İste talebi geldiği bilgisi verilmeli ve kanal/yetki açabilme seçeneği sunulmalıdır.
+- Kanal bilgisi açık olup sonradan kapalı hale getirilen borçlu müşteride mevcutta ödenmemiş ve iptal edilmemiş Öİ taleplerinin yaşam döngüsü devam ettirilmelidir.
 - Ödeme İste Hizmeti'nin Alacaklı ve Borçlu akışları için müşteri tipleri özelinde destekleme bilgisi aşağıdaki şekildedir.
 
 | Alacaklı ÖHS Müşteri Tipi | Alacaklı ÖHS Desteği(İsteğe Bağlı/Zorunlu)    |  Borçlu ÖHS Müşteri Tipi | Borçlu ÖHS Desteği(İsteğe Bağlı/Zorunlu)  | Borçlu ÖHS Aksiyon  | 
@@ -297,7 +298,7 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 
 PSU-Fraud-Check için imza bilgisi isteği alan ÖHS tarafından doğrulanmalıdır. Doğrulama işlemi başarısız olması durumunda **TR.OIS.Resource.PsuFraudInvalidSignature** kodu ile hata üretilmelidir.
 
-PSU-Fraud-Check bilgisinin iletilmediği durumlarda ise **TR.OIS.Resource.PsuFraud.MissingSignature** kodu ile hata üretilmelidir.
+PSU-Fraud-Check bilgisinin iletilmediği durumlarda ise **TR.OIS.Resource.PsuFraudMissingSignature** kodu ile hata üretilmelidir.
 
 PSU-Fraud-Check içerisinde yer alan zorunlu alanlardan(Örn: CustomerOpenDate) herhangi birinin eksik olması durumunda iletilen eksik imza bilgisi için **TR.OIS.Resource.PsuFraudInvalidFormat** kodu ile hata üretilmelidir.
 
@@ -358,22 +359,28 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 >>**&#8680;	SenderMismatch**    
 >>**&#8680;	MethodNotAllowed**  
 >>**&#8680;	NotAcceptable**  
+>>**&#8680;	PsuFraudInvalidSignature**  
+>>**&#8680;	PsuFraudMissingSignature**  
+>>**&#8680;	PsuFraudInvalidFormat**     
+>>**&#8680;	RefNoAlreadyExists**    
+>>**&#8680;	RefNoMismatch**     
 >>**&#8680;	UnsupportedMediaType**  
 
 >**TR.OIS.Business**  
 >>**&#8680;	InvalidContent**   
->>**&#8680;	InvalidAccount**    
 >>**&#8680;	RecipientAccountMismatch**  
 >>**&#8680;	SenderAccountMismatch**     
 >>**&#8680;	InvalidSenderTitle**    
 >>**&#8680;	InvalidSenderAccount**  
 >>**&#8680;	RestrictedAccount**     
 >>**&#8680;	SenderRestrict**     
->>**&#8680;	InvalidExpireTime**     
->>**&#8680;	RtpStatusMismatch**     
+>>**&#8680;	InvalidExpireTime**          
 >>**&#8680;	FastLimitExceeded**     
 >>**&#8680;	StateMismatch**     
->>**&#8680;	InvalidApproveTime** 
+>>**&#8680;	InvalidApproveTime**     
+>>**&#8680;	BlockedRecipient**      
+>>**&#8680;	UnsupportedCorporate**      
+>>**&#8680;	UnsupportedRequestedPaymentTime**   
 
 >**TR.OIS.Connection** 
 >>**&#8680;	InvalidCertificate**  
