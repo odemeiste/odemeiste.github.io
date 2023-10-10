@@ -58,7 +58,7 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 
 - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; tutar bilgisinin farklılaşması durumunda işlem gerçekleşmeyecektir. Alacaklı ÖHS tarafından tutar değişikliği tespit edilip 28 teyit kodu ile FAST mesajında dönülecektir. 28 teyit kodu (Öİ bilgileri doğrulanamadı) ile FAST tarafında olumsuz olan işlemler için ödeme iste iptal detay kodu olarak 22 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 22
 
-- - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; SGZ süresi geçtikten sonra FAST'a gönderilen işlem gerçekleşmeyecektir. Alacaklı ÖHS tarafından SGZ süre aşımı tespit edilip 29 teyit kodu ile FAST mesajında dönülecektir. 29 teyit kodu (Öİ zaman kontrolleri doğrulanamadı) ile FAST tarafında olumsuz olan işlemler için ödeme iste iptal detay kodu olarak 23 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 23
+- Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; SGZ süresi geçtikten sonra FAST'a gönderilen işlem gerçekleşmeyecektir. Alacaklı ÖHS tarafından SGZ süre aşımı tespit edilip 29 teyit kodu ile FAST mesajında dönülecektir. 29 teyit kodu (Öİ zaman kontrolleri doğrulanamadı) ile FAST tarafında olumsuz olan işlemler için ödeme iste iptal detay kodu olarak 23 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 23
 
 |Ödeme İste Durumu |Güncellenebilir Ödeme İste Durumu |Borçlu ÖHS |Alacaklı ÖHS |
 | --- | --- | --- | --- |
