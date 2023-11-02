@@ -16,7 +16,7 @@ Alacaklı ÖHS; alacaklı müşterinin “Ödeme İste” talebi için OdemeIste
 
 **5.**	Ödeme İste Talebinin Ödeme Sistemine İletilmesi: 4.adımda Kabul statüsü iletildiği durumda;Borçlu ÖHS, Borçlu müşteriden olumlu yanıt aldığı durumda Alacaklı ÖHS’ye Ödeme İste talebinin kabul edildiğine dair bildirim yapar. Aynı zamanda ödeme işlemini FAST ya da Havale ile gerçekleştirmek üzere ilgili sistemlere aktarır.
 
-**6.**	Ödeme İste Gerçekleşti ya da İptal Yanıtının İletilmesi: FAST ya da Havale sistemlerine aktarılan Ödeme İste talebi başarılı olması durumunda ödeme gerçekleşir ve ödeme iste durumu güncellenir. Borçlu ÖHS tarafından OdemeIsteYanit nesnesi ile alacaklı ÖHS bilgilendirilir. Başarısız olması durumunda da iptal statüsü ile Alacaklı ÖHS bilgilendirilir.
+**6.**	Ödeme İste Başarılı Yanıtın Güncellenmesi, İptal Yanıtının İletilmesi: FAST ya da Havale sistemlerine aktarılan Ödeme İste talebi başarılı olması durumunda ödeme gerçekleşir ve ödeme iste durumu hem Borçlu hem Alacaklı ÖHS tarafında güncellenir. Borçlu ÖHS tarafından OdemeIsteYanit nesnesi ile alacaklı ÖHS'ye Ödeme Gerçekleşti "O" durumu bildirilmez. İşlemin başarısız olması durumunda da iptal statüsü ile güncellenerek Borçlu ÖHS tarafından Alacaklı ÖHS'ye bildirilir.
 
 
 

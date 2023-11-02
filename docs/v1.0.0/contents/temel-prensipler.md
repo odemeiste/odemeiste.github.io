@@ -291,7 +291,7 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 |Başlık İsimleri |Format |Notlar |POST |GET |PUT |
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır.   | Z |Z |Z  |
-|Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir. Hata durumlarında application/problem+json da iletilebilir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
+|Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir. Hata durumlarında application/problem+json da iletilebilir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|Z|
 |X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. |Z |Z|Z| 
 |X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	 |Z|Z|Z|
 |Authorization|AN1..4096|Katılımcı ile GEÇİT arasındaki otorizasyon için kullanılan token bilgisidir.	|Z|Z|Z|
@@ -317,7 +317,7 @@ PSU-Fraud-Check içerisinde yer alan zorunlu alanlardan(Örn: CustomerOpenDate) 
 |Başlık İsimleri |Format |Notlar |POST |GET |PUT |
 | --- | --- | --- | --- | --- | --- |
 |X-Request-ID  | AN1..36 | İsteği başlatan ÖHS tarafından belirlenen çağrıya özgü talep kimliği. İstek numarası. <br> Örnek: Ödeme iste talebi iş akışının her adımında farklı “x-request-id” değeri kullanılır. <br> Çağrıların aynı yanıtı dönmesinin beklendiği durumlarda (idempotent işlemlerde) aynı değer ile çağrı yapılır. <br> **İlgili istek başlığındaki bilgi geri dönülür.**   | Z |Z |Z  |
-|Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|-|
+|Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir. Hata durumlarında application/problem+json da iletilebilir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|Z|
 |X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür**  |Z |Z|Z| 
 |X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür.**	|Z|Z|Z|
 |X-JWS-Signature|AN1..4096|HTTP yanıtının gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı Yanıt olarak belirtilmiştir.	|Z|Z|Z|
