@@ -64,7 +64,7 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 | B | I | Ödeme iste talebi Borçlu müşteri tarafından reddedildiği durumlarda güncellenmelidir.I durumu Alacaklı ÖHS'ye iletilmelidir. | Ödeme iste talebi Alacaklı Müşteri tarafından iptal edildiği durumlarda güncellenmelidir. |
 | K | G | Borçlu müşteri kabul ettikten sonra ödeme sistemine iletilmesi durumlarında güncellenmelidir. G durumu Alacaklı ÖHS'ye iletilmemelidir. Borçlu ÖHS tarafında ödeme sistemine iletilen bir ödeme iste talebinin durumunun iptal edilememesi bu durum kodu ile sağlanmalıdır. | - |
 | G | O | Ödeme sistemine iletilen bir ödemenin gerçekleşmesi durumlarında güncellenmelidir. | - |
-| K | O | - | Borçlu ÖHS tarafından ödemenin gerçekleştiğine dair ödeme iste yanıt'ı ile bildirim yaptığında veya FAST tarafından gelecek olumlu mesaj ile güncellenebilecek durumdur. |
+| K | O | FAST tarafından gelen olumlu mesaja istinaden güncelleme yapılacak durumdur. | FAST tarafından gelen olumlu mesaja istinaden güncelleme yapılacak durumdur. |
 | K | I |Borçlu müşteri kabul ettikten sonra ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında güncellenebilecek durumdur.I durumu Alacaklı ÖHS'ye iletilmelidir. | Borçlu müşteri kabul ettikten sonra ödeme sisteminde olumsuz olması ve işlem gerçekleşmemesi durumlarında FAST'tan ya da Borçlu ÖHS'den gönderilecek OdemeIsteYanit Nesnesi ile I durumuyla güncellenmelidir. |
 | O | - | O statüsünden farklı bir statüye güncelleme yapılamayacaktır. | O statüsünden farklı bir statüye güncelleme yapılamayacaktır.| 
 | I | - | I statüsünden farklı bir statüye güncelleme yapılamayacaktır. | I statüsünden farklı bir statüye güncelleme yapılamayacaktır.|
