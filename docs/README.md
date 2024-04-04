@@ -16,7 +16,8 @@ SÜRÜM 1.0.0 (TASLAK) sürüm geçiş tarihleri şu şekildedir.
 | FAST Katılımcısı | Ödeme İste Üretime Geçiş için Zorunlu Tarihler |
 | --- | --- |
 |2022 yılında FAST Sistemi’nde en çok işlem yapan ilk 10 ÖHS* | Sertifikasyon Tarih Aralığı 16 Ekim-30 Kasım 2023<br>Pilot Geçiş 15 Aralık 2023<br>Üretime Geçiş 22 Ocak 2024|
-|İlk 10 ÖHS dışında 01 Ocak 2024 tarihinden önce FAST Sistemi katılımcısı olanlar**  |30 Haziran 2024|
+|İlk 10 ÖHS dışında 01 Ocak 2024 tarihinden önce FAST Sistemi katılımcısı olanlar**  |Sertifikasyon'a Geliş Son Tarih 5 Temmuz 2024
+<br>Üretime Geçiş Tarih Aralığı 18-21 Temmuz 2024|
 |01 Ocak 2024 tarihi ve sonrasında FAST Sistemi katılımcısı olan ÖHSler**  |Katılımcı olduğu tarihten itibaren en geç 6 ay içinde|
 
 **(*)Zorunlu Katılımcı Listesi**
