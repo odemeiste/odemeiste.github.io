@@ -90,10 +90,14 @@ Alacaklı ÖHS, bu API erişim adresinden Borçlu ÖHS’ye yeni bir OdemeIsteTa
 
 - Borçlu ÖHS tarafında yapılan kontrollerde; POST/odeme-iste içerisinde iletilen Ödeme İste Referans Numarası (odemeIsteRefNo) Alacaklı ÖHS tarafında mevcut kayıtlar içerisinde yer alıyorsa Alacaklı ÖHS tarafından **TR.OIS.Resource.RefNoAlreadyExists** hatası verilmelidir.
 
--	**Sonra Kabul Hemen Öde** akışında  Alacaklı ÖHS tarafından iletilecek olan Son Geçerlilik Zamanı (SGZ) min. 3 dakika max. 3 ay olmalıdır. Alacaklı ÖHS tarafından Son Geçerlilik Zamanı 3 aydan fazla ya da 3 dakikadan az iletilirse Borçlu ÖHS tarafından;
+-	**Sonra Kabul Hemen Öde - Sonra Kabul Sonra Öde** akışlarında  Alacaklı ÖHS tarafından iletilecek olan Son Geçerlilik Zamanı (SGZ) min. 3 dakika max. 3 ay olmalıdır. Alacaklı ÖHS tarafından Son Geçerlilik Zamanı 3 aydan fazla ya da 3 dakikadan az iletilirse Borçlu ÖHS tarafından;
 **TR.OIS.Business.InvalidExpireTime** hatası verilmelidir.
 
-- **Sonra Kabul Hemen Öde** akışında Alacaklı ÖHS, Ödeme İste talimatı içerisinde TEÖZ bilgisini göndermemelidir. Tarih bilgisi gönderilmesi durumunda Borçlu ÖHS tarafından **TR.OIS.Business.UnsupportedRequestedPaymentTime** hatası verilmelidir.
+- 	TEÖZ gönderildi ise Sonra Kabul - Sonra Öde modeli olarak değerlendirilmelidir. TEÖZ zamanı max. 6 ay olmalıdır. TEÖZ  6 aydan fazla iletilirse Borçlu ÖHS tarafından
+**TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilmelidir.
+
+- 	Öİ talebi oluşturulurken TEÖZ boş gönderildi (Sonra Kabul/Hemen Öde modeli) ise sırasıyla borçlu tarafından aşağıdaki kontrol gerçekleştirilir. 
+    - 	erkenOdeme = H ya da odemeErteleme = E ise **TR.OIS.Business.UnsupportedFunction** hatası verilir. 
 
 - 	Alacaklı ÖHS, ödeme iste talebini Borçlu ÖHS’ye bildirir. Borçlu müşterinin ödeme iste yetkisinin olmaması veya Ödeme İste kanal değerinin kapalı olması durumunda borçlu ÖHS tarafından; **TR.OIS.Business.RestrictedAccount** hatası verilmelidir.
 
@@ -126,6 +130,7 @@ Borçlu ÖHS kriterine uygun olarak kabul ettikten sonra Ödeme İste için yan�
 - 	Borçlu müşteri tarafından Ödeme İste talebi iptal edilirse Borçlu ÖHS durumunu İptal Edildi” olarak günceller ve Alacaklı ÖHS’ye OdemeIsteYanit nesnesi ile güncel durumu bildirir. (B->I)
 -  Alacaklı ÖHS olarak borçlu ÖHS'den kabul ya da red durum değişikliği bildirimi geldiğinde Alacaklı ÖHS'nin müşterisini bilgilendirmesi zorunludur.
 - 	Alacaklı ÖHS; 504 hata yanıtı alması durumunda işlemin Borçlu ÖHS’de gerçekleşme durumu belirsizdir. Bu durumda alacaklı ÖHS GET/odeme-iste/{odemeIsteRefNo} ile sorgulama yapar. Sorgulama adeti 1 dakika içerisinde max. 3 defa olacak şekilde gerçekleşir. Başarılı yanıt alması durumunda ödeme iste durumunu kendi tarafında oluşturur. Başarısız yanıt alması durumunda Ödeme İste Talebi Alacaklı ÖHS tarafında oluşturulmaz.
+
 
 
 **BAŞARILI İSTEK ve YANIT :**
@@ -161,8 +166,14 @@ Borçlu ÖHS kriterine uygun olarak kabul ettikten sonra Ödeme İste için yan�
 |> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | Z |OiAksTur |
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | Z |OdmAmc |
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu müşterinin Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Sonra Kabul Hemen Öde akışı için Son Geçerlilik Zamanı Öİ Oluşturulma Zamanından minimum 3 dakika öncesi maksimum 3 ay sonrası olacak şekilde seçilmelidir. Alacaklı müşteri tarafından ödeme isteği oluşturulurken seçilir. Katılımcının kendi sunucu saatiyle yaptığı kontrollerde Borçlu ve Alacaklı ÖHS'lerin sunucu saat farklılığını önlemek için tolerans süresi olarak +/- 1 dakika gözetilmelidir. <br><br>Örnek 1: Eğer SGZ Müşteri tarafından saat bilgisi olmadan seçiliyorsa SGZ'nin alacağı maksimum değer şu şekilde hesaplanacaktır: Ödeme İste talebinin başlatıldığı gün 04/09/2023 ve SGZ süresi 3 ay seçilsin. Bu durumda yeni günün başlangıç saati 00:00:00 olduğu kabul edildiği için 3 aylık SGZ verildiğinden  SGZ değeri 2023-12-05-T00:00:00+03:00 olmalıdır.Müşteri 3 aydan önceki bir tarihi SGZ olarak seçebilir. <br><br>Örnek 2: Ödeme İste için alacaklı Öİ talebini 07/09/2023 herhangi bir saatte girip Öİ'ye ait SGZ'yi 3 aydan kısa olacak bir zaman diliminde saat bilgisi (ÖHS inisiyatifinde) de girerek seçebilir. Örneğin, alacaklı müşteri SGZ'yi 10/09/2023 saat: 11:45:00 şeklinde seçtiği durumda SGZ tarih değeri 2023-09-10T11:45:00+03:00 olarak gelecektir.Borçlu ÖHS SGZ'de belirtilen tarih ve saat değerine kadar ödeme işlemini gerçekleştirebilir.<br><br>Ödeme İste Talep Tarihi  : 20.09.2023 <br>SGZ (Saat Bilgisi olmadan 3 Ay seçildiği durumda) : 21.12.2023 00:00:00+03:00<br><br>Ödeme İste Talep Tarihi: 20.09.2023<br>SGZ (Saat Bilgisi(14:30) seçilerek 3 Ay seçildiği durumda) : 20.12.2023 14:30:00+03:00<br><br>Ödeme İste Talep Tarihi: 15.09.2023<br>SGZ (Saat Bilgisi(10:45) seçilerek 3 Ay'dan daha kısa(30.09.2023) seçildiği durumda) : 30.09.2023 10:45:00+03:00<br><br>Ödeme İste Talep Tarihi: 10.09.2023<br>SGZ (Saat Bilgisi seçilmeyerek 3 Ay'dan daha kısa(11.09.2023) seçildiği durumda) : 12.09.2023 00:00:00+03:00 | Z | Z | |
-|>Talep Edilen Ödeme Zamanı (TEÖZ)	|talepEdilenOdemeZamani	|ISODateTime| Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir.**Hemen Öde seçeneğinde TEÖZ bilgisi gönderilmemelidir**.Dolu iletilmesi durumunda borçlu ÖHS tarafından hata mesajı üretilmelidir.<br>TEÖZ tarih formatı:<br>YYYY-MM-DDThh:mm:ss| K | K | |
+|>Talep Edilen Ödeme Zamanı (TEÖZ)	|talepEdilenOdemeZamani	|ISODateTime| Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir. **Sonra Kabul/Hemen Öde modelinde TEÖZ bilgisi gönderilmemelidir**.<br>TEÖZ tarih formatı:<br>YYYY-MM-DDThh:mm:ss. <br>TEÖZ, ödeme iste oluşturulma zamanından maksimum 6 ay sonrası seçilebilir.| K | K | |
 |> Alacaklı İşlem Açıklaması	|alacakliIslemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.| İ | İ | |
+|> Kısmi Ödeme	|kismiOdeme	|AN1|Belirtilen tutardan daha az tutarda Öİ talebinin kabul edilmesine izin verildiği durumda E; izin verilmediği durumda H olarak gönderilmelidir. TEÖZ öncesi yapılacak ödemelerde kısmi ödeme gerçekleştirilebilir. odemeErteleme = E olduğu durumda; TEÖZ sonrası gerçekleştirilen ödemelerde kısmı ödeme gerçekleştirilemez. Kısmi ödeme bilgisi alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir.<br> E: Kısmi ödemeye izin verilir.<br> H: Kısmi ödemeye izin verilmez.| Z | Z | |
+|> Erken Ödeme	|erkenOdeme	|AN1|Öİ talebi oluşturulurken TEÖZ'den önce ödenmesine izin verildiği durumda E; izin verilmediği durumda H olarak gönderilmelidir. Alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir. Erken ödeme E olduğu durumda; borçlu müşterinin ekranlarından TEÖZ'e kadar bir tarih seçtirilmesine izin verilmelidir. Sonra Kabul - Hemen Öde modelinde "E" olarak gönderilmelidir.<br> E: Erken ödemeye izin verilir.<br> H: Erken ödemeye izin verilmez. Ödeme iste talebi sadece TEÖZ tarihinde gerçekleştirilir.| Z | Z | |
+|> Ödeme Erteleme	|odemeErtele	|AN1|Öİ talebi oluşturulurken TEÖZ sonra ödenmesine izin verildiği durumda E olarak gönderilmelidir. Vade tarihi bilgisinde ödeme yapılmasına olanak sağlar. Alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir. Öİ talebi vadeTarihi, TEÖZ’den maksimum 3 ay sonrasına kadar ertelenmesine izin verilmelidir. Sonra Kabul - Hemen Öde modelinde "H" olarak gönderilmelidir. <br> E: Ödemenin ertelenmesine izin verilir.<br> H: Ödemenin ertelenmesine izin verilmez. | Z | Z | |
+|> Vade Planı	|vadePlani	|Kompleks:VadePlani[Array]|Ödeme Erteleme E ise gönderilmesi zorunludur. Vade planı listelenir. İlk fazda tek satır olarak gönderilmelidir.| K | K | |
+|>> Vade Tarihi	|vadeTarihi	|ISODateTime|TEÖZ'den sonra ödeme yapılacak tarih bilgisidir. Vade tarihi TEÖZ’den ileri bir tarih olmalıdır. TEÖZ’den maksimum 3 ay sonrasına kadar ertelenmesine izin verilmelidir.|| Z | Z | |
+|>> Vade Tutarı	|vadeTutari	|AN3|TEÖZ'den sonra kabul edilecek Öİ talebinde ödeme yapılması istenen tutar  bilgisidir.| Z | Z | |
 |Ödeme İste Durum Bilgi	|durumBilgi	|Kompleks:DurumBilgi|	| NA | Z | |
 |> Ödeme İste Durumu	|odemeIsteDurumu	|AN1|TR.OIS.DataCode.OdemeIsteDurumu sıralı veri tipini değerlerinden birini alır. Örn; ödeme iste'ye ait ilk istek mesajına dönüşte “B: Yanıt Bekleniyor” değerini alması beklenir.| NA | Z | |
 |> Ödeme İste İptal Detay Kodu	|odemeIsteIptalDetayKodu	|AN2|Rıza durumunun iptal olduğu durumda zorunludur.| NA | K | |
@@ -203,10 +214,13 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
 
 - 	Borçlu ÖHS tarafından ödeme iste durum değişikliklerinin Alacaklı ÖHS’ye bildirilmesi için kullanılacak olan servistir. İşlem açıklaması ve borçluya ait hesap bilgileri borçlu müşteri tarafından ödeme iste talebinin kabul edileceği anda değiştirilebilmektedir. İşlem açıklaması borçlu müşteriye alacaklı ÖHS’den geldiği gibi gösterilmelidir. Borçlu müşteri açıklamayı güncellemesi durumunda güncel açıkla “borcluAciklama” alanında Alacaklı ÖHS’ye iletilir. Borçlu müşterinin açıklama alanında değişiklik yapmaması durumunda Alacaklı ÖHS’nin ilettiği açıklama bilgisi “borcluAciklama” alanında Alacaklı ÖHS’ye iletilir. Açıklamada değişiklik bilgisinin alacaklı müşteriye gösterilmesi Alacaklı ÖHS inisiyatifindedir.
 
+- 	Borçlu ÖHS tarafından Öİ yanıtı gönderilirken Öİ talebindeki fonksiyonlar dikkate alınarak veri girişine izin verilmelidir. Kısmi Ödeme "E" olarak gönderildiğinde tutar alanı güncellenebilir olmalıdır. TEÖZ dolu gönderildiğinde erken ödeme ve ödeme erteleme fonksiyonlarına bakılarak ekrandan tarih seçiminie izin verilmelidir.
+
 - Borçluya ait ödeme yapılacak hesap bilgisi değiştirilirse Alacaklı ÖHS’ye OdemeIsteYanit nesnesi içerisinde iletilmeyecektir. 
 
 - Borçlu ÖHS , FAST sistemine ödeme iste talebini ilettikten sonra işlemin başarılı ya da başarısız olması durumlarında FAST sisteminden hem Alacaklı hem Borçlu ÖHS’ye olumlu ya da olumsuz mesaj gitmesi beklenmektedir. Aynı zamanda Borçlu ÖHS ; K durumundan sadece "I" durumuna geçen ödeme iste durumlarını Alacaklı ÖHS’ye bildirir. "O" durumu için Alacaklı ÖHS'ye bildirim yapılmayacaktır.  Ödeme sistemine gönderilmiş (G durumu) bir işlem Borçlu ÖHS’de borçlu müşteri tarafından iptal edilemez. Borçlu ÖHS’de bu kontrolün sağlanması gerekmektedir.
 -  Borçlu müşterinin ödeme iste talebini reddettiği durumda ise  Borçlu ÖHS “odemeIsteDurumu”: “I” ve “odemeIsteIptalDetayKodu” : “01”- Borçlu Ödeme İsteğini Reddetti olacak şekilde Alacaklı ÖHS’ye istek yapar ve Alacaklı ÖHS tarafından 200 başarılı yanıtın alındığı görülür.
+
 
 - 	Borçlu ÖHS’de; borçlu müşteri kendisine gelen ödeme iste talebini kabul etmesi durumunda OdemeIsteYanit nesnesi ile Alacaklı ÖHS’ye “odemeIsteDurumu” : “K” (Kabul Edildi) olacak şekilde bir istek yapılır. Yapılan istek sonucunda Alacaklı ÖHS’den 200 yanıtının alınması durumunda ödeme iste talebi FAST ya da havale sistemlerine aktarılır. FAST ya da Havale sistemlerine aktarım sağlandığı anda Borçlu ÖHS tarafından odemeIsteDurumu “G” olarak güncellenmelidir. G durum bilgisi Alacaklı ÖHS’ye OdemeIsteYanit nesnesi ile iletilmemelidir. Borçlu ÖHS tarafında G durumunda alacaklı/borçlu müşteri tarafından iptal edilememelidir.
 
@@ -224,7 +238,51 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
 
 - Borçlu ÖHS tarafından kabul durumunda iletilecek kabulZamani bilgisinin Son Geçerlilik Zamanı ve varsa DTS(Doğrulama Tolerans Süresi)’nin geçmediği durum kontrol edilmelidir. Kabul zamanının son geçerlilik zamanını geçmesi durumunda **400-TR.OIS.Business.InvalidApproveTime** hatası verilmelidir.
 
+- 	Öİ talebi kabul edildiğinde TEÖZ boş gönderildi ise (Sonra Kabul/Hemen Öde) alacaklı ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilmelidir. 
+    - 	erkenOdeme = H ya da odemeErteleme = E ise **TR.OIS.Business.UnsupportedFunction** hatası verilir. 
+    -   erkenOdeme = E ve odemeErteleme = H ise kısmi ödeme kontrol edilir.
+        - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
+        - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
 
+
+- 	Öİ talebi kabul edildiğinde TEÖZ dolu ise (Sonra Kabul/Sonra Öde) alacaklı ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilmelidir. 
+    -   erkenOdeme = H ise ödeme erteleme fonksiyonu kontrol edilir.
+        - 	odemeErteleme = H ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
+            - 	talepEdilenOdemeZamani != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+            - 	talepEdilenOdemeZamani = beklenenOdemeTarihi ise;
+                - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
+                - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+
+        - 	odemeErteleme = E ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
+            - 	talepEdilenOdemeZamani > beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir. 
+            - 	talepEdilenOdemeZamani = beklenenOdemeTarihi ise kısmi ödeme  kontrol edilir.        
+                - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
+                - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+            - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise vade seçeneği kontrol edilir.
+                - 	vadeliTutar != kabulEdilenTutar  ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+                - 	vadeTarihi != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+
+
+    -   erkenOdeme = E ise ödeme erteleme fonksiyonu kontrol edilir.
+        - 	odemeErteleme = H ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
+            - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+            - 	talepEdilenOdemeZamani ≥ beklenenOdemeTarihi ise kısmi ödeme kontrol edilir.
+                - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
+                - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+
+        - 	odemeErteleme = E ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
+            - 	talepEdilenOdemeZamani ≥ beklenenOdemeTarihi ise kısmi Odeme  kontrol edilir.        
+                - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
+                - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+            - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise vade seçeneği kontrol edilir.
+                - 	vadeliTutar != kabulEdilenTutar  ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
+                - 	vadeTarihi != beklenenOdemeTarihi ise; **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+
+-	Yukarıdaki kontroller başarılı bir şekilde tamamlandığında alacaklı ÖHS tarafından 201 yanıtı dönülür.
+
+**Ödeme Sitemine Gönderilme Akışı**
+-	Sonra Kabul/Hemen Öde modelinde Öİ talebi kabul edildiği an borçlu ÖHS tarafından ödeme sistemine gönderilmesi gerekmektedir.
+-   Sonra Kabul/Sonra Öde modelinde ise talebi kabul edildiği an borçlu ÖHS tarafından beklenen ödeme tarihinde ödeme sistemine gönderilmek üzere talimat oluşturulur. Ödeme iste durumu "K" statüsünde kalır.
 -	Ödeme sistemlerine aktarıldıktan sonra FAST sisteminde işlem gerçekleşmesi durumunda borçlu ve alacaklı ÖHS tarafında ödeme iste durumu "O" (Ödeme Gerçekleşti) olarak güncellenir. 
 
 - Ödeme sistemlerine aktarıldıktan sonra FAST sisteminde işlem gerçekleşmemesi durumunda borçlu ve alacaklı ÖHS tarafında ödeme iste durumu "I" (İptal Edildi) olarak güncellenir. FAST sisteminden olumsuz yanıt gelmesi ile alacaklı ÖHS tarafında "I" statüsüne çekildikten sonra Borçlu ÖHS tarafından "I" statüsü değişiklik bildirimi gelmesi durumunda statü aynı şekilde korunmalı olup hata verilmemelidir. Borçlu ÖHS’den iletilen durum değişikliğinin FAST sisteminden iletilen olumsuz sonuçtan önce gelmesi durumunda da aynı durum geçerlidir.
@@ -261,8 +319,10 @@ PUT işleminin REQUEST gövdesini (BODY) oluşturan "OdemeIsteYaniti" nesnesi Ta
 |> Borçlu ÖHS Ödeme Zamanı	|odemeZamani	|ISODateTime|Ödeme'nin gerçekleştiği zaman bilgisidir.| K |
 |> Borçlu İptal Zamanı	|iptalZamani	|ISODateTime|İptal durumunda gönderilebilecektir.| K |
 |Ödeme İste Yanıt Detayı	|yanitDetayi	|Kompleks:YanıtDetayı | | K |
-|> Beklenen Ödeme Tarihi	|beklenenOdemeTarihi	|ISODate|Borçlu’nun ödemeyi taahhüt ettiği tarih bilgisidir. Sonra öde seçeneklerinde Borçlu’nun ödeme yapacağı tarih bilgisidir. | K |
+|> Beklenen Ödeme Tarihi	|beklenenOdemeTarihi	|ISODate|Sonra öde seçeneklerinde Borçlu’nun ödemeyi taahhüt ettiği tarih bilgisidir. Ödeme Erteleme yapıldığı durumda beklenen ödeme tarihi vade tarihi olarak gönderilmelidir. | K |
 |> Borçlu İşlem Açıklaması	|borcluIslemAciklamasi	|AN1..200|Alacaklı ÖHS tarafından iletilen alacaklı açıklama alanı Borçlu ÖHS ekranlarında borçlu müşteriye birebir gösterilmelidir. Borçlu müşteri tarafından değişiklik yapılabilmesi sağlanmalıdır. Borçlu müşteri tarafından değişiklik yapılmadığı durumda Alacaklı tarafından girilen işlem açıklaması borçlu işlem açıklaması olarak kabul edilir. Borçlu Açıklama bilgisi FAST mesajına taşınacaktır. Borçlu müşterinin ilgili Öİ talebine red verdiği durumda müşteri tarafından bilgi girişi yapılırsa iptal açıklama alanı olarak Alacaklı ÖHS'ye bu alan iletilir.| K |
+|> Kabul Edilen Tutar	|kabulEdilenTutar	|AN3|Müşterinin Öİ isteğini kabul ettiği tutar bilgisidir. Kısmi ödeme yapıldığı durumda kısmi ödeme tutarı, ödeme erteleme yapıldığı durumda ise vade seçeneklerindeki vade tutar bilgisi gönderilmelidir. Bunların dışında ise tutar bilgisi gönderilmelidir. | Z |
+
 **BAŞARILI YANIT:**
 
 Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülmelidir.
@@ -297,6 +357,12 @@ Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülme
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | 
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu müşterinin Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Sonra Kabul Hemen Öde akışı için Son Geçerlilik Zamanı Öİ Oluşturulma Zamanından minimum 3 dakika öncesi maksimum 3 ay sonrası olacak şekilde seçilmelidir. Alacaklı müşteri tarafından ödeme isteği oluşturulurken seçilir.<br><br>Örnek 1: Eğer SGZ Müşteri tarafından saat bilgisi olmadan seçiliyorsa SGZ'nin alacağı maksimum değer şu şekilde hesaplanacaktır: Ödeme İste talebinin başlatıldığı gün 04/09/2023 ve SGZ süresi 3 ay seçilsin. Bu durumda yeni günün başlangıç saati 00:00:00 olduğu kabul edildiği için 3 aylık SGZ verildiğinden  SGZ değeri 2023-12-05-T00:00:00+03:00 olmalıdır.Müşteri 3 aydan önceki bir tarihi SGZ olarak seçebilir. <br><br>Örnek 2: Ödeme İste için alacaklı Öİ talebini 07/09/2023 herhangi bir saatte girip Öİ'ye ait SGZ'yi 3 aydan kısa olacak bir zaman diliminde saat bilgisi (ÖHS inisiyatifinde) de girerek seçebilir. Örneğin, alacaklı müşteri SGZ'yi 10/09/2023 saat: 11:45:00 şeklinde seçtiği durumda SGZ tarih değeri 2023-09-10T11:45:00+03:00 olarak gelecektir.Borçlu ÖHS SGZ'de belirtilen tarih ve saat değerine kadar ödeme işlemini gerçekleştirebilir.<br><br>Ödeme İste Talep Tarihi  : 20.09.2023 <br>SGZ (Saat Bilgisi olmadan 3 Ay seçildiği durumda) : 21.12.2023 00:00:00+03:00<br><br>Ödeme İste Talep Tarihi: 20.09.2023<br>SGZ (Saat Bilgisi(14:30) seçilerek 3 Ay seçildiği durumda) : 20.12.2023 14:30:00+03:00<br><br>Ödeme İste Talep Tarihi: 15.09.2023<br>SGZ (Saat Bilgisi(10:45) seçilerek 3 Ay'dan daha kısa(30.09.2023) seçildiği durumda) : 30.09.2023 10:45:00+03:00<br><br>Ödeme İste Talep Tarihi: 10.09.2023<br>SGZ (Saat Bilgisi seçilmeyerek 3 Ay'dan daha kısa(11.09.2023) seçildiği durumda) : 12.09.2023 00:00:00+03:00| K |
 |> Alacaklı İşlem Açıklaması	|alacakliIslemAciklamasi	|AN1..200|Alacaklı tarafından Borçlu'ya iletilecek Açıklama bilgisidir.|İ| 
+|> Kısmi Ödeme	|kismiOdeme	|AN1|Belirtilen tutardan daha az tutarda Öİ talebinin kabul edilmesine izin verildiği durumda E; izin verilmediği durumda H olarak gönderilmelidir. TEÖZ öncesi yapılacak ödemelerde kısmi ödeme gerçekleştirilebilir. odemeErteleme = E olduğu durumda; TEÖZ sonrası gerçekleştirilen ödemelerde kısmı ödeme gerçekleştirilemez. Kısmi ödeme bilgisi alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir.<br> E: Kısmi ödemeye izin verilir.<br> H: Kısmi ödemeye izin verilmez. | Z |
+|> Erken Ödeme	|erkenOdeme	|AN1|Öİ talebi oluşturulurken TEÖZ'den önce ödenmesine izin verildiği durumda E; izin verilmediği durumda H olarak gönderilmelidir. Alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir. Erken ödeme E olduğu durumda; borçlu müşterinin ekranlarından TEÖZ'e kadar bir tarih seçtirilmesine izin verilmelidir. Sonra Kabul - Hemen Öde modelinde "E" olarak gönderilmelidir.<br> E: Erken ödemeye izin verilir.<br> H: Erken ödemeye izin verilmez. Ödeme iste talebi sadece TEÖZ tarihinde gerçekleştirilir.| Z |
+|> Ödeme Erteleme	|odemeErtele	|AN1|Öİ talebi oluşturulurken TEÖZ sonra ödenmesine izin verildiği durumda E olarak gönderilmelidir. Vade tarihi bilgisinde ödeme yapılmasına olanak sağlar. Alacaklı tarafından gönderilir. Borçlu tarafından değiştirilememektedir. Öİ talebi vadeTarihi, TEÖZ’den maksimum 3 ay sonrasına kadar ertelenmesine izin verilmelidir. Sonra Kabul - Hemen Öde modelinde "H" olarak gönderilmelidir. <br> E: Ödemenin ertelenmesine izin verilir.<br> H: Ödemenin ertelenmesine izin verilmez.| Z |
+|> Vade Planı	|vadePlani	|Kompleks:VadePlani[Array]|Ödeme Erteleme E ise gönderilmesi zorunludur. Vade planı listelenir. İlk fazda tek satır olarak gönderilmelidir.| K |
+|  >> Vade Tarihi	|vadeTarihi	|ISODateTime|TEÖZ'den sonra ödeme yapılacak tarih bilgisidir. Vade tarihi TEÖZ’den ileri bir tarih olmalıdır. TEÖZ’den maksimum 3 ay sonrasına kadar ertelenmesine izin verilmelidir.|| Z |
+|  >> Vade Tutarı	|vadeTutari	|AN3|TEÖZ'den sonra kabul edilecek Öİ talebinde ödeme yapılması istenen tutar  bilgisidir.| Z |
 |Ödeme İste Durum Bilgi	|durumBilgi	|Kompleks:DurumBilgi|	| Z | 
 |> Ödeme İste Durumu	|odemeIsteDurumu	|AN1|TR.OIS.DataCode.OdemeIsteDurumu sıralı veri tipini değerlerinden birini alır. Örn; ödeme iste'ye ait ilk istek mesajına dönüşte “B: Yanıt Bekleniyor” değerini alması beklenir.| Z | 
 |> Ödeme İste İptal Detay Kodu	|odemeIsteIptalDetayKodu	|AN2|Rıza durumunun iptal olduğu durumda zorunludur.| K | 
@@ -308,6 +374,7 @@ Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülme
 |Ödeme İste Yanıt Detayı	|yanitDetayi	|Kompleks:YanıtDetayı| |	K | 
 |> Beklenen Ödeme Tarihi	|beklenenOdemeTarihi	|ISODate|Borçlu’nun ödemeyi taahhüt ettiği tarih bilgisidir. Sonra öde seçeneklerinde Borçlu’nun ödeme yapacağı tarih bilgisidir. | K | 
 |> Borçlu İşlem Açıklaması	|borcluIslemAciklamasi	|AN1..200| Alacaklı ÖHS tarafından iletilen alacaklı açıklama alanı Borçlu ÖHS ekranlarında borçlu müşteriye birebir gösterilmelidir. Borçlu müşteri tarafından değişiklik yapılabilmesi sağlanmalıdır. Borçlu müşteri tarafından değişiklik yapılmadığı durumda Alacaklı tarafından girilen işlem açıklaması borçlu işlem açıklaması olarak kabul edilir. Borçlu Açıklama bilgisi FAST mesajına taşınacaktır. Borçlu müşterinin ilgili Öİ talebine red verdiği durumda müşteri tarafından bilgi girişi yapılırsa iptal açıklama alanı olarak Alacaklı ÖHS'ye bu alan iletilir.| K |
+|> Kabul Edilen Tutar	|kabulEdilenTutar	|AN3|Müşterinin Öİ isteğini kabul ettiği tutar bilgisidir. Kısmi ödeme yapıldığı durumda kısmi ödeme tutarı, ödeme erteleme yapıldığı durumda ise vade seçeneklerindeki vade tutar bilgisi gönderilmelidir. Bunların dışında ise tutar bilgisi gönderilmelidir.| Z |
 
 ## 7.5. ADIM 4: Ödeme İste İptal Senaryosu
 

@@ -73,7 +73,7 @@ module.exports = [
                 path: '/v2.0.0/contents/odeme-iste-sistemi-ve-kavramlar'
             },
             {
-                title: '6. Ödeme İste Kullanım Modelleri',
+                title: '6. Ödeme İste Kullanım Modelleri ve Fonksiyonlar',
                 path: '/v2.0.0/contents/odeme-iste-modelleri'
             },
 
