@@ -6,18 +6,31 @@ Borçlu ve Alacaklı ÖHS’nin Öİ talepleri için zaman aşımı kontrollerin
 
 Borçlu ÖHS SGZ’ye kadar henüz yanıtlanmamış Öİ taleplerini; Alacaklı ÖHS ise 
 -	Hemen Öde senaryoları için SGZ+DTS(*)’ye kadar A01 mesajı gelmemiş ilgili Öİ taleplerini,
-
+    
 -	Sonra Öde senaryoları için,
-    <br>Erken Ödeme ‘Evet’ ise SGZ + DTS’ye kadar Öİ yanıtı ya da A01 mesajı gelmemiş 
-    <br>Erken Ödeme ‘Hayır’ ise SGZ + DTS’ye kadar Öİ yanıtı gelmemiş Öİ taleplerini zaman aşımı olarak işaretler.
+    <br>SGZ + DTS’ye kadar Öİ yanıtı gelmemiş, 
+    <br>BeklenenOdemeTarihi + DTS’ye kadar Öİ A01 mesajı gelmemiş
+<br>Öİ taleplerini zaman aşımı olarak işaretler.
 
-Borçlu ÖHS zaman aşımına uğramış Öİ’lere Borçlu’nun yanıt vermesine izin vermez ve söz konusu talepleri zaman aşımına uğramış talepler olarak farklı bir durum bilgisi ile Borçlu’ya gösterir.
-Alacaklı ÖHS zaman aşımına uğramış Öİ talepleri için A01 alması durumunda olumsuz T01 gönderir.
+ 
+
+Borçlu ÖHS zaman aşımına uğramış Öİ’lere Borçlu’nun yanıt vermesine izin vermez. Alacaklı ÖHS zaman aşımına uğramış Öİ talepleri için A01 alması durumunda olumsuz T01 gönderir.
 
 Zaman aşımı kontrollerine ve FAST Referans Belgesinde yer alan A01 doğrulama kurallarına ek olarak Alacaklı ÖHS,
--	Ödeme İste anında sistemine kaydettiği Öİ alanları ile kendisine gelen A01 mesajındaki alanları doğrulaması
--	Aşağıdaki tabloda yer alan TEÖZ’e yönelik kontrolleri yapması
-gerekmektedir.
+-	Ödeme İste anında sistemine kaydettiği Öİ alanları ile kendisine gelen A01 mesajındaki alanları doğrulamasını yapar.
+
+    |Alan Adı |FAST A01 Mesaj Mapping |
+    | --- | --- | 
+    |Öİ referans numarası | OiRef |
+    |Alacaklı hesap adı/ünvanı | AlAd | 
+    |Alacaklı IBAN | AlHesN | 
+    |Kabul Edilen Tutar | Ttr | 
+    |Ödeme Amacı| OdmAmc | 
+    |Öİ Akış Türü | OiAksTur | 
+
+
+
+Aşağıdaki tabloda belirtilen beklenenOdemeTarihi alanı ile ilgili yapılması gereken kontroller [7.4. ADIM 3: Ödeme İste Yanıtı başlığı](https://odemeiste.github.io/v2.0.0/contents/odeme-iste.html#_7-4-adim-3-odeme-iste-yan%C4%B1t%C4%B1) altında detaylıca anlatılmaktadır. 
 
 *Doğrulama Tolerans Süresi (DTS): Alacaklı ÖHS tarafından yapılacak doğrulama kontrollerinde iletişim hattında geçen sürenin de gözetilmesi için kullanılacak ilave süredir. Bu süre sistem tarafından belirlenir ve 60 saniyedir.
 
@@ -61,16 +74,16 @@ gerekmektedir.
         </tr>
         <tr>
             <td colspan="1" class="bold">Alacaklı ÖHS tarafından yapılacak zaman aşımı kontrolleri</td>
-            <td colspan="2" class="merged">(SGZ+DTS)'ye kadar A01 mesajı gelmediyse Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işaretler.<br>Bu durumda daha sonra gelen A01 mesajına olumsuz T01 dönülür.<br>(Not: Olumlu Öİ yanıtının gelmiş olması gerekir.)<br>*A01 gelme zamanı <= (SGZ+DTS) ise; Olumlu T01 gönder.<br>*A01 gelme zamanı > (SGZ+DTS) ise; Olumsuz T01 gönder.</td>
-            <td colspan="2" class="merged">-Erken Ödeme Evet ise;<br>(SGZ+DTS)'ye kadar Öİ Yanıtı veya A01 mesajından birisi gelmediyse Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işarler.<br>-Erken Ödeme Hayır ise;<br>(SGZ+DTS)'ye kadar Öİ Yanıtı gelmediyse Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işaretler.<br> *Öİ Yanıtı gelme zamanı > (SGZ + DTS) ise; Olumsuz T01 gönder</td>
+            <td colspan="2" class="merged">(SGZ+DTS)'ye kadar <b>A01 mesajı gelmediyse</b> Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işaretler.Bu durumda daha sonra gelen A01 mesajına <b>olumsuz</b> T01 dönülür.<br>(Not: Olumlu Öİ yanıtının gelmiş olması gerekir.)<br><br>*A01 gelme zamanı <= (SGZ+DTS) ise; <b>Olumlu</b> T01 gönder.<br>*A01 gelme zamanı > (SGZ+DTS) ise; <b>Olumsuz</b> T01 gönder.</td>
+            <td colspan="2" class="merged"><b>beklenenOdemeTarihi+DTS'ye kadar A01 mesajı gelmediyse</b> Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işaretler. (Beklenen Ödeme Tarihi: 20.07.2024 seçildiği durumda Öİ talebi 20.07.2024 00:00:00+03:00 ile 20.07.2024 23:59:59+03:00 arasında gerçekleştirilmelidir.) <br><br>(SGZ+DTS)'ye kadar <b>Öİ Yanıtı gelmediyse</b> Alacaklı ÖHS ilgili Öİ'yi zaman aşımı olarak işaretler.<br><br>*Öİ Yanıtı gelme zamanı > (SGZ + DTS) ise; <b>Olumsuz</b> T01 gönder.</td>
         </tr>
         <tr>
-            <td rowspan="2" class="bold merged">Alacaklı ÖHS tarafındanilave olarak yapılacak A01 Doğrulama Kontrolleri</td>
+            <td rowspan="2" class="bold merged">Alacaklı ÖHS tarafından ilave olarak yapılacak A01 Doğrulama Kontrolleri</td>
             <td colspan="4" class="merged">*Öİ yanıtı olumsuz olmasına rağmen A01 gelmesi durumunda A01 kabul edilmez.(Olumsuz T01 gönder)<br>*Öİ anında sistemine kaydettiği Öİ alanları ile kendisine gelen A01 mesajındaki alanların doğrulamasını yapması gerekmektedir.<br>*Söz konusu alanlar Öİ API İlke ve Kurallar belgesinde detaylandırılmıştır.</td>
         </tr>
         <tr>
             <td colspan="2" class="merged"></td>
-            <td colspan="2" class="merged">Talep Edilen Ödeme Zamanına Yönelik Kontroller:<br>Erken Ödeme Evet ise:<br>*ÖİYanıtı(olumlu) gelmiş ve A01 gelme zamanı < (TEÖZ+DTS) ise: Olumlu T01 gönder.<br>*Öİ yanıtı (olumlu) gelmiş ve A01 gelme zamanı > (TEÖZ+DTS) ise: Olumsuz T01 gönder.</td>
+            <td colspan="2" class="merged"><b>Beklenen Ödeme Tarihine Yönelik Kontroller:</b><br><br>*Öİ Yanıtı(olumlu) gelmiş ve A01 <b>gelme</b> zamanı ≤ (beklenenOdemeTarihi+DTS) ise: <b>Olumlu</b> T01 gönder.<br><br>*Öİ yanıtı (olumlu) gelmiş ve A01 <b>gelme</b> zamanı > (beklenenOdemeTarihi+DTS) ise: <b>Olumsuz</b> T01 gönder.</td>
         </tr>
     </table>
 </body>

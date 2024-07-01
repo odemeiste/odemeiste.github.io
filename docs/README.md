@@ -3,36 +3,30 @@
 **<font size=6>API İLKE VE KURALLARI  </font>**  
 
 
-https://github.com/odemeiste/odemeiste.github.io/commits/master adresi üzerinden değişiklik açıklamaları ve tarihçesi incelenebilir.
+[https://github.com/odemeiste/odemeiste.github.io/commits/master ](https://github.com/odemeiste/odemeiste.github.io/commits/master) adresi üzerinden değişiklik açıklamaları ve tarihçesi incelenebilir.
 
+<h2>SÜRÜM 2.0.0 Geçiş Tarihleri:</h2>
 
+**Taslak Sürüm Yayınlama Tarihi:** 6 Haziran 2024 
 
-SÜRÜM 1.0.0 (TASLAK) sürüm geçiş tarihleri şu şekildedir.
+**Sürüm Geçiş Tarihi:** 15 Eylül 2024 (Bu tarihten itibaren 1.0.0 sürümü için sertifikasyona gelinememektedir.)
 
+**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Sertifikasyon Başlangıç Tarihi:** 15 Eylül 2024
 
+**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Sertifikasyon Bitiş Tarihi:** 15 Kasım 2024 (Bu tarihten sonra gelen ÖHS'lere uyumlandırma ücreti uygulanacaktır.)
 
-**Sonra Kabul Hemen Öde**
+**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Yeni Sürüm Üretime Geçiş Son Tarihi:** 18 Ocak 2025 
+<br>
+
+<h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
 
 | FAST Katılımcısı | Ödeme İste Üretime Geçiş için Zorunlu Tarihler |
 | --- | --- |
-|2022 yılında FAST Sistemi’nde en çok işlem yapan ilk 10 ÖHS* | Sertifikasyon Tarih Aralığı 16 Ekim-30 Kasım 2023<br>Pilot Geçiş 15 Aralık 2023<br>Üretime Geçiş 22 Ocak 2024|
+|2022 yılında FAST Sistemi’nde en çok işlem yapan ilk 10 ÖHS <br><ul><li>Türkiye Cumhuriyeti Ziraat Bankası A.Ş.</li><li>Türkiye Halk Bankası A.Ş.</li><li>Türkiye Vakıflar Bankası T.A.O.</li><li>Akbank T.A.Ş.</li><li>Türkiye Garanti Bankası A.Ş.</li><li>Türkiye İş Bankası A.Ş.</li><li>Yapı ve Kredi Bankası A.Ş.</li><li>QNB Finansbank A.Ş.</li><li>Denizbank A.Ş.</li><li>Kuveyt Türk Katılım Bankası A.Ş.</li></ul>| Sertifikasyon Tarih Aralığı 16 Ekim-30 Kasım 2023<br>Pilot Geçiş 15 Aralık 2023<br>Üretime Geçiş 22 Ocak 2024|
 |İlk 10 ÖHS dışında 01 Ocak 2024 tarihinden önce FAST Sistemi katılımcısı olanlar** | Sertifikasyon'a Geliş Son Tarih 5 Temmuz 2024<br>Üretime Geçiş Tarih Aralığı 18-21 Temmuz 2024|
 |01 Ocak 2024 tarihi ve sonrasında FAST Sistemi katılımcısı olan ÖHSler**  |Katılımcı olduğu tarihten itibaren en geç 6 ay içinde|
 
-**(*)Zorunlu Katılımcı Listesi**
-| Kurum Kodu | Kurum Unvan/Marka |
-| --- | --- |
-| 0010 | Türkiye Cumhuriyeti Ziraat Bankası A.Ş. |
-| 0012 | Türkiye Halk Bankası A.Ş. |
-| 0015 | Türkiye Vakıflar Bankası T.A.O. |
-| 0046 | Akbank T.A.Ş. |
-| 0062 | Türkiye Garanti Bankası A.Ş. |
-| 0064 | Türkiye İş Bankası A.Ş. |
-| 0067 | Yapı ve Kredi Bankası A.Ş. |
-| 0111 | QNB Finansbank A.Ş. |
-| 0134 | Denizbank A.Ş. |
-| 0205 | Kuveyt Türk Katılım Bankası A.Ş. |
-
 **Mobil uygulama ile FAST hizmeti sunmayan katılımcılar muaftır.
+
 
 

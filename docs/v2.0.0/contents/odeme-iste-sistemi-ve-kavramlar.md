@@ -79,7 +79,7 @@ Aşağıdaki iş akışı çerçevesinde işlemler yürütülür:
  <br>b. Alacaklı kimlik numarası, 
  <br>c. Alacaklı hesap adı/ünvanı, 
  <br>d. Alacaklı hesap numarası, 
- <br>e. Tutar, 
+ <br>e. Kabul edilen tutar, 
  <br>f. Ödeme Amacı, 
  <br>g. SGZ ve TEÖZ, 
  <br>h. Öİ Akış Türü = “01” 

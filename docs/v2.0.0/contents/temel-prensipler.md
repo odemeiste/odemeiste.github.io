@@ -35,7 +35,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - FAST Sistemi katılımcıları katılabilir. Ancak, FAST Sistemine katılımları TCMB nezdinde onaylanmış katılımcı adayları da Ödeme İste Sistemine katılım sağlamak üzere hazırlıklara başlayabilir. 
 - Öİ sonrası gerçekleşen ödeme işlemleri gerçekleştiği ödeme sisteminin kurallarına tabidir.
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
-- Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. 
+- Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur.  
 - Sistemdeki Öİ işlemleri arşivlenecektir.
 - Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST ve Havale için sadece TL transfer gerçekleştirilebilir.
 - Öİ ile gerçekleştirilecek işyeri ödemeleri, FAST İşyeri Ödemeleri kapsamında değerlendirilecek olup, üye işyeri ve takas komisyonu ile ilgili kurallar uygulanacaktır. 
@@ -95,7 +95,10 @@ API’ler, dünya ölçeğinde yaygın bir şekilde kullanılan Temsili Durum Tr
 API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım durumlarını karşılamak için sürümler halinde geliştirilir ve bu durum tasarım sırasında göz önünde bulundurulur.   
 
 Öİ API İlke ve Kuralları v1.0 sürümünde ;
--	İlk fazda Sonra Kabul Hemen Öde modeli olacaktır.
+-	Sonra Kabul/Hemen Öde modeli olacaktır.
+
+Öİ API İlke ve Kuralları v2.0 sürümünde ;
+-	Sonra Kabul/Sonra Öde modeli ve ek fonksiyonlar yer almaktadır.
 
 ## 3.4.	Kaynak URI Yol Yapısı
 
@@ -190,7 +193,7 @@ Dijital imzalama yapısı, Ödeme İste API’de gerçekleştirilen işlemlerin 
 
 API yalnızca TLS'ye dayanırsa, dijital kayıtları ve inkâr edilemezlik kanıtlarını tutmak zor olur. Bu nedenle, TLS'ye dayanmayan bir inkâr edilemezlik çözümü olarak API isteğinin HTTP başlığında bir JWS kullanılarak sağlanabilir.
 
-HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.
+HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir. İsteğin kendinize geldiği durumda body üzerinde hiç bir değişikliğe tabi tutmadan (serialize/deserialize, minify, trim, vb yapmadan) doğrulama yapmanız gerekmektedir. Aynı şekilde isteğin kendinizden çıktığı aşamada da response body üzerinde hiç bir değişikliğe tabi tutmadan (serialize/deserialize, minify, trim, vb yapmadan) mesaj imzalama yapılmalıdır.
 
 Bu kapsamda imzalama akışı aşağıdaki gibi olmalıdır:
 
@@ -217,7 +220,7 @@ private_key.pem ve public_key.pem dosyasinin içerikleri kod tarafında kullanı
     1.	Bu alana yazılacak olan bilgi JWT formatında oluşturulmalıdır.
     2.	Bir JWT, header-payload-signature alanlarından oluşmaktadır.
 	    - Header alanında JWT’yi imzalamak için kullanılacak algoritma belirtilmelidir. Standartlar kapsamında RS256 kullanılacaktır.
-        - Payload kısmında özel olarak oluşturulacak olan “body” claim alanına istek gövdesi (request body) verisinin SHA256 hash değeri karşılığı yazılmalıdır.
+        - Payload kısmında özel olarak oluşturulacak olan “body” claim alanına istek gövdesi (request body) verisinin SHA256 hash değeri karşılığı yazılmalıdır. 
 	    - JSON payload oluşturulurken RFC 7519 baz alınmalıdır. "iss" (Issuer) Claim, "exp" (Expiration Time) Claim, "iat" (Issued At) Claim, “body” Claim alanlarının gönderilmesi zorunludur.[^RFC7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4)
 
             a. "iss" (Issuer) Claim : Kurumunuza özel bilgidir.
