@@ -59,8 +59,6 @@ Kısmi ödeme yapıldığında işlem sona erer. Kalan tutar alacaklı ile borç
 Borçlu ÖHS kısmi ödeme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için isteğe bağlıdır.
 
 Alacaklı ÖHS tarafından kısmi ödeme parametresi "E" olarak iletildiğinde borçlu ÖHS tarafından tutar alanı güncellenebilir olmalıdır. Kısmi ödeme parametresi "H" olarak iletildiğinde Öİ talebi içerisinde yer alan tutarın tamamı ödenmelidir.
- 
-Borçlu tarafından kabul edilen henüz gerçekleşmemiş Öİ talebi sadece iptal edilebilir olup güncelleme yapılması mümkün olmayacaktır. Alacaklı ÖHS ise iptal servisini çağırarak gerçekleşmemiş Öİ talebini iptal edebilir.
 
 Tüm modellerde kullanılabilir. Kullanım detayları OdemeIsteTalebi ve Odeme Iste İstek Nesnesi içerisinde belirtilmektedir.
 
@@ -70,9 +68,13 @@ Erken ödeme, bir borcun belirlenen tarihten önce ödenmesidir. Sonra Kabul/Son
 
 Borçlu ÖHS erken ödeme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için isteğe bağlıdır.
 
-Alacaklı ÖHS tarafından erken ödeme parametresi "E" olarak iletildiğinde borçlu müşterinin ekranlarından TEÖZ'e kadar bir tarih seçtirilmesine izin verilmelidir. Seçilen tarih beklenenOdemeTarihi olacaktır. Borçlu müşteri SGZ tarihine kadar Öİ talebini yanıtlamalı ve borçlu müşteri tarafından kabul edilen Öİ talebi beklenen ödeme tarihinde gerçekleştirilmelidir. Alacaklı ÖHS tarafından erken ödeme parametresi "H" olarak iletildiğinde Öİ talebi TEÖZ'de gerçekleştirilmelidir.
+Alacaklı ÖHS tarafından erken ödeme parametresi "E" olarak iletildiğinde borçlu müşterinin ekranlarından TEÖZ'e kadar bir tarih seçtirilmesine izin verilmelidir. Seçilen tarih beklenenOdemeTarihi olacaktır. Borçlu müşteri SGZ tarihine kadar Öİ talebini yanıtlamalı ve borçlu müşteri tarafından kabul edilen Öİ talebi beklenen ödeme tarihinde gerçekleştirilmelidir. Beklenen ödeme tarihinin TEÖZ ile aynı tarih olması durumunda; ödeme TEÖZ'den önce gerçekleştirilmelidir.  
 
-Borçlu tarafından kabul edilen henüz gerçekleşmemiş Öİ sadece iptal edilebilir. Alacaklı ÖHS ise iptal servisini çağırarak TEÖZ’e (ya da beklenenOdemeTarihi) kadar ödemesi gerçekleşmemiş Öİ talebini iptal edebilir.
+Alacaklı ÖHS tarafından erken ödeme parametresi "H" olarak iletildiğinde Öİ talebi TEÖZ'de gerçekleştirilmelidir.
+
+- Beklenen Ödeme Tarihi: 20.07.2024 ve TEÖZ: 20.07.2024 23:59 seçildiği durumda Öİ talebi 20.07.2024 00:00:00+03:00 ile 20.07.2024 23:59:59+03:00 arasında gerçekleştirilmelidir.
+- Beklenen Ödeme Tarihi: 20.07.2024 ve TEÖZ: 20.07.2024 17:30 seçildiği durumda Öİ talebi 20.07.2024 00:00:00+03:00 ile 20.07.2024 17:30:59+03:00 arasında gerçekleştirilmelidir.
+- Beklenen Ödeme Tarihi: 20.07.2024 ve TEÖZ: 30.07.2024 23:59 seçildiği durumda Öİ talebi 20.07.2024 00:00:00+03:00 ile 20.07.2024 23:59:59+03:00 arasında gerçekleştirilmelidir.
 
 
 ## 6.2.3 Ödeme Erteleme
@@ -81,10 +83,10 @@ Borçlu tarafından kabul edilen henüz gerçekleşmemiş Öİ sadece iptal edil
 
 Borçlu ÖHS ödeme erteleme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için isteğe bağlıdır.
 
-Alacaklı ÖHS tarafından ödeme erteleme parametresi "E" olarak iletildiğinde vadeTarihi ve vadeTutarı alanları da iletilir. Borçlu müşterinin ekranlarından vade tarihi ve vade tutarı seçimi yapılarak Öİ talebi onaylanır. Öİ talebi SGZ tarihine kadar yanıtlanmalıdır. Ödeme Erteleme "E" olarak gönderildiğinde işlem vade tarihinde yapılmak zorunda değildir. Borçlu müşteri TEÖZ tarihini seçerek ya da erken ödeme "E" ise TEÖZ'den önce tarih seçimi yaparak da Öİ talebini onaylayabilir.
+Alacaklı ÖHS tarafından ödeme erteleme parametresi "E" olarak iletildiğinde vadeTarihi ve vadeTutarı alanları da iletilir. Borçlu müşterinin ekranlarından vade tarihi ve vade tutarı seçimi yapılarak Öİ talebi onaylayabilir. Öİ talebi SGZ tarihine kadar yanıtlanmalıdır. 
+
+Ödeme Erteleme "E" olarak gönderildiğinde sadece vade tarihi ve vade tutarı seçilerek yapılmak zorunda değildir. Borçlu müşteri Öİ talebini TEÖZ tarihini seçerek ya da erken ödeme "E" ise TEÖZ'den önce tarih seçimi yaparal da Öİ talebini onaylayabilir.
 
 Alacaklı ÖHS tarafından Öİ talebi vade tarihi, TEÖZ’den maksimum 3 ay sonrasına kadar ertelenmesine izin verilmelidir.
 
-Kabul edilen Öİ talebi sadece iptal edilebilir olup güncelleme yapılması mümkün olmayacaktır. Alacaklı ÖHS iptal servisini çağırarak TEÖZ ya da beklenen ödeme tarihine kadar ödemesi gerçekleşmemiş ödeme isteğini iptal edebilir. 
-
-Ödeme erteleme ile kısmi ödeme birlikte kullanılabilir. Borçlu müşteri ödeme erteleyi seçer ve vade tarihini TEÖZ’den ileri bir tarih olarak seçtiği durumda kısmi ödeme yapılmasına izin verilmemelidir. 
+Ödeme erteleme ile kısmi ödeme birlikte kullanılabilir. Ancak borçlu müşteri vade tarih ve vade tutar seçimi yaparak Öİ talebini kabul ettiğinde kısmi ödeme yapılmasına izin verilmemelidir. 

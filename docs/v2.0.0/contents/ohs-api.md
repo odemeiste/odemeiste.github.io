@@ -35,15 +35,3 @@ Aşağıdaki durumlarda ÖHS'nin statüsü Geçici Kapalı olarak güncellenebil
 -	ÖHS'nin talebi ile uzun süreli (minimum 1 saati aşan) yaşanan teknik sorunlarda G statüsüne alınabilecektir. G statüsüne alınma talebinin ÖHS tarafından odemeiste@bkm.com.tr ye mail atarak iletilmesi beklenmektedir.
 -	İlgili resmi kurumlardan gelen talep üzerine ÖHS G statüsüne alınabilir.
 
-ÖHS’ler için geçerli olacak; logo gönderiminde dikkat edilmesi gerekenler şu şekilde tariflenmiştir:
-
-1.	Logoların ham dosya yerine kurumun yayınlayacağı bir URL üzerinden sunulması gerekmektedir. (Örn: logoURL = https://kurumadi.com.tr/logo.png) Logo BKM tarafında host edilmeyecektir.
-2.	Logo url’in public erişilebilir url olması gereklidir.
-3.	Logo, yatayda veya dikeyde taşma paysız tam oturacak, sınır boyutlarını geçmeyecek ve ortalanmış yerleşime sahip olmalıdır.
-4.	ÖHS uygulamasında gösterim esnasında logoların hızlı yüklenmesi ve düşük veri tüketmesi açısından; logo boyutu 250 KB’ın altında olmalıdır.
-5.	ÖHS’lerin tüm logo türlerini (8 farklı tipte logoyu) zorunlu olarak dönmesi beklenmektedir.
-6.	Circle logo kullanılması gerektiğinde ICON_LOGO logo türü kullanılmalıdır.
-7.	Logolarını güncellemek isteyen kurumların en az 3 iş günü öncesinde BKM’ye bu değişikliği GEÇİT Test/Üretim Ortamı Entegrasyon formu ile bildirmesi gereklidir. BKM de katılımcılara ÖHS API aracılığı ile güncel logonun çekilmesi gerektiğine dair bilgilendirme yapar.
-8.	Logoları anlık çeken katılımcıların, herhangi bir teknik nedenden dolayı güncel logoyu alamadığı durum olabilir. Bu durumda sistemlerine kaydetmiş olduğu kuruma ait ikon logoyu göstermesi gereklidir.
-9.	ÖHS’ler API aracılığı ile almış oldukları logoların formatı üzerinde değişiklik (kare, yuvarlak hale getirip resize etmek gibi) yapabilirler. Ancak logonun görsel ve yazılarını etkileyecek bir değişiklik yapmamalıdırlar.
-10.	ÖHS mobil uygulamasındaki dark mode ve light mode kullanımlarında, hangi logonun kullanılacağına uygulama sahibi karar verecektir.
