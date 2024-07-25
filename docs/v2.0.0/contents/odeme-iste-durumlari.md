@@ -52,9 +52,9 @@ Alacaklı ÖHS’lerin  her bir ödeme iste talebini eşşiz ödeme iste referan
 - Alacaklı ÖHS ÖdemeIsteTalebi için istek gövdesinde gönderdiği değerlerin , Borçlu ÖHS tarafından verilen yanıt gövdesindeki  gövdesindeki değerlerle birebir kontrolünü sağlar. İstekte iletilen değerlerin yanıtta dönülen değerlerle uyuşmaması durumunda ilgili ödeme iste talebini iptal eder. Ödeme iste durumunu B statüsünden I durumuna günceller. Yanıt Bekleniyor ⇨ İptal Edildi B ⇨ I / 13
 
 - Borçlu tarafından kabul edilen ödemesi henüz gerçekleşmemiş Öİ talebi red edilebilir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 01
-    - Kabul Edildi ⇨ Kabul Edildi K ⇨ K durum güncellemesi yapılamayacaktır. 
+    - Kabul Edildi ⇨ Kabul Edildi K ⇨ K durum güncellemesi **yapılamayacaktır.** 
 
-- Alacaklı ÖHS müşteri tarafından kabul edilen ödemesi henüz gerçekleşmemiş Öİ talebi iptal servisini çağırarak  talebini iptal edebilir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 11
+- Alacaklı ÖHS müşterisi tarafından kabul edilen ödemesi henüz gerçekleşmemiş Öİ talebi iptal servisini çağırarak iptal edebilir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 11
 	
 - Borçlu ÖHS tarafından FAST sistemine gönderilen işlemlerde örneğin; Alacaklı FAST sisteminin çalışmaması durumlarında FAST işlemi gerçekleşmeyecektir. FAST sisteminden 28 ve 29 teyit kodu dışında iletilen/gelen kodlar için ödeme iste iptal detay kodu olarak 21 kod değeri kullanılacaktır. Alacaklı tarafta ve borçlu tarafta ilgili ödeme iste durumu I statüsüne çekilecektir. Kabul Edildi ⇨ İptal Edildi K ⇨ I / 21
 

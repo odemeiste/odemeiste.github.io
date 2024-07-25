@@ -90,8 +90,6 @@ module.exports = [
                 title: '9. OHS API',
                 path: '/v2.0.0/contents/ohs-api'
             },
-
-    
         ]
     },
 

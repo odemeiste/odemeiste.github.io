@@ -7,6 +7,10 @@
 | **Alacaklı (Müşteri)** |Öİ akışını başlatan ve Öİ akabinde gerçekleşen ödeme ve para transferi işleminde fonun transfer edildiği gerçek veya tüzel kişidir|
 | **Havale** |Borçlu ve Alacaklı’nın aynı ÖHS nezdinde bulunan hesapları arasında gerçekleştirilen fon transfer işlemleridir|
 | **Bildirim** |Müşterilerin dikkat çekici yöntemler ile (kısa mesaj, sesli/görsel uyarı, ödeme kaydedici cihaz bildirimi, sistemsel entegrasyon vb.) anlık bilgilendirilmesini sağlamak amacıyla yapılan uyarılardır|
+| **ÖİOZ** |Ödeme İste Oluşturulma Zamanı: Öİ’nin oluşturulduğu zamandır.|
+| **SGZ** |Son Geçerlilik Zamanı: Borçlu’nun Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır.|
+| **TEÖZ** |Talep Edilen Ödeme Zamanı: Alacaklı’nın, Öİ talimatı içerisinde yer alan ve ödemenin yapılmasını talep ettiği tarih/zaman bilgisidir.|
+| **DTS** |Doğrulama Tolerans Süresi: Alacaklı ÖHS tarafından yapılacak doğrulama kontrollerinde iletişim hattında geçen sürenin de gözetilmesi için kullanılacak ilave süredir. Bu süre sistem tarafından belirlenir ve 60 saniyedir.|
 | **BKM** |Bankalararası Kart Merkezi Anonim Şirketi|
 | **İşyeri** |Ödeme hizmeti sağlayıcısı ile yaptığı sözleşme çerçevesinde, bir mal veya hizmet bedeline ilişkin FAST veya Havale ödemesinin bu belge kapsamında gönderilmiş Ödeme İste akışı kullanılarak yapılmasını alıcı taraf olarak kabul eden gerçek veya tüzel kişidir|
 | **Borçlu (Müşteri)** |Ödeme İste’nin sunulduğu, ödeme veya para transfer emrini veren gerçek veya tüzel kişidir|

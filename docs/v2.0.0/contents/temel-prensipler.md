@@ -36,6 +36,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Öİ sonrası gerçekleşen ödeme işlemleri gerçekleştiği ödeme sisteminin kurallarına tabidir.
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
 - Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur.  
+- Sürüm güncellemelerinde API desenine eklenen yeni alanların tüm katılımcılar tarafından desteklenmesi zorunludur.
 - Sistemdeki Öİ işlemleri arşivlenecektir.
 - Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST ve Havale için sadece TL transfer gerçekleştirilebilir.
 - Öİ ile gerçekleştirilecek işyeri ödemeleri, FAST İşyeri Ödemeleri kapsamında değerlendirilecek olup, üye işyeri ve takas komisyonu ile ilgili kurallar uygulanacaktır. 
@@ -98,7 +99,7 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 -	Sonra Kabul/Hemen Öde modeli olacaktır.
 
 Öİ API İlke ve Kuralları v2.0 sürümünde ;
--	Sonra Kabul/Sonra Öde modeli ve ek fonksiyonlar yer almaktadır.
+-	Sonra Kabul/Hemen Öde, Sonra Kabul/Sonra Öde, Şimdi Kabul/Hemen Öde modelleri ve ek fonksiyonlar yer almaktadır.
 
 ## 3.4.	Kaynak URI Yol Yapısı
 
@@ -107,6 +108,8 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 **[öhs-yol-ön-eki]/odeme-iste-api/[kaynak-grubu]/[sürüm]/ [kaynak]/[kaynak-no]**
 
 **[öhs-yol-ön-eki]/odeme-iste-api/ois/s1.0/odeme-iste/odemeIsteRefNo**
+
+**[öhs-yol-ön-eki]/odeme-iste-api/ois/s2.0/odeme-iste/odemeIsteRefNo**
 
 Bu, aşağıdaki unsurlardan oluşur:
 
@@ -154,8 +157,8 @@ XXX : ISO 8601 Time zone
 -	Bir ÖHS, tarihi yanlış biçimlendirilmiş bir istek aldığında, 400 (Hatalı İstek) durum kodu ve ilgili hata kodu ile yanıt vermelidir.
 -	ISO 4217 Standartında para birimleri ve kaç basamak ondalık değer içerebilecekleri belirlenmiştir.
 [https://www.iso.org/iso-4217-currency-codes.html](https://www.iso.org/iso-4217-currency-codes.html) adresinden ücretsiz olarak listeye erişilebilir.
-API Standartlarında da para birimleri ISO 4217’de tanımlanmış olan 3 harfli kodlarla iletilir.
-Örneğin; Ödeme İste API'sindeki "Tutar" alanı "100.25" ve "Para Birimi" alanı "TRY" olarak iletildiğinde 25 değerinin kuruş olduğu anlaşılmalıdır.
+API Standartlarında da para birimleri ISO 4217’de tanımlanmış olan 3 harfli kodlarla iletilir. 
+Örneğin; Ödeme İste API'sindeki "Tutar" alanı "100.25" ve "Para Birimi" alanı "TRY" olarak iletildiğinde 25 değerinin kuruş olduğu anlaşılmalıdır. TRY işlemler için 2 basamak kuruş gönderilmesi gerekmektedir. Tutar alanı regex patterni şu şekildedir: '^\d{1,18}$|^\d{1,18}\.\d{1,5}$'
 -	Sıralı veri tipleri büyük küçük harfe duyarlı olmalıdır.
 
 ## 3.7.	İstemci Sertifika Yönetimi
@@ -300,7 +303,8 @@ Erişim adreslerinin ve alanların kullanımı Zorunlu(Z), İsteğe Bağlı(İ),
 |X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. |Z |Z|Z| 
 |X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısı (ÖHS) kodudur.	 |Z|Z|Z|
 |Authorization|AN1..4096|Katılımcı ile GEÇİT arasındaki otorizasyon için kullanılan token bilgisidir.	|Z|Z|Z|
-|X-JWS-Signature|AN1..4096|HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı İstek olarak belirtilmiştir.	|Z|-|Z|
+|X-JWS-Signature|AN1..4096|HTTP isteğinin gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı İstek olarak belirtilmiştir. |Z|-|Z|
+|X-Channel-Type|AN1|İsteğin başlatıldığı kanal bilgisidir. **TR.OIS.DataCode.KanalBilgisi** sıralı veri türü değerlerinden birini alır.|Z|Z|Z|
 |PSU-Fraud-Check | AN1..4096 |ÖHS'lerin çeşitli güvenlik kontrollerini gerçekleştirerek, önemli görülen aşağıdaki bilgileri birbirleri ile paylaşmaları gerekmektedir.<br> PSU-Fraud-Check alanının POST/odeme-iste servisi içerisinde gönderimi zorunludur. Flagler, JWT claims içine key value şeklinde eklenerek gönderilecektir. 3.10. Mesaj İmzalama Akışı'nda belirtilen yöntemle imzalanarak oluşturulan JWT PSU-Fraud-Check alanına konularak Alacaklı ÖHS tarafından Borçlu ÖHS'ye iletilmelidir. <br><br> Paylaşılacak bilgiler şu şekildedir.<br> <br><b>CustomerOpenDate</b> : Alıcı ÖHS tarafından, alıcı hesap sahibinin müşteri olma tarihi üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>AccountOpenDate</b> : Ödeme iste talebi içerisinde yer alan alıcı hesabın (Alıcı IBAN) açılma tarihi üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>CustomerAgeFlag</b> : Alıcı müşteriye ait yaş aralığını ifade eden değerdir. <br>**Gönderilmesi zorunlu alandır. Bireysel müşteriler için TR.OIS.DataCode.YasAralik veri tiplerinden 1,2,3,4,5 değerleri iletilmelidir. Tüzel/Kurumsal müşteriler için ise 0 değeri iletilmelidir.** <br><br><b>RemoteCustomerFlag</b> : Alıcı müşterinin uzaktan müşteri edinimi ile oluşturulmuş bir müşteri bilgisi olup olmadığını belirten değerdir. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.VarYok sıralı veri tipinin alabileceği değerleri alabilir. Örneğin; uzaktan müşteri edinimi ile kazanılmış bir müşteri ise değerin "1:Kayıt Var" olarak iletilmesi gerekmektedir.<br> <br><b>CustomerSalaryFlag</b> : Alıcı müşterinin Alıcı ÖHS içerisinde maaş müşterisi olup olmadığını belirten değerdir. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.VarYok sıralı veri tipinin alabileceği değerleri alabilir. Örneğin; maaş müşterisi olan bir müşteri için değerin "1:Kayıt Var" olarak iletilmesi gerekmektedir.<br> <br><b>FirstRequestTimeFlag</b> : Alacaklı müşterinin Alacaklı ÖHS nezdinde ilk Ödeme İste talebi yaptığı tarih üzerinden geçen gün değerini ifade eder. <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br><b>DeviceFirstLoginFlag</b>  Müşterinin müşterilik ömründe işlem anında kullandığı cihazla ÖHS uygulamasına (web ya da uygulama tabanlı) ilk login olma süresini ifade eden değer. Müşteri cihaz değişikliği yaptığında DeviceFirstLoginFlag değeri değişmelidir.  <br> **Gönderilmesi Zorunlu alandır.**<br>TR.OIS.DataCode.ZmnAralik sıralı veri tipinin alabileceği değerleri alabilir.<br> <br> | Z | - | - |
 
 PSU-Fraud-Check için imza bilgisi isteği alan ÖHS tarafından doğrulanmalıdır. Doğrulama işlemi başarısız olması durumunda **TR.OIS.Resource.PsuFraudInvalidSignature** kodu ile hata üretilmelidir.
@@ -325,8 +329,8 @@ PSU-Fraud-Check içerisinde yer alan zorunlu alanlardan(Örn: CustomerOpenDate) 
 |Content-Type | AN1..20| Standart HTTP Başlığı; Talepte sağlanan payload’ın biçimini temsil eder. Bu değerin application/json olarak gönderilmesi gerekmektedir. Hata durumlarında application/problem+json da iletilebilir.<br> (Başka bir değere ayarlanırsa, ÖHS, 415 Desteklenmeyen Ortam Türü (Unsupported Media Type) ile yanıt vermelidir)|Z|-|Z|
 |X-Source-Code |AN4| İsteği başlatan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür**  |Z |Z|Z| 
 |X-Target-Code|AN4|İsteği alan Ödeme Hizmeti Sağlayıcısının (ÖHS) kodudur. <br> **İlgili istek başlığındaki bilgi geri dönülür.**	|Z|Z|Z|
-|X-JWS-Signature|AN1..4096|HTTP yanıtının gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı Yanıt olarak belirtilmiştir.	|Z|Z|Z|
-
+|X-JWS-Signature|AN1..4096|HTTP yanıtının gövdesinin hash fonksiyonu (SHA256) ile özeti alınacaktır. Elde edilen özet, asimetrik anahtarları destekleyen bir algoritma kullanılarak imzalanacak ve JWS elde edilecektir.Bu başlığın ne zaman belirtilmesi gerektiği hususu ilgili endpoint için imzalama türü başlığında İmzalı Yanıt olarak belirtilmiştir. Yanıt başlığındaki  “X-JWS-Signature”  gönderimi zorunlu olan endpointler için; <br> Başarılı yanıt alındığı her durumda doğrulama yapılmalı. <br>(2**)Hatalı yanıt alındığı durumlarda ise X-JWS-Signature başlık değeri dolu ise doğrulama yapılmalıdır. (4**, 5**)	|Z|Z|Z|
+ 
 ## 3.15. Idempotency Kuralları
 
 İsteği yapan ÖHS’nin aşağıdaki durumlarda aynı istek numarası (x-request-id) ve aynı veri gövdesiyle çağrıyı tekrarlaması; isteği alan ÖHS’nin de bu durumlarda aynı yanıtı dönmesi gereklidir.
@@ -710,3 +714,6 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 |TR.OIS.DataCode.VarYok	| 0: Kayıt Yok <br>1: Kayıt Var |
 |TR.OIS.DataCode.ZmnAralik	| 1: 0-1 gün <br>2: 2-14 gün <br>3: 15-30 gün <br>4: 31-90 gün <br>5: 91 gün ve üstü |
 |TR.OIS.DataCode.YasAralik	| 0:Tüzel/Kurumsal Müşteriler <br> 1: 1-20 yaş <br>2: 21-30 yaş <br>3: 31-40 yaş <br>4: 41-50 yaş <br>5: 51 yaş ve üzeri |
+|TR.OIS.DataCode.KanalBilgisi	| M : Mobil <br> W : Web <br>A : API |
+
+
