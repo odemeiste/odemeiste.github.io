@@ -242,6 +242,7 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
 - Borçlu ÖHS tarafından kabul durumunda iletilecek kabulZamani bilgisinin Son Geçerlilik Zamanı ve varsa DTS(Doğrulama Tolerans Süresi)’nin geçmediği durum kontrol edilmelidir. Kabul zamanının son geçerlilik zamanını geçmesi durumunda **400-TR.OIS.Business.InvalidApproveTime** hatası verilmelidir.
 
 - 	Öİ talebi kabul edildiğinde TEÖZ boş gönderildi ise (Sonra Kabul/Hemen Öde, Şimdi Kabul/Hemen Öde) alacaklı ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilmelidir. 
+    -   beklenenOdemeTarihi gönderilir ise **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir.
     - 	erkenOdeme = H ya da odemeErteleme = E ise **TR.OIS.Business.UnsupportedFunction** hatası verilir. 
     -   erkenOdeme = E ve odemeErteleme = H ise kısmi ödeme kontrol edilir.
         - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
@@ -251,24 +252,24 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
 - 	Öİ talebi kabul edildiğinde TEÖZ dolu ise (Sonra Kabul/Sonra Öde) alacaklı ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilmelidir. 
     -   erkenOdeme = H ise ödeme erteleme fonksiyonu kontrol edilir.
         - 	odemeErteleme = H ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
-            - 	talepEdilenOdemeZamani != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+            - 	talepEdilenOdemeZamani != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir.
             - 	talepEdilenOdemeZamani = beklenenOdemeTarihi ise;
                 - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
                 - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
 
         - 	odemeErteleme = E ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
-            - 	talepEdilenOdemeZamani > beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir. 
+            - 	talepEdilenOdemeZamani > beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir. 
             - 	talepEdilenOdemeZamani = beklenenOdemeTarihi ise kısmi ödeme  kontrol edilir.        
                 - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
                 - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
             - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise vade seçeneği kontrol edilir.
                 - 	vadeTutari != kabulEdilenTutar  ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
-                - 	vadeTarihi != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+                - 	vadeTarihi != beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir.
 
 
     -   erkenOdeme = E ise ödeme erteleme fonksiyonu kontrol edilir.
         - 	odemeErteleme = H ise TEÖZ ile beklenen ödeme tarihi kontrol edilir.
-            - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+            - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir.
             - 	talepEdilenOdemeZamani ≥ beklenenOdemeTarihi ise kısmi ödeme kontrol edilir.
                 - 	kismiOdeme = E ve kabulEdilenTutar > tutar ise **TR.OIS.Business.PartialAmountExceeded** hatası verilir.
                 - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
@@ -279,7 +280,7 @@ OdemeIste kaynağı için kullanılabilecek durum göstergeleri şu şekildedir:
                 - 	kismiOdeme = H ve kabulEdilenTutar != tutar ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
             - 	talepEdilenOdemeZamani < beklenenOdemeTarihi ise vade seçeneği kontrol edilir.
                 - 	vadeTutari != kabulEdilenTutar  ise **TR.OIS.Business.InvalidAcceptedAmount** hatası verilir.
-                - 	vadeTarihi != beklenenOdemeTarihi ise; **TR.OIS.Business.InvalidExpectedPaymentTime** hatası verilir.
+                - 	vadeTarihi != beklenenOdemeTarihi ise; **TR.OIS.Business.InvalidExpectedPaymentDate** hatası verilir.
 
 -	Yukarıdaki kontroller başarılı bir şekilde tamamlandığında alacaklı ÖHS tarafından 201 yanıtı dönülür.
 
