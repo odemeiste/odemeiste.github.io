@@ -52,7 +52,7 @@ SGZ ile ÖİOZ arasındaki zaman 180 saniye ve TEÖZ boş olarak iletildiğinde 
 
 - Bu modelde (SGZ-ÖİOZ)-DTS < (SGZ-ÖİOZ) < (SGZ-ÖİOZ)+DTS şeklinde kontrol sağlanmalıdır.
 
-Söz konusu senaryonun işyeri ödemelerinde kullanılabileceği değerlendirilmektedir.
+Söz konusu senaryonun işyeri ödemelerinde kullanılabileceği değerlendirilmektedir. Borçlu ÖHS tarafından desteklenmesi zorunludur. 
 
 ## 6.2 Fonksiyonlar
 

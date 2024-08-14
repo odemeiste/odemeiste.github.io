@@ -90,7 +90,50 @@ module.exports = [
                 title: '9. OHS API',
                 path: '/v2.0.0/contents/ohs-api'
             },
+           
         ]
+    },
+    {
+        title: 'Öİ Kurumsal API-Taslak Sürüm',
+        path: '/kurumsal-api/contents/tanim-ve-kisitlamalar',
+        children: [
+            {
+                title: '1. Tanımlar ve Kısıtlamalar',
+                path: '/kurumsal-api/contents/tanim-ve-kisitlamalar'
+            },
+            {
+                title: '2. Öİ Kurumsal API Nedir?',
+                path: '/kurumsal-api/contents/oi-kurumsal-api'
+            },
+            {
+                title: '3. Temel Prensipler',
+                path: '/kurumsal-api/contents/temel-prensipler'
+            },
+            {
+                title: '4. Ödeme İste Durumları',
+                path: '/kurumsal-api/contents/odeme-iste-durumlari'
+            },
+            {
+                title: '5. Ödeme İste Sistemi ve Kavramlar',
+                path: '/kurumsal-api/contents/odeme-iste-sistemi-ve-kavramlar'
+            },
+            {
+                title: '6. Ödeme İste Kullanım Modelleri ve Fonksiyonlar',
+                path: '/kurumsal-api/contents/odeme-iste-modelleri'
+            },
+
+            {
+                title: '7. Ödeme İste',
+                path: '/kurumsal-api/contents/odeme-iste'
+            },
+
+           
+        ]
+    },
+    {
+        title: 'Sıkça Sorulan Sorular',
+        path: '/sorulan-sorular',
+
     },
 
 ];
