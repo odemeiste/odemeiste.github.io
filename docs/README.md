@@ -18,6 +18,10 @@
 **ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Yeni Sürüm Üretime Geçiş Son Tarihi:** 18 Ocak 2025 
 <br>
 
+18 Ocak 2025 itibariyle 1.0.0 sürümü üzerinden yapılmış ödeme iste taleplerinin hayatına devam etmesi sağlanmalıdır.
+
+- Örneğin; 1.0.0 sürümünde oluşturulmuş "Bekleniyor" durumunda olan bir ödeme iste talebi sürecine 2.0.0 sürümünde devam edebilmelidir. 2.0.0 servisleri üzerinden yanıtlanabilmeli ve iptal edilebilmelildir.
+
 <h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
 
 | FAST Katılımcısı | Ödeme İste Üretime Geçiş için Zorunlu Tarihler |
