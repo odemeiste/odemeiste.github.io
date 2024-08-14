@@ -21,7 +21,7 @@
 
 ## 5.3 İşyeri Alacaklı ÖHS Akışı
 
-<img src="./images/img/OI_KurumsalAkis.png" width="70%" >
+<img src="./images/img/OI_KurumsalAkiss.png" width="70%" >
 
 **1.**  İşyeri, ilgili hesap bilgilerini girerek ödeme iste talebini Alacaklı ÖHS’ye iletir. <br>
 **2.**	Alacaklı ÖHS, işyerinden gelen ödeme isteğini API üzerinden alır.  Alacaklı ÖHS, gerekli kontrolleri yaptıktan sonra, Ödeme İste Sistemi üzerinden Öİ mesajını oluşturarak Borçlu ÖHS’ye gönderir.<br>
