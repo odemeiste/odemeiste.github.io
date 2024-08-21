@@ -96,8 +96,14 @@ Alacaklı ÖHS, bu API erişim adresinden Borçlu ÖHS’ye yeni bir OdemeIsteTa
 - 	TEÖZ gönderildi ise Sonra Kabul - Sonra Öde modeli olarak değerlendirilmelidir. TEÖZ zamanı max. 6 ay olmalıdır. TEÖZ  6 aydan fazla iletilirse Borçlu ÖHS tarafından
 **TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilmelidir.
 
-- 	Öİ talebi oluşturulurken TEÖZ boş gönderildi (Sonra Kabul/Hemen Öde, Şimdi Kabul/Hemen Öde) ise borçlu tarafından aşağıdaki kontrol gerçekleştirilir. 
+- 	Öİ talebi oluşturulurken TEÖZ boş gönderildi (Sonra Kabul/Hemen Öde, Şimdi Kabul/Hemen Öde) ise borçlu ÖHS tarafından aşağıdaki kontrol gerçekleştirilir. 
     - 	erkenOdeme = H ya da odemeErteleme = E ise **TR.OIS.Business.UnsupportedFunction** hatası verilir. 
+
+- 	Öİ talebi oluşturulurken TEÖZ dolu ise borçlu ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilir. 
+    - talepEdilenOdemeZamani > odemeIsteOlusturulmaZamani + 6 ay ise **TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilir.
+    - odemeErteleme = E ise vade tarihi kontrol edilir.
+        - talepEdilenOdemeZamani ≥ vadeTarihi ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
+        - talepEdilenOdemeZamani < vadeTarihi +3 ay ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
 
 - 	Alacaklı ÖHS, ödeme iste talebini Borçlu ÖHS’ye bildirir. Borçlu müşterinin ödeme iste yetkisinin olmaması veya Ödeme İste kanal değerinin kapalı olması durumunda borçlu ÖHS tarafından; **TR.OIS.Business.RestrictedAccount** hatası verilmelidir.
 
@@ -160,7 +166,7 @@ Borçlu ÖHS kriterine uygun olarak kabul ettikten sonra Ödeme İste için yan�
 |> Tutar	|tutar	|AN1..24| Alacaklı ÖHS’nin önyüzde kullanıcıdan aldığı tutar bilgisidir.	| Z | Z |Ttr |
 |> Para Birimi	|paraBirimi	|AN3| Para birimi. FAST işlemleri kapsamında sadece TL gönderimi olacaktır. 	| Z | Z | |
 |Ödeme İste Talep Detayı	|talepDetayi	|Kompleks:TalepDetay|	| Z | Z | |
-|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | Z |OiAksTur |
+|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye Ödemeler <br>02: İşyeri(Fiziki/E-Ticaret) <br>03: Fatura <br>04: Vergi/Harç/Belediye <br>05: Kredi<br>06: BES| Z | Z |OiAksTur |
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | Z |OdmAmc |
 |> MCC Kodu	|mccKodu|AN1..4|TR.OIS.DataCode.MccKodu (Merchant Category Code) sıralı veri değerlerinden birini alır. Kurumsal API üzerinden çağırılan isteklerde gönderilmesi beklenen kategori kodu bilgisidir.| İ | İ | |
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu müşterinin Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Sonra Kabul Hemen Öde akışı için Son Geçerlilik Zamanı Öİ Oluşturulma Zamanından minimum 3 dakika öncesi maksimum 3 ay sonrası olacak şekilde seçilmelidir. Alacaklı müşteri tarafından ödeme isteği oluşturulurken seçilir. Katılımcının kendi sunucu saatiyle yaptığı kontrollerde Borçlu ve Alacaklı ÖHS'lerin sunucu saat farklılığını önlemek için tolerans süresi olarak +/- 1 dakika gözetilmelidir. <br><br>Örnek 1: Eğer SGZ Müşteri tarafından saat bilgisi olmadan seçiliyorsa SGZ'nin alacağı maksimum değer şu şekilde hesaplanacaktır: Ödeme İste talebinin başlatıldığı gün 04/09/2023 ve SGZ süresi 3 ay seçilsin. Bu durumda yeni günün başlangıç saati 00:00:00 olduğu kabul edildiği için 3 aylık SGZ verildiğinden  SGZ değeri 2023-12-05-T00:00:00+03:00 olmalıdır.Müşteri 3 aydan önceki bir tarihi SGZ olarak seçebilir. <br><br>Örnek 2: Ödeme İste için alacaklı Öİ talebini 07/09/2023 herhangi bir saatte girip Öİ'ye ait SGZ'yi 3 aydan kısa olacak bir zaman diliminde saat bilgisi (ÖHS inisiyatifinde) de girerek seçebilir. Örneğin, alacaklı müşteri SGZ'yi 10/09/2023 saat: 11:45:00 şeklinde seçtiği durumda SGZ tarih değeri 2023-09-10T11:45:00+03:00 olarak gelecektir.Borçlu ÖHS SGZ'de belirtilen tarih ve saat değerine kadar ödeme işlemini gerçekleştirebilir.<br><br>Ödeme İste Talep Tarihi  : 20.09.2023 <br>SGZ (Saat Bilgisi olmadan 3 Ay seçildiği durumda) : 21.12.2023 00:00:00+03:00<br><br>Ödeme İste Talep Tarihi: 20.09.2023<br>SGZ (Saat Bilgisi(14:30) seçilerek 3 Ay seçildiği durumda) : 20.12.2023 14:30:00+03:00<br><br>Ödeme İste Talep Tarihi: 15.09.2023<br>SGZ (Saat Bilgisi(10:45) seçilerek 3 Ay'dan daha kısa(30.09.2023) seçildiği durumda) : 30.09.2023 10:45:00+03:00<br><br>Ödeme İste Talep Tarihi: 10.09.2023<br>SGZ (Saat Bilgisi seçilmeyerek 3 Ay'dan daha kısa(11.09.2023) seçildiği durumda) : 12.09.2023 00:00:00+03:00 | Z | Z | |

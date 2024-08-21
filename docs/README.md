@@ -19,7 +19,7 @@
 <br>
 
 18 Ocak 2025 itibariyle 1.0.0 sürümü üzerinden yapılmış ödeme iste taleplerinin hayatına devam etmesi sağlanmalıdır.
-- Örneğin; 1.0.0 sürümünde oluşturulmuş "Bekleniyor" durumunda olan bir ödeme iste talebi sürecine 2.0.0 sürümünde devam edebilmelidir. 2.0.0 servisleri üzerinden yanıtlanabilmeli ve iptal edilebilmelildir.
+- Örneğin; 1.0.0 sürümünde oluşturulmuş "Bekleniyor" durumunda olan bir ödeme iste talebi sürecine 2.0.0 sürümünde devam edebilmelidir. 
 
 <h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
 
