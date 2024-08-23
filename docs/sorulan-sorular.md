@@ -135,7 +135,7 @@ Eğer ödemenin yapılabilmesi için çoklu onaycı mekanizması işletilmesi ge
 - Kabul edilen ödemesi henüz gerçekleşmemiş ödeme isteği borçlu müşteri tarafından beklenenOdemeTarihi'ne kadar iptal edilebilir. 
 
 **39)Alacaklı ÖHS olarak müşterimize fonksiyon seçimi yaptırmadan varsayılan E/H değeri gönderebilir miyiz?**
-- Evet, gönderebilirsiniz. Örneğin; erken ödeme fonksiyonu alacaklı müşteriye ekranlardan seçim yaptırılmadan API'de vaesayılan E olarak gönderilebilir. Üç fonksiyon için ekranlarda değişiklik yapılmadan varsayılan değerler gönderilmek isteniyor ise; Erken Ödeme = E, Kısmi Ödeme = E/H, Ödeme Erteleme = H olarak gönderilmesi beklenmektedir.
+- Evet, gönderebilirsiniz. Örneğin; erken ödeme fonksiyonu alacaklı müşteriye ekranlardan seçim yaptırılmadan API'de varsayılan E olarak gönderilebilir. Üç fonksiyon için ekranlarda değişiklik yapılmadan varsayılan değerler gönderilmek isteniyor ise; Erken Ödeme = E, Kısmi Ödeme = H, Ödeme Erteleme = H olarak gönderilmesi beklenmektedir.
 
 **40)Fonksiyonların birbirleriyle kullamı nasıl olmalıdır?**
 - Fonksiyonlar birbiriyleriyle kullanılabilir. Kullanım detaylarını [https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri](https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri) linkinden kontrol edebilirsiniz. 
