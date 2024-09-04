@@ -101,9 +101,11 @@ Alacaklı ÖHS, bu API erişim adresinden Borçlu ÖHS’ye yeni bir OdemeIsteTa
 
 - 	Öİ talebi oluşturulurken TEÖZ dolu ise borçlu ÖHS tarafından sırasıyla aşağıdaki kontroller gerçekleştirilir. 
     - talepEdilenOdemeZamani > odemeIsteOlusturulmaZamani + 6 ay ise **TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilir.
-    - odemeErteleme = E ise vade tarihi kontrol edilir.
-        - talepEdilenOdemeZamani ≥ vadeTarihi ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
-        - talepEdilenOdemeZamani + 3 ay < vadeTarihi ay ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
+    - odemeErteleme = E ise müşteri tipi kontrol edilir.
+        - musteriTipi = B ise **TR.OIS.Business.UnsupportedFunction** hatası verilir.
+        - musteriTipi = K ise; Vade Tarihi kontrol edilir.
+            - talepEdilenOdemeZamani ≥ vadeTarihi ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
+            - talepEdilenOdemeZamani + 3 ay < vadeTarihi ay ise **TR.OIS.Business.InvalidMaturityDate** hatası verilir.
 
 - 	Alacaklı ÖHS, ödeme iste talebini Borçlu ÖHS’ye bildirir. Borçlu müşterinin ödeme iste yetkisinin olmaması veya Ödeme İste kanal değerinin kapalı olması durumunda borçlu ÖHS tarafından; **TR.OIS.Business.RestrictedAccount** hatası verilmelidir.
 

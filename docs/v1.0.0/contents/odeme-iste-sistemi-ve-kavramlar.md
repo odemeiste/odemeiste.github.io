@@ -76,13 +76,12 @@ Aşağıdaki iş akışı çerçevesinde işlemler yürütülür:
 
 (9) Alacaklı ÖHS, gelen mesaj doğrultusunda zaman aşımı kontrollerine ek olarak ödemenin Alacaklı hesabına aktarılmasına yönelik Ödeme İste doğrulamasını aşağıdaki alanlara göre yaparak FAST’a teyit (T01) mesajı gönderir: 
  <br>a. Öİ referans numarası, 
- <br>b. Alacaklı kimlik numarası, 
- <br>c. Alacaklı hesap adı/ünvanı, 
- <br>d. Alacaklı hesap numarası, 
- <br>e. Tutar, 
- <br>f. Ödeme Amacı, 
- <br>g. SGZ ve TEÖZ, 
- <br>h. Öİ Akış Türü = “01” 
+ <br>b. Alacaklı hesap adı/ünvanı, 
+ <br>c. Alacaklı hesap numarası, 
+ <br>d. Kabul edilen tutar, 
+ <br>e. Ödeme Amacı, 
+ <br>f. SGZ ve TEÖZ, 
+ <br>g. Öİ Akış Türü = “01”
 	
 (10) T01 mesajını alan FAST, gerekli kontrolleri yaparak, mutabakat sürecini başlatır ve Alacaklı ÖHS ile Borçlu ÖHS’ye T02 sonuç bildirim mesajlarını iletir. 
 

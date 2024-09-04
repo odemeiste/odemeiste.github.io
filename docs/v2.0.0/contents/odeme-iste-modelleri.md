@@ -70,7 +70,7 @@ Kısmi ödeme yapıldığında işlem sona erer. Kalan tutar alacaklı ile borç
 
 Borçlu ÖHS kısmi ödeme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için bu fonksiyonun müşteriye sunulması isteğe bağlıdır.
 
-Alacaklı ÖHS tarafından kısmi ödeme fonksiyonu müşteri ekranlarında müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan E/H olarak gönderilebilir.
+Alacaklı ÖHS tarafından kısmi ödeme fonksiyonu müşteri ekranlarında müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan H olarak gönderilebilir.
 
 Alacaklı ÖHS tarafından kısmi ödeme parametresi "E" olarak iletildiğinde borçlu müşteri tarafından tutar alanı güncellenebilir olmalıdır. Kısmi ödeme parametresi "H" olarak iletildiğinde tutar alanı borçlu müşteri tarafından güncellenemez olmalı ve ödeme iste talebi içerisinde yer alan tutarın tamamı ödenmelidir.
 
@@ -84,7 +84,7 @@ Sonra Öde modellerinde kullanılabilir. Hemen Öde modellerinde varsayılan 'E'
 
 Borçlu ÖHS erken ödeme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için bu fonksiyonun müşteriye sunulması isteğe bağlıdır.
 
-Alacaklı ÖHS tarafından erken ödeme fonksiyonu müşteri ekranlarında müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan E/H olarak gönderilebilir.
+Alacaklı ÖHS tarafından erken ödeme fonksiyonu müşteri ekranlarında müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan E olarak gönderilebilir.
 
 Alacaklı ÖHS tarafından erken ödeme parametresi "E" olarak iletildiğinde borçlu müşterinin ekranlarından TEÖZ'e kadar bir tarih seçtirilmesine izin verilebilir. Ya da erken ödemeye izin verildiği için ödeme iste talebi kabul edildiği an ödeme gerçekleştirilebilir. Seçilen tarih beklenenOdemeTarihi olacaktır. Beklenen ödeme tarihinin TEÖZ ile aynı tarih olması durumunda; ödeme TEÖZ'den önce gerçekleştirilmelidir.
 
@@ -107,6 +107,8 @@ Alacaklı ÖHS tarafından erken ödeme parametresi "H" olarak iletildiğinde ö
 Sonra Öde modellerinde kullanılabilir. Hemen Öde modellerinde varsayılan 'H' olarak gönderilmelidir.
 
 Borçlu ÖHS ödeme erteleme fonksiyonunu desteklemek zorundadır. Alacaklı ÖHS için bu fonksiyonun müşteriye sunulması isteğe bağlıdır.
+
+Ödeme Erteleme fonksiyonu, Alacaklı ÖHS tarafından sadece kurumsal müşterilere sunulmalıdır. Bireysel müşterilere **sunulmamalıdır.**
 
 Alacaklı ÖHS tarafından ödeme erteleme fonksiyonu müşteri ekranlarında müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan H olarak gönderilebilir. 
 

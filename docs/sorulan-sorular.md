@@ -135,13 +135,13 @@ Eğer ödemenin yapılabilmesi için çoklu onaycı mekanizması işletilmesi ge
 - Kabul edilen ödemesi henüz gerçekleşmemiş ödeme isteği borçlu müşteri tarafından beklenenOdemeTarihi'ne kadar iptal edilebilir. 
 
 **39)Alacaklı ÖHS olarak müşterimize fonksiyon seçimi yaptırmadan varsayılan E/H değeri gönderebilir miyiz?**
-- Evet, gönderebilirsiniz. Örneğin; erken ödeme fonksiyonu alacaklı müşteriye ekranlardan seçim yaptırılmadan API'de varsayılan E olarak gönderilebilir. Üç fonksiyon için ekranlarda değişiklik yapılmadan varsayılan değerler gönderilmek isteniyor ise; Erken Ödeme = E, Kısmi Ödeme = H, Ödeme Erteleme = H olarak gönderilmesi beklenmektedir.
+- Evet, gönderebilirsiniz. Örneğin; erken ödeme fonksiyonu alacaklı müşteriye ekranlardan seçim yaptırılmadan API'de varsayılan E olarak gönderilebilir. Üç fonksiyon için ekranlarda değişiklik yapılmadan varsayılan değerler gönderilmek isteniyor ise; Erken Ödeme = E, Kısmi Ödeme = H, Ödeme Erteleme = H ve TEÖZ değeri boş olarak gönderilmesi beklenmektedir.
 
 **40)Fonksiyonların birbirleriyle kullamı nasıl olmalıdır?**
 - Fonksiyonlar birbiriyleriyle kullanılabilir. Kullanım detaylarını [https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri](https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri) linkinden kontrol edebilirsiniz. 
 - Kabul yanıtı verilirken fonksiyonların birbirleriyle kullanım kontrolleri ise [https://odemeiste.github.io/v2.0.0/contents/odeme-iste.html#_7-4-adim-3-odeme-iste-yan%C4%B1t%C4%B1](https://odemeiste.github.io/v2.0.0/contents/odeme-iste.html#_7-4-adim-3-odeme-iste-yan%C4%B1t%C4%B1) sayfasında detaylıca anlatılmaktadır. 
 
 **41)Hemen Öde modellerinde fonksiyonların varsayılan değerleri nasıl gönderilmelidir?**
-- Erken Ödeme = E ve Ödeme erteleme = H olarak gönderilmelidir. Kısmi ödeme fonksiyonu E ya da H olarak isteğe bağlı gönderilebilir.
+- Erken Ödeme = E ve Ödeme erteleme = H olarak gönderilmelidir. Kısmi ödeme fonksiyonu, Alacaklı müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan H olarak gönderilebilir.
 
 <br>**NOT: Ödeme İste Katılımcıları tarafından sorulmuş teknik soruların cevaplarına Trip/Tripsit > BKM Online > Ödeme İste > Dokümanlar menüsü altında yayınlanan ÖDEME İSTE_Aylık Soru Seti dokümanlarından ulaşabilirsiniz.**

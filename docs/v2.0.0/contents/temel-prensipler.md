@@ -35,7 +35,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - FAST Sistemi katılımcıları katılabilir. Ancak, FAST Sistemine katılımları TCMB nezdinde onaylanmış katılımcı adayları da Ödeme İste Sistemine katılım sağlamak üzere hazırlıklara başlayabilir. 
 - Öİ sonrası gerçekleşen ödeme işlemleri gerçekleştiği ödeme sisteminin kurallarına tabidir.
 - Bir ÖHS hem Alacaklı hem de Borçlu katılımcı olarak hizmet vermek zorundadır.
-- Alacaklı ÖHS’lerin, Bölüm 6.1‘de yer alan kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur.  
+- Alacaklı ÖHS’lerin, kullanım modellerinden asgari “Sonra Kabul Hemen Öde” modelini Alacaklı’ya sunması zorunlu iken, Borçlu ÖHS için tüm modelleri desteklemesi zorunludur. Diğer taraftan, Alacaklı ve Borçlu katılımcıların tüm modelleri ve fonksiyonları teknik olarak desteklemesi gerekmektedir. 
 - Sürüm güncellemelerinde API desenine eklenen yeni alanların tüm katılımcılar tarafından desteklenmesi zorunludur.
 - Sistemdeki Öİ işlemleri arşivlenecektir.
 - Öİ akışları, Havale veya FAST Sistemi ödemeleri için kullanılabilecektir.FAST sistemi üzerinden yapılacak ödemeler için FAST limitleri geçerli olacaktır. FAST ve Havale için sadece TL transfer gerçekleştirilebilir.
