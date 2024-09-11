@@ -101,6 +101,25 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 Öİ API İlke ve Kuralları v2.0 sürümünde ;
 -	Sonra Kabul/Hemen Öde, Sonra Kabul/Sonra Öde, Şimdi Kabul/Hemen Öde modelleri ve ek fonksiyonlar yer almaktadır.
 
+<h4>Öİ Oluşturma API’si 1 Ay desteklenmeye devam etmelidir. Öİ Yanıt API’si ise 4 Ay desteklenmeye devam etmelidir.</h4>
+
+**S2.0’a geçiş yapıldığında S1.0’da oluşturulan ödeme iste talepleri sürecine devam ettirilmelidir. Bunun sağlanabilmesi için;**
+- Ödeme iste taleplerinin versiyon bilgisi tutulmalı ve mevcut ödeme iste talepleri için varsayılan S1.0 olarak güncellenmelidir.
+- API desenine yeni eklenen alanlar mevcut ödeme iste nesnelerine varsayılan değerler güncellenmelidir. erkenOdeme = E, odemeErteleme = H ve kismiOdeme = H olmalıdır.
+
+**S2.0’a geçiş yapıldığında S1.0 endpointleri belirtilecek tarihe kadar kapatılmamalıdır. İki sürüm desteği de sağlanmalıdır.**
+- Versiyon bilgisine göre ödeme iste talebi yanıtlanmalıdır. S1.0‘da oluşturulan ödeme iste talebi S1.0 yanıt API’si ile yanıtlanmalıdır. S2.0’da oluşturulan ödeme iste talebi ise sadece S2.0 PUT yanıt API’si ile yanıtlanmalıdır.
+- Versiyon bilgisine göre ödeme iste talebi sorgulanmalıdır. S1.0‘da oluşturulan ödeme iste talebi S1.0 API’si ile sorgulanmalıdır. S2.0’da oluşturulan ödeme iste talebi ise sadece S2.0 GET sorgulama API’si ile yanıtlanmalıdır.
+- Versiyon bilgisine göre ödeme iste talebi iptal edilmelidir. S1.0‘da oluşturulan ödeme iste talebi S1.0 iptal API’si ile iptal edilmelidir. S2.0’da oluşturulan ödeme iste talebi ise sadece S2.0 PUT iptal API’si ile iptal edilmelidir.
+- Alacaklı ÖHS S2.0 geçti ise ekranlarında borçlu IBAN bilgisini çözümledikten sonra Borçlu ÖHS’nin S2.0’ı desteklediğini kontrol etmelidir. Desteklemiyor ise ödeme İste talebi S1.0'da oluşturulur. Destekliyor ise ödeme İste talebi S2.0'da oluşturulur.
+- S1.0 endpointlerinde oluşturulan ödeme iste taleplerinde yeni eklenen alanlar varsayılan değerleriyle kayıt edilmelidir. Ödeme iste sürüm bilgisi S1.0 olacak şekilde kayıt edilmelidir.
+- S1.0 endpointlerinde oluşturulan ödeme iste taleplerinde yeni eklenen alanlar varsayılan değerleriyle kayıt edilmelidir. Ödeme iste sürüm bilgisi S1.0 olacak şekilde kayıt edilmelidir.
+
+| | **Sadece S1.0 Destekleyen Borçlu ÖHS'ler** | **S1.0 ve S2.0 Destekleyen Borçlu ÖHS'ler**|
+| --- | --- |--- |
+| **Sadece S1.0 Destekleyen Alacaklı ÖHS'ler** | Alacaklı ÖHS; <br> -Ödeme İste talebi S1.0'da oluşturmalıdır. <br><br>Borçlu ÖHS; <br>-Ödeme iste talebine S1.0'da başarılı yanıt dönmelidir.<br>-Yanıt API'si S1.0 ile çağırılmalıdır.| Alacaklı ÖHS;<br>-Ödeme İste talebi S1.0'da oluşturulur.<br><br>Borçlu ÖHS;<br>-S1.0 endpointlerini kapatmamalıdır. İki sürüm desteği de sağlanmalıdır.<br>-API desenine yeni eklenen alanların varsayılan değerleri ile kayıt edilmelidir. erkenOdeme=E, odemeErteleme=H ve kismiOdeme=H olmalıdır.<br>-Ödeme iste oluştur S1.0 başarılı yanıt dönmelidir.<br> -Yanıt API'si S1.0 ile çağırılmalıdır. |
+| **S1.0 ve S2.0 Destekleyen Alacaklı ÖHS'ler** | Alacaklı ÖHS; <br>-Borçlu IBAN bilgisi çözümlenerek borçlu ÖHS versiyon bilgisi kontrol edilir. Sadece S1.0 destekleniyorsa ödemeİste talebi S1.0'da oluşturulur.<br><br>Borçlu ÖHS; <br>-Sürüm S1.0 oluşturulmuş ödeme iste talepleri, yanıt apisi S1.0 ile yanıtlanmalıdır. | Alacaklı ÖHS; <br>-Borçlu IBAN bilgisi çözümlenerek borçlu ÖHS versiyon bilgisi kontrol edilir.<br>-Ödeme İste talebi S2.0'da oluşturulur.<br>-S2.0 için ekran tasarımlarını çözümlenen IBAN bilgisine göre açılabilir ya da varsayılan değerler gönderilebilir.<br><br>Borçlu ÖHS; <br>-Ödeme iste talebine S2.0'da başarılı yanıt dönmelidir. <br>-Yanıt API'si S2.0 ile çağırılmalıdır. <br> -Sürüm S2.0 oluşturulmuş ödeme iste talepleri, yanıt apisi S2.0 ile yanıtlanmalıdır.|
+
 ## 3.4.	Kaynak URI Yol Yapısı
 
 ÖHS’lerin başlattığı çağrılarda URI yolu aşağıdaki yapıyı takip eder:

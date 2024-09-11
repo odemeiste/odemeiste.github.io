@@ -10,23 +10,9 @@ Bu bölümde sadece Öİ Kurumsal API ile ilgili farklılaşan kısımlar anlat�
 
 -  Öİ hizmetinin alacaklı ÖHS tarafından API ile bir işyerine/kuruma vb. açılması için alacaklı ÖHS ile ilgili işyeri arasında sözleşme imzalanması( işyeri sözleşmesi, Kurum ile ÖHS arası sözleşme vb.) şartı olacaktır. Yapılan sözleşme işyeri ve alacaklı ÖHS arasında yapılacak olup BKM sorumluluğu dışındadır.
 
--  Tüm alacaklı ÖHS’lerin işyerlerine aynı formatta token endpointi açması zorunludur. İstek başlığında yer alan ‘Authorization’ kısmı için aşağıdaki hususlara dikkat edilmelidir.
-    - **Authorization;** işyeri ile alacaklı ÖHS arasındaki otorizasyon için kullanılan token bilgisidir. Alacaklı ÖHS’nin açtığı endpointden alınan token bu başlıkta gönderilecektir.
-    - ÖHS'nin işyerine sunacağı Öİ Kurumsal API’ye ait alan adı ile aynı olmalıdır.
-    - Verilecek tokenın yaşam süresi en az 1 saat olmalıdır.
-    - Scope olarak “odeme_iste_kurumsal” kullanılmalıdır.
-    
-    - Token endpoint’e atılacak örnek İstek : 
-
-            curl --location 'https://……...com.tr/oauth-provider/oauth2/token' \
-            --header 'Content-Type: application/x-www-form-urlencoded' \
-            --data-urlencode 'grant_type=client_credentials' \
-            --data-urlencode 'scope=odeme_iste_kurumsal' \
-            --data-urlencode 'client_id=**********' \                  
-            --data-urlencode 'client_secret=***********'  
-    - **Client ID:** ÖHS tarafından işyerine atanmış olan ; Token alınması için gerekli clientID bilgisidir.
-    - **Client Secret:** ÖHS tarafından işyerine atanmış olan; Token alınması için gerekli clientSecret bilgisidir.
-
+- Tüm alacaklı ÖHS’lerin işyerlerine token endpointi açması zorunludur. 
+    - Açılacak token endpointinde kullanılacak güvenlik önlemleri Alacaklı ÖHS sorumluluğundadır. 
+    - Yöntem olarak Bearer Authentication kullanılmalıdır.
 
 ## 3.2. Mesaj İmzalama
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docs:dev:no-cache": "vuepress dev docs --no-clear-screen --no-cache --debug",
-    "docs:dev": "vuepress dev docs --no-clear-screen --debug",
+    "docs:dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev docs --no-clear-screen --debug",
     "docs:build": "vuepress build docs"
   },
   "author": "",
