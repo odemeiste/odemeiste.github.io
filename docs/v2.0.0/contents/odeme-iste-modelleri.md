@@ -50,7 +50,7 @@ Bu modelde, SGZ ile ÖİOZ arasındaki fark 180 saniye olacak şekilde tanımlan
 
 SGZ ile ÖİOZ arasındaki zaman 180 saniye ve TEÖZ boş olarak iletildiğinde işlem “Şimdi Kabul - Hemen Öde” olarak değerlendirilmelidir. 
 
-- Bu modelde (SGZ-ÖİOZ)-DTS < (SGZ-ÖİOZ) < (SGZ-ÖİOZ)+DTS şeklinde kontrol sağlanmalıdır.
+- Bu modelde 180 Sn-DTS < (SGZ-ÖİOZ) < 180 Sn+DTS şeklinde kontrol sağlanmalıdır.
 
 Söz konusu senaryonun işyeri ödemelerinde kullanılabileceği değerlendirilmektedir. Borçlu ÖHS tarafından desteklenmesi zorunludur. 
 

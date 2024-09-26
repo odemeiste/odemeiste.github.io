@@ -115,6 +115,11 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 - S1.0 endpointlerinde oluşturulan ödeme iste taleplerinde yeni eklenen alanlar varsayılan değerleriyle kayıt edilmelidir. Ödeme iste sürüm bilgisi S1.0 olacak şekilde kayıt edilmelidir.
 - S1.0 endpointlerinde oluşturulan ödeme iste taleplerinde yeni eklenen alanlar varsayılan değerleriyle kayıt edilmelidir. Ödeme iste sürüm bilgisi S1.0 olacak şekilde kayıt edilmelidir.
 
+<br>
+
+- Sürüm 1.0’da oluşturulan ödeme iste talebi S2.0’da sorgulama/iptal/yanıt API’si ile çağırıldığında **“TR.OIS.Resource.APIVersionNotSupported”**  hata verilmelidir.
+- Sürüm 2.0’da oluşturulan ödeme iste talebi S1.0’da sorgulama/iptal/yanıt API’si ile çağırıldığında **“TR.OIS.Resource.APIVersionNotSupported”** hatası verilmelidir. 
+
 | | **Sadece S1.0 Destekleyen Borçlu ÖHS'ler** | **S1.0 ve S2.0 Destekleyen Borçlu ÖHS'ler**|
 | --- | --- |--- |
 | **Sadece S1.0 Destekleyen Alacaklı ÖHS'ler** | Alacaklı ÖHS; <br> -Ödeme İste talebi S1.0'da oluşturmalıdır. <br><br>Borçlu ÖHS; <br>-Ödeme iste talebine S1.0'da başarılı yanıt dönmelidir.<br>-Yanıt API'si S1.0 ile çağırılmalıdır.| Alacaklı ÖHS;<br>-Ödeme İste talebi S1.0'da oluşturulur.<br><br>Borçlu ÖHS;<br>-S1.0 endpointlerini kapatmamalıdır. İki sürüm desteği de sağlanmalıdır.<br>-API desenine yeni eklenen alanların varsayılan değerleri ile kayıt edilmelidir. erkenOdeme=E, odemeErteleme=H ve kismiOdeme=H olmalıdır.<br>-Ödeme iste oluştur S1.0 başarılı yanıt dönmelidir.<br> -Yanıt API'si S1.0 ile çağırılmalıdır. |
