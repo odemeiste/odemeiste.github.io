@@ -62,7 +62,10 @@ Talebiniz doğrultusunda sizleri mail üzerinden bilgilendiriyor olacağız. Eğ
 
 **19)Sertifikasyon senaryoları koşulurken nelere dikkat edilmelidir? Ekranlar nasıl olmalıdır?**
 - Sertifikasyon için [https://odemeiste.github.io/](https://odemeiste.github.io/) adresinde yayınlanan API İlke ve Kuralları dokümanındaki teknik gereksinimleri yerine getirmeniz beklenmektedir.
-- Web/mobil ekranlar için sertifikasyonda iletilmesi gereken zorunlu alanlar bulunmaktadır. Bu alanlar için Trip/Tripsit > BKM Online > Ödeme İste >Dokümanlar menüsü altında yer alan ‘Kullanıcı Deneyim Dokümanı’nı' inceleyebelirsiniz. Ekranlarda İstenilen şartlar yerine getirildiği sürece ekran tasarımlarını dileğiniz gibi dizayn edebilirsiniz. 
+- Web/mobil ekranlar için sertifikasyonda iletilmesi gereken zorunlu alanlar bulunmaktadır. Bu alanlar için Trip/Tripsit > BKM Online > Ödeme İste >Dokümanlar menüsü altında yer alan ‘Kullanıcı Deneyim Dokümanı’nı' inceleyebelirsiniz. Ekranlarda İstenilen şartlar yerine getirildiği sürece ekran tasarımlarını dileğiniz gibi dizayn edebilirsiniz.
+   - Ödeme iste talebi oluşturulurken alacaklı ÖHS olarak müşterinize model seçimi yaptırıyor iseniz API dokümanındaki model isimleri ile ilerlemelidir. (Sonra Kabul-Sonra Öde, Sonra Kabul-Hemen Öde) Model isimleri ile ilerlendiğinde açıklama olarak aşağıdaki açıklamalar ile ilerlenebilir.Tavsiye niteliğindedir.
+      - Sonra Kabul-Hemen Öde: Ödeme İste talebi belirlenen süre içerisinde kabul edilebilir. Kabul edilen ödeme, kabul edildiği an gerçekleştirilir.
+      - Sonra Kabul-Sonra Öde: Ödeme iste talebi belirlenen süre içerisinde kabul edilebilir. Kabul edilen ödeme, sizin talep ettiğiniz zamana kadar borçlu müşteri tarafından seçilen tarihte gerçekleştirilir. 
    - Ayrıca mobil/web ekran gösterimleri için ayrı bir form hazırlanmıştır. İlgili formdaki yönergeler izlenerek Sertifikasyon Onay Formu ile birlikte e-posta yoluyla iletilmesi gerekmektedir. 
    - Sertifikasyona gelmeden önce ekranlar son kullanıcıya gösterilecek şekilde hazırlanmalıdır.
    - Ekran görüntülerindeki hata mesajlarının müşterinin anlayacağı şekilde ifade edilerek görsellerin düzenlenmesi beklenmektedir.
@@ -143,5 +146,12 @@ Eğer ödemenin yapılabilmesi için çoklu onaycı mekanizması işletilmesi ge
 
 **41)Hemen Öde modellerinde fonksiyonların varsayılan değerleri nasıl gönderilmelidir?**
 - Erken Ödeme = E ve Ödeme erteleme = H olarak gönderilmelidir. Kısmi ödeme fonksiyonu, Alacaklı müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan H olarak gönderilebilir.
+
+
+**42)"Şimdi Kabul-Hemen Öde" modelini alacaklı ÖHS sunabilir mi?**
+- "Şimdi Kabul – Hemen Öde” modeli sadece Öİ Kurumsal API üzerinden başlatılan Ödeme İste talepleri için kullanılabilecektir. Alacaklı ÖHS, Öİ Kurumsal API dışındaki bir kanaldan müşterisine bu modelde Ödeme İste başlatamaz.
+
+**43)"Şimdi Kabul-Hemen Öde" modeli S2.0 için sertifikasyona gelinmesi zorunlu mudur ?**
+- Borçlu ÖHS olduğunuz durumda ilgili senaryo vardır ve koşulması zorunludur.
 
 <br>**NOT: Ödeme İste Katılımcıları tarafından sorulmuş teknik soruların cevaplarına Trip/Tripsit > BKM Online > Ödeme İste > Dokümanlar menüsü altında yayınlanan ÖDEME İSTE_Aylık Soru Seti dokümanlarından ulaşabilirsiniz.**

@@ -52,7 +52,7 @@ SGZ ile ÖİOZ arasındaki zaman 180 saniye ve TEÖZ boş olarak iletildiğinde 
 
 - Bu modelde 180 Sn-DTS < (SGZ-ÖİOZ) < 180 Sn+DTS şeklinde kontrol sağlanmalıdır.
 
-Söz konusu senaryonun işyeri ödemelerinde kullanılabileceği değerlendirilmektedir. Borçlu ÖHS tarafından desteklenmesi zorunludur. 
+Söz konusu senaryo işyeri ödemelerinde kullanılabilecektir.Bu model sadece "Öİ Kurumsal API" üzerinden başlatılan ödeme iste talepleri için kullanılabilecektir. Alacaklı ÖHS, Öİ Kurumsal API dışındaki bir kanaldan müşterisine bu modelde ödeme iste başlatamaz. Borçlu ÖHS tarafından desteklenmesi zorunludur. 
 
 ## 6.2 Fonksiyonlar
 
