@@ -162,6 +162,49 @@ API istekleri ve yanıtlarında **Gövde** parametrelerinde UTF-8 karakter kodla
 
 Ancak, bir ÖHS'nin kendi uygulamaları ve ödeme başlattığı ödeme sistemi (Havale vb.) bazı UTF-8 karakterlerini kabul etmeyebilir. ÖHS, UTF-8 kodlaması içeren bir mesajı işleyemez ve reddederse, HTTP 400 (Hatalı İstek) durum kodu ile yanıt vermelidir.
 
+Ödeme iste talebinde borçlu ve alacaklı işlem açıklamasında işlenemeyecek karakterler var ise **"TR.OIS.Business.InvalidCharacter"** hatası verilir. Açıklama alanında fast sistemine taşınamayacak karakter kümesine izin verilmemelidir.
+
+Gövde parametrelerinde desteklenen UTF-8 karakter kümesi aşağıda listelenmiştir. 
+
+|Karakter |UTF 8 <br> Hex.|Karakter |UTF 8 <br> Hex. |Karakter |UTF 8 <br> Hex. |Karakter |UTF 8 <br> Hex.|
+| --- | --- | --- | --- | --- | --- |--- | --- |
+|   | 20 | =    | 3d | X | 58 | r | 72 |
+| ! | 21 | ?   | 3f | Y | 59 | s | 73 |
+|#|23|@|40|Z|5a|t|74|
+|%|25|A|41|[|5b|u|75|
+|&|26|B|42|\\|5c|v|76|
+|'|27|C|43|]|5d|w|77|
+|(|28|D|44|^|5e|x|78|
+|)|29|E|45|_|5f|y|79|
+|*|2a|F|46|a|61|z|7a|
+|+|2b|G|47|b|62|{|7b|
+|,|2c|H|48|c|63|}|7d|
+|-|2d|I|49|d|64|Ç|c3 87|
+|.|2e|J|4a|e|65|Ö|c3 96|
+|/|2f|K|4b|f|66|Ü|c3 9c|
+|0|30|L|4c|g|67|ç|c3 a7|
+|1|31|M|4d|h|68|ö|c3 b6|
+|2|32|N|4e|i|69|ü|c3 bc|
+|3|33|O|4f|j|6a|Ğ|c4 9e|
+|4|34|P|50|k|6b|ğ|c4 9f|
+|5|35|Q|51|l|6c|İ|c4 b0|
+|6|36|R|52|m|6d|ı|c4 b1|
+|7|37|S|53|n|6e|Ş|c5 9e|
+|8|38|T|54|o|6f|ş|c5 9f|
+|9|39|U|55|p|70|||
+|:|3a|V|56|q|71|||
+|;|3b|W|57|||||
+
+
+Bearer HTTP Authorization Şeması RFC 6750'de tanımlanmıştır. <https://www.rfc-editor.org/rfc/rfc6750#section-2.1> bölümünde izin verilen karakterlerin gönderilmesi beklenmektedir. Buradaki standartın her 3 parametre için de uygulanmasına karar verilmiştir. 
+
+RFC 6750 içerisinde bearer token formatı şu şekildedir : 1*( ALPHA / DIGIT / "-" / "." / "&#95;" / "~" / "+" / "/" ) *"="  
+Augmented BNF for Syntax Specifications (ABNF) ile ifade edilen bu formatta token en az 1 adet alfanumerik karakter veya özel karakter ("-", "." , "&#95;" , "~" , "+" , "/")  içermeli ve 0 ya da daha çok sayıda "=" karakteri ile bitmelidir.   
+
+ALPHA = A-Z / a-z aralığındaki harflerdir.  
+DIGIT = 0-9 aralığındaki rakamlardır.
+
+
 ## 3.6.	Veri Formatı
 
 -   Ödeme İste kapsamındaki zaman damgası, ISO 8601 standartına uygun olarak yerel saat bilgisini ve timezone bilgisini de içerecek şekilde " yyyy-MM-dd’T’HH:mm:ssXXX " formattaki haliyle hazırlanmalıdır.
