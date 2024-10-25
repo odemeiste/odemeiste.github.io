@@ -144,12 +144,34 @@ Eğer ödemenin yapılabilmesi için çoklu onaycı mekanizması işletilmesi ge
 - Fonksiyonlar birbiriyleriyle kullanılabilir. Kullanım detaylarını [https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri](https://odemeiste.github.io/v2.0.0/contents/odeme-iste-modelleri.html#_6-1-odeme-iste-kullan%C4%B1m-modelleri) linkinden kontrol edebilirsiniz. 
 - Kabul yanıtı verilirken fonksiyonların birbirleriyle kullanım kontrolleri ise [https://odemeiste.github.io/v2.0.0/contents/odeme-iste.html#_7-4-adim-3-odeme-iste-yan%C4%B1t%C4%B1](https://odemeiste.github.io/v2.0.0/contents/odeme-iste.html#_7-4-adim-3-odeme-iste-yan%C4%B1t%C4%B1) sayfasında detaylıca anlatılmaktadır. 
 
-**41)Hemen Öde modellerinde fonksiyonların varsayılan değerleri nasıl gönderilmelidir?**
+**41)Kısmi ödeme evet olan ödeme iste talebi kabul edilirken minimum tutar gönderme kontrolü var mıdır, bu durum banka kararına mı bırakılmıştır?**
+- Borçlu ÖHS insiyatifindedir. 0 TL gönderilemez.
+
+**42)Hemen Öde modellerinde fonksiyonların varsayılan değerleri nasıl gönderilmelidir?**
 - Erken Ödeme = E ve Ödeme erteleme = H olarak gönderilmelidir. Kısmi ödeme fonksiyonu, Alacaklı müşteriye seçim olarak sunulabilir ya da müşteriye seçim yaptırılmadan ödeme iste talebinde varsayılan H olarak gönderilebilir.
 
 
-**42)"Şimdi Kabul-Hemen Öde" modelini alacaklı ÖHS sunabilir mi?**
+**43)"Şimdi Kabul-Hemen Öde" modelini alacaklı ÖHS sunabilir mi?**
 - "Şimdi Kabul – Hemen Öde” modeli sadece Öİ Kurumsal API üzerinden başlatılan Ödeme İste talepleri için kullanılabilecektir. Alacaklı ÖHS, Öİ Kurumsal API dışındaki bir kanaldan müşterisine bu modelde Ödeme İste başlatamaz.
+
+**44)Sertifikasyon senaryolarına nereden ulaşabilirim? Sertifikasyon senaryoları için nasıl filtreleme yapmam gerekiyor? Tüm senaryoların koşulması gerekiyor mu?**
+- [https://tripsit.bkm.com.tr/boss/bossCERT/CertificationRuleList linkinden erişebilirsiniz.](https://tripsit.bkm.com.tr/boss/bossCERT/CertificationRuleList) linkinden erişebilirsiniz. İlk kez sertifikasyona geliniyor ise; Mobil için **“Bireysel, Kurumsal , Mobil”** seçilmelidir. Web için **“Bireysel, Kurumsal, Web”** seçilmelidir. S2.0 için sertifikasyona geliniyor ise; mobil için **“Bireysel, Kurumsal, Sertifikasyon Güncelleme, Mobil”** seçilmelidir. Web için **“Bireysel, Kurumsal, Sertifikasyon Güncelleme, Web”** seçilmelidir.
+
+**45)Sertifikasyona web/mobil aynı sertifikasyon ID ile gelebilir miyiz?**
+- Web ve mobil için ayrı ayrı sertifikasyon iletilmelidir. Aynı sertifikasyon id içerisinde gönderilirse sertifikasyon talebiniz reddedilecektir. 
+
+**46)Sertifikasyona bireysel/kurumsal ayrı ayrı sertifikasyon ID ile gelebilir miyiz?**
+- Hayır tek sertifikasyon içerisinde gönderilmelidir. Ayrı sertifikasyon id içerisinde gönderilirse sertifikasyon talebiniz reddedilecektir. Ancak tek bir müşteri segmenti destekleniyor ise desteklenen müşteri segmenti ile sertifikasyon onayı iletilebilir.
+
+**47)Sertifikasyon onay isteği oluştururken "Müşteri/Kanal Seçimi" nasıl olmalıdır?**
+- İlk kez sertifikasyona geliniyor ise; Mobil için **“Bireysel, Kurumsal, Mobil”** seçilmelidir. Web için **“Bireysel, Kurumsal, Web”** seçilmelidir. S2.0 için sertifikasyona geliniyor ise; mobil için **“Bireysel, Kurumsal, Sertifikasyon Güncelleme, Mobil”** seçilmelidir. Web için **“Bireysel, Kurumsal, Sertifikasyon Güncelleme, Web”** seçilmelidir.
+
+**48)FAST loglarını nereden kontrol edebiliriz?**
+- Ödeme İste simülatörü “Servis Logları” kısmının altında “Fast Logları” yer almaktadır. Bu bölümden inceleyebilirsiniz.
+
+**49)Sürüm yönetimi ile ilgili detay bilgi bulamadım. Yardımcı olabilir misiniz?**
+- [https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi](https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi) inceleyebilirsiniz.
+
 
 
 <br>**NOT: Ödeme İste Katılımcıları tarafından sorulmuş teknik soruların cevaplarına Trip/Tripsit > BKM Online > Ödeme İste > Dokümanlar menüsü altında yayınlanan ÖDEME İSTE_Aylık Soru Seti dokümanlarından ulaşabilirsiniz.**
