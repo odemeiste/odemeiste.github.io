@@ -5,7 +5,7 @@
 
 İşyeri entegrasyonlarında kullanılması için standart hale getirilmiştir. BKM tarafından standartlar belirlenmiş olup alacaklı ÖHS'lerin sunacağı Öİ Kurumsal API’lerinin bu standartlara uyması beklenmektedir. 
 
-**Kurumsal API, taslak olarak yayınlanmış olup detaylandırılmaya devam edilmektedir.**
+**Öİ Kurumsal API üretim ortamına alınmadan önce BKM'ye bilgi verilmesi zorunludur. Kurumsal API hizmeti verecek katılımcıların işyerleri ile paylaştıkları entegrasyon vb dokümanlarını BKM ile paylaşması zorunludur.**
 
 
 

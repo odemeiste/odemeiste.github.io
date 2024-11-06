@@ -20,7 +20,7 @@
 
 18 Ocak 2025 itibariyle 1.0.0 sürümü üzerinden yapılmış ödeme iste taleplerinin hayatına devam etmesi sağlanmalıdır.
 - Örneğin; 1.0.0 sürümünde oluşturulmuş "Bekleniyor" durumunda olan bir ödeme iste talebi sürecine 2.0.0 sürümünde devam edebilmelidir. 
-- <h4>Ödeme İste Oluşturma API’si 1 Ay desteklenmeye devam etmelidir. Ödeme İste Yanıt API’si ise 4 Ay desteklenmeye devam etmelidir.</h4> 
+- <h4>Ödeme İste Oluşturma API’si 1 Ay (18 Şubat 2025) desteklenmeye devam etmelidir. Ödeme İste Yanıt API’si ise 4 Ay (18 Mayıs 2025) desteklenmeye devam etmelidir.</h4> 
 [https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi ](https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi)
 
 <h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
