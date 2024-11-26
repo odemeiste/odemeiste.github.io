@@ -117,7 +117,7 @@ API sonraki aşamalarda doğabilecek gereksinimleri ve daha karmaşık kullanım
 
 <br>
 
-- Sürüm 1.0’da oluşturulan ödeme iste talebi S2.0’da sorgulama/iptal/yanıt API’si ile çağırıldığında **“TR.OIS.Resource.APIVersionNotSupported”**  hata verilmelidir.
+- Sürüm 1.0’da oluşturulan ödeme iste talebi S2.0’da sorgulama/iptal/yanıt API’si ile çağırıldığında **“TR.OIS.Resource.APIVersionNotSupported”**  hatası verilmelidir.
 - Sürüm 2.0’da oluşturulan ödeme iste talebi S1.0’da sorgulama/iptal/yanıt API’si ile çağırıldığında **“TR.OIS.Resource.APIVersionNotSupported”** hatası verilmelidir. 
 
 | | **Sadece S1.0 Destekleyen Borçlu ÖHS'ler** | **S1.0 ve S2.0 Destekleyen Borçlu ÖHS'ler**|
