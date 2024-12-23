@@ -23,6 +23,7 @@ Müşteri, Borçlu ÖHS uygulaması üzerinden başlattığı ödeme iste işlem
 >>**&#8680;'21' : FAST Sistem Hatası**<br>
 >>**&#8680;'22' : FAST Ödeme İste Bilgileri Doğrulanamadı**<br>
 >>**&#8680;'23' : FAST Ödeme İste Zaman Kontrolleri Doğrulanamadı**<br>
+>>**&#8680;'31' : Borçlu ÖHS tarafından ödeme iste talebine yanıt verilemedi. (Belirtilen ödeme iste durumu "Öİ Kurumsal API" üzerinden oluşturulan ödeme iste talepleri için dönülmelidir. Üye işyeri tarafından ödeme iste talebi alacaklı ÖHS'ye iletilir ancak Alacaklı ÖHS tarafından Borçlu ÖHS'ye iletilirken hata alınması durumunda dönülmelidir.**<br>
 
 ÖHS'ler sunmuş oldukları Ödeme İste Talebi İptal ekranını hangi kanallardan ödeme iste talebi yapılmasına izin veriliyorsa (web/mobil) aynı ortamdan müşteriye sunmalıdır.
 

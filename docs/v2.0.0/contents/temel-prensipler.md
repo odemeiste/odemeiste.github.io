@@ -44,6 +44,7 @@ Bu bölümde Ödeme İste Servisleri için tanımlanan temel prensipler açıkla
 - Öİ’nin başlatılabilmesi için gereken Borçlu bilgileri, Borçlu tarafından hesap bilgisi (Ad Soyad, IBAN) olarak paylaşılabileceği gibi TR Karekod veya Kolay Adres şeklinde de paylaşılabilir. 
 - Öİ akışlarında kullanılan ilgili bilgilerin Borçlu ÖHS tarafından ödeme işleminin gerçekleştirileceği ödeme sistemine taşınması gerekmektedir.
 - Katılımcılar, Müşterilerinden gelen ve Müşterilerine gitmesi gereken talep ve sonuçlara ilişkin anlık olarak bildirim yapmalıdır.Anlık bildirimler ÖHS tarafından iletilecek SMS ya da push notifikasyon olabilir. Müşterinin iletişim tercihi birincil iletişim kanalı olmak üzere en azından SMS ile bilgilendirme yapılması beklenmektedir. 
+- Kurumsal API üzerinden başlatılan ve 03:Fatura, 04: Vergi/Har/Belediye, 05: Kredi ve 06: BES akış türlerinde başlatılan Öİ taleplerinde Borçlu ÖHK'nın bilgilendirilmesi(notifikasyon ve/veya SMS olarak) Borçlu ÖHS insiyatifinde uygun saat dilimlerinde yapılabilir.
 - Alacaklı ÖHS olarak borçlu ÖHS'den kabul ya da red durum değişikliği bildirimi geldiğinde Alacaklı ÖHS'nin müşterisini bilgilendirmesi zorunludur.
 - Müşterilerin Borçlu olarak Öİ almama hakları bulunmakta olup, bu yönde tercihi bulunan Müşterilere Öİ sunulmaz. (Söz konusu tercihin güncellenebileceği araç/arayüzler müşterilere sunulmalıdır)
 - Ödeme İste katman servisinin müşterilere sunulması için mobil kanalın kullanılması zorunlu olup diğer kanalların kullanımı ödeme hizmeti sağlayıcılarının tercihine bırakılmıştır. Mobil uygulama yüklü olmayan müşterilerde davet isteği göndermek ÖHS inisiyatifindedir.
@@ -766,7 +767,11 @@ X-JWS-Signature zorunluluğu olan isteklerde gelmemesi durumunda TR.OIS.Resource
 }
 ```
 
-## 3.17. Sıralı Veri Türleri
+## 3.17. Fonksiyonel Olmayan Gereksinimler
+
+BKM Geçit’te katılımcı, API endpointi, çağrım metodu bazında (Path+Method+Katılımcı) 10 saniyede çağırılabilecek işlem sayısı 1000 olarak belirlenmiştir. Bu rakamın üzerinde yapılacak işlemlerde BKM Geçit tarafından HTTP 429 - Too Many Requests hatası dönülecektir.
+
+## 3.18. Sıralı Veri Türleri
 
 **Tablo 6: Sıralı Veri Türleri**
 
