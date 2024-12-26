@@ -74,8 +74,8 @@ Talebiniz doğrultusunda sizleri mail üzerinden bilgilendiriyor olacağız. Eğ
 **20)Sertifikasyon onay isteği nasıl oluşturabiliriz?**
 - Tripsit > Sertifikasyon Onayı Oluşturma > Sertifikasyon Onay İsteği Oluşturma başlığı altından sertifikasyona gelinecek rol için oluşturulmaktadır. Bu süreçle ilgili yine destek alabileceğiniz video kaydı bulunmaktadır.
 
-**21)Sertifikasyon onay isteği oluşturdum. Başlatıldı statüsünde kaldı. Yardımcı olabilir misiniz?**
-- Sertifikasyon talebinde bulunulduğunda seçilen tarih aralığındaki log kayıtları çekilerek otomatik olarak ‘Çalıştırıldı’ statüsüne geçmektedir. Çalıştırdığınız tarih aralığında log kaydı olup olmadığı kontrol edilmelidir. 
+**21)Sertifikasyon onay isteği oluşturdum. "Log Bulunamadı" statüsünde kaldı. Yardımcı olabilir misiniz?**
+- Sertifikasyon talebinde bulunulduğunda seçilen tarih aralığındaki log kayıtları çekilerek otomatik olarak ‘Çalıştırıldı’ statüsüne geçmektedir. Çalıştırdığınız tarih aralığında log kaydı olup olmadığı kontrol edilmelidir. Servis Sağlayan senaryoları koşulurken "X-Scenario-Id" alanının seçildiğine dikkat edilmelidir.
 
 **22)Sertifikasyon onay isteği oluşturdum. Senaryolar tiklenmedi. Kontrol edebilir misiniz?**
 - Sertifikasyon onayı oluşturulduktan sonra ‘Detay’ seçilerek senaryonun neden tiklenmediği ‘Hata Gör’ kolonundan kontrol edilmelidir.
@@ -84,7 +84,6 @@ Talebiniz doğrultusunda sizleri mail üzerinden bilgilendiriyor olacağız. Eğ
 
 **23)Ödeme İste Sertifikasyon onayı aldım. Üretim ortamına geçiş için neler yapılması gerekir?**
 - Üretim ortamına geçmek istediğiniz tarihini öncelikle odemeiste@bkm.com.tr adresine iletilmesi beklenmektedir. Sonrasında paylaşılacak olan güvenli paylaş linki üzerinden Ödeme İste ÖHS BKM Üretim ortamı Entegrasyon Formunun doldurularak iletilmesi beklenmektedir.
-
 
 **24)Geliştirmeler sırasında doküman ile simülatör arasında fark görüldüğünde hangisi doğrudur? Nasıl ilerlemeliyiz?**
 - Her zaman Ödeme İste API İlke ve Kuralları dokümanı dikkate alınmalıdır. 
@@ -172,6 +171,7 @@ Eğer ödemenin yapılabilmesi için çoklu onaycı mekanizması işletilmesi ge
 **49)Sürüm yönetimi ile ilgili detay bilgi bulamadım. Yardımcı olabilir misiniz?**
 - [https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi](https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi) inceleyebilirsiniz.
 
-
+**50)Ödeme Erteleme E olarak oluşturulan ödeme iste talebinde vade tutarı tutardan küçük olabilir mi?**
+- Hayır, vadeTutari ≥ tutar olmalıdır.
 
 <br>**NOT: Ödeme İste Katılımcıları tarafından sorulmuş teknik soruların cevaplarına Trip/Tripsit > BKM Online > Ödeme İste > Dokümanlar menüsü altında yayınlanan ÖDEME İSTE_Aylık Soru Seti dokümanlarından ulaşabilirsiniz.**
