@@ -4,7 +4,7 @@
 
 Ödeme İste Kurumsal API, işyeri entegrasyonlarında kullanılması için standart hale getirilmiştir. BKM tarafından standartlar belirlenmiş olup alacaklı ÖHS'lerin sunacağı Öİ Kurumsal API’lerinin bu standartlara uyması beklenmektedir. 
 
-**Kurumsal API, taslak olarak yayınlanmış olup detaylandırılmaya devam edilmektedir.**
+Öİ Kurumsal API üretim ortamına alınmadan önce BKM'ye bilgi verilmesi ve iş modeli(usecase) onayı alınması zorunludur. Kurumsal API hizmeti verecek katılımcıların işyerleri ile paylaştıkları entegrasyon vb dokümanlarını BKM ile paylaşması zorunludur.
 
 **1.**  İşyeri, ödeme isteği başlatmak için kendi sistemlerinde Kurumsal API aracılığıyla Öİ talebi oluşturarak alacaklı ÖHS’ye iletir. <br>
 **2.**	Alacaklı ÖHS, işyerinden gelen ödeme isteğini API üzerinden alır ve işler. Alacaklı ÖHS, ödeme isteğini doğrular ve gerekli kontrolleri yaptıktan sonra doğrulanan ödeme isteğini BKM üzerinden mevcut ödeme iste talep API’sini çağırarak borçlu ÖHS’ye iletir.<br>
@@ -65,7 +65,7 @@ Z: Zorunlu, K: Koşullu, İ: İsteğe Bağlı, N/A: Yok
 |> Tutar	|tutar	|AN1..24| Alacaklı ÖHS’nin önyüzde kullanıcıdan aldığı tutar bilgisidir.	| Z | Z |
 |> Para Birimi	|paraBirimi	|AN3| Para birimi. FAST işlemleri kapsamında sadece TL gönderimi olacaktır. 	| Z | Z | 
 |Ödeme İste Talep Detayı	|talepDetayi	|Kompleks:TalepDetay|	| Z | Z | 
-|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | Z |
+|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye Ödemeler <br>02: İşyeri(Fiziki/E-Ticaret) <br>03: Fatura <br>04: Vergi/Harç/Belediye <br>05: Kredi<br>06: BES <br><br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemeleri sadece **Kurumsal API** üzerinden başlatılabilir.<br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemelerinin hepsi **işyeri ödemeleri** kapsamında değerlendirilmelidir.| Z | Z |
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | Z |
 |> MCC Kodu	|mccKodu|AN1..4|MCC listesine İKS API aracılığı ya da BKM Online adresinden erişebilirsiniz. Mevcutta İKS sistemine entegrasyonu olan katılımcılar ilgili ekiplerinden güncel listeyi alabilirler. Kurumsal API üzerinden çağırılan isteklerde gönderilmesi beklenen kategori kodu bilgisidir.| İ | İ | 
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu müşterinin Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Sonra Kabul Hemen Öde akışı için Son Geçerlilik Zamanı Ödeme İste Oluşturulma Zamanından minimum 3 dakika öncesi maksimum 3 ay sonrası olacak şekilde seçilmelidir. İşyeri tarafından ödeme isteği oluşturulurken seçilir. | Z | Z | 
@@ -162,7 +162,7 @@ Başarılı PUT isteği sonucu alacaklı tarafından OdemeIste nesnesi dönülme
 |> Tutar	|tutar	|AN1..24| Alacaklı ÖHS’nin önyüzde kullanıcıdan aldığı tutar bilgisidir.	| Z | 
 |> Para Birimi	|paraBirimi	|AN3| Para birimi. FAST işlemleri kapsamında sadece TL gönderimi olacaktır. 	| Z |  
 |Ödeme İste Talep Detayı	|talepDetayi	|Kompleks:TalepDetay|	| Z |  
-|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye<br>02: İşyeri Ödemesi| Z | 
+|> Ödeme İste Akış Türü	|akisTur	|AN2|01: Kişiden Kişiye Ödemeler <br>02: İşyeri(Fiziki/E-Ticaret) <br>03: Fatura <br>04: Vergi/Harç/Belediye <br>05: Kredi<br>06: BES <br><br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemeleri sadece **Kurumsal API** üzerinden başlatılabilir.<br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemelerinin hepsi **işyeri ödemeleri** kapsamında değerlendirilmelidir.| Z | 
 |> Ödeme Amacı	|odemeAmaci	|AN2|TR.OIS.DataCode.OdemeAmaci sıralı veri değerlerinden birini alır. Borçlu bu bilgiyi değiştiremeyecektir.Sadece alacaklı seçebilir.| Z | 
 |> MCC Kodu	|mccKodu|AN1..4|MCC listesine İKS API aracılığı ya da BKM Online adresinden erişebilirsiniz. Mevcutta İKS sistemine entegrasyonu olan katılımcılar ilgili ekiplerinden güncel listeyi alabilirler. Kurumsal API üzerinden çağırılan isteklerde gönderilmesi beklenen kategori kodu bilgisidir.| İ |  
 |> Son Geçerlilik Zamanı (SGZ)	|sonGecerlilikZamani	|ISODateTime|Borçlu müşterinin Öİ talebine yanıt verebileceği son zaman bilgisidir. Bu zamandan sonra Öİ talebi geçersiz sayılacaktır. Sonra Kabul Hemen Öde akışı için Son Geçerlilik Zamanı Ödeme İste Oluşturulma Zamanından minimum 3 dakika öncesi maksimum 3 ay sonrası olacak şekilde seçilmelidir. İşyeri tarafından ödeme isteği oluşturulurken seçilir. | Z |  

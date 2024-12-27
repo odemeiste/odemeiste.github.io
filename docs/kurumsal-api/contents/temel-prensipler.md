@@ -3,6 +3,8 @@
 
 Temel prensipler ile ilgili belirlenen kurallar 'Aktif Sürüm' içerisinde yer alan 'Temel Prensipler' ile aynıdır. Detaylı bilgi için **'Aktif Sürüm'** kontrol edilmelidir. 
 
+Öİ Kurumsal API üretim ortamına alınmadan önce BKM'ye bilgi verilmesi ve iş modeli(usecase) onayı alınması zorunludur. Kurumsal API hizmeti verecek katılımcıların işyerleri ile paylaştıkları entegrasyon vb dokümanlarını BKM ile paylaşması zorunludur.
+
 Bu bölümde sadece Öİ Kurumsal API ile ilgili farklılaşan kısımlar anlatılmaktadır. 
 
 
@@ -162,7 +164,7 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 |TR.OIS.DataCode.MusteriTip	| B: Bireysel <br>K: Kurumsal |
 |TR.OIS.DataCode.KimlikTur	| Kod, Tip, Format <br>K , TCKN , N11 <br>V, VKN, AN10 <br>Y , YKN , N11 <br>P , PNO , AN7..9|
 | TR.OIS.DataCode.OdemeAmaci | Ödemenin Amacına yönelik olarak aşağıdaki değerlerden birini alır:<br>01: Konut Kirası Ödemesi<br>02: İş yeri Kirası Ödemesi<br>03: Diğer Kira Ödemesi<br>04: E-Ticaret Ödemesi: Elektronik ticaret işlem amaçlı aktarımlar<br>05: Çalışan Ödemesi: Maaş, harcırah, prim gibi çalışan ödemeleri<br>06: Ticari ödeme: Ticari işletmelerin birbirlerine, kendi hesaplarına veya müşterilerine ödemeleri, borç, ithalat, ihracat, şirket satın alma, vb. kapsamında ödemeler<br>07: Bireysel Ödeme: Özel amaçlı (aile bireylerine, hediye, bağış, borç, alışveriş vs.) ödemeler<br>08: Yatırım: Mevduat, menkul kıymet, döviz, gayrı menkul, taşıt, varlık alımı, temettü ödeme, tahsilat vb. gibi yatırım amaçlı ödemeler<br>09: Finansal: Kredi, depo, repo, türev, finansal varlık alım/satımı vb. ödemeler<br>10: Eğitim ödemesi<br>11: Aidat ödemesi<br>12: Diğer (Diğer seçeneği ÖHS "Havale" süreçleri için eklenmiştir. FAST işlemlerinde "Diğer" ödeme amacı kullanılmamalıdır.) |
-|TR.OIS.DataCode.AkisTur	| 01: Kişiden Kişiye Ödemeler <br>02: İşyeri(Fiziki/E-Ticaret) <br>03: Fatura <br>04: Vergi/Harç/Belediye <br>05: Kredi<br>06: BES|
+|TR.OIS.DataCode.AkisTur	|01: Kişiden Kişiye Ödemeler <br>02: İşyeri(Fiziki/E-Ticaret) <br>03: Fatura <br>04: Vergi/Harç/Belediye <br>05: Kredi<br>06: BES <br><br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemeleri sadece **Kurumsal API** üzerinden başlatılabilir.<br>"02: İşyeri(Fiziki/E-Ticaret), 03: Fatura, 04: Vergi/Harç/Belediye, 05: Kredi, 06: BES" ödemelerinin hepsi **işyeri ödemeleri** kapsamında değerlendirilmelidir.|
 | TR.OIS.DataCode.OdemeIsteDurumu | A: Alacaklı ÖHS'de talep oluşturuldu <br> B: Yanıt Bekleniyor<br>K: Kabul Edildi<br>G: Ödeme Sistemine İletildi<br>O: Ödeme Gerçekleşti<br> I: İptal Edildi |
 | TR.OIS.DataCode.OdemeIsteIptDtyKod | '01': Borçlu Müşteri Ödeme İsteğini Reddetti<br>'02': Borçlu Müşteri Beklenen Sürede Ödeme İsteğine Yanıt Vermedi<br>'03': Borçlu ÖHS Fraud Nedeniyle İptal Etti<br>'04': Borçlu ÖHS Ödeme Sistemine İletemedi<br>'05': Borçlu ÖHS Ödeme İste Yanıt’ını Alacaklı ÖHS’ye İletemedi<br>'11': Alacaklı Müşteri Ödeme İste Talebinden Vazgeçti<br>'12': Alacaklı ÖHS Fraud Nedeniyle İptal Etti<br>'13':  Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti<br>'21': FAST Sistem Hatası<br>'22':  FAST Ödeme İste Bilgileri Doğrulanamadı<br>'23':  FAST Ödeme İste Zaman Kontrolleri Doğrulanamadı<br>|
 |TR.OIS.DataCode.EvetHayir	| E: Evet <br>H: Hayır |
