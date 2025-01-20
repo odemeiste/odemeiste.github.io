@@ -7,15 +7,10 @@
 
 <h2>SÜRÜM 2.0.0 Geçiş Tarihleri:</h2>
 
-**Taslak Sürüm Yayınlama Tarihi:** 6 Haziran 2024 
+**Sürüm Yayınlama Tarihi:** 6 Haziran 2024 
 
-**Sürüm Geçiş Tarihi:** 15 Eylül 2024 (Bu tarihten itibaren 1.0.0 sürümü için sertifikasyona gelinememektedir.)
 
-**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Sertifikasyon Başlangıç Tarihi:** 15 Eylül 2024
-
-**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Sertifikasyon Bitiş Tarihi:** 15 Kasım 2024 (Bu tarihten sonra gelen ÖHS'lere uyumlandırma ücreti uygulanacaktır.)
-
-**ÖHS(1.0.0’den 2.0.0’a geçecek olan ve direkt 2.0.0’a gelecek olan) Yeni Sürüm Üretime Geçiş Son Tarihi:** 18 Ocak 2025 
+**2.0.0 Sürüm Üretime Geçiş Son Tarihi:** 18 Ocak 2025 
 <br>
 
 18 Ocak 2025 itibariyle 1.0.0 sürümü üzerinden yapılmış ödeme iste taleplerinin hayatına devam etmesi sağlanmalıdır.
@@ -25,13 +20,16 @@
 
 <h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
 
-| FAST Katılımcısı | Ödeme İste Üretime Geçiş için Zorunlu Tarihler |
-| --- | --- |
-|2022 yılında FAST Sistemi’nde en çok işlem yapan ilk 10 ÖHS <br><ul><li>Türkiye Cumhuriyeti Ziraat Bankası A.Ş.</li><li>Türkiye Halk Bankası A.Ş.</li><li>Türkiye Vakıflar Bankası T.A.O.</li><li>Akbank T.A.Ş.</li><li>Türkiye Garanti Bankası A.Ş.</li><li>Türkiye İş Bankası A.Ş.</li><li>Yapı ve Kredi Bankası A.Ş.</li><li>QNB Finansbank A.Ş.</li><li>Denizbank A.Ş.</li><li>Kuveyt Türk Katılım Bankası A.Ş.</li></ul>| Sertifikasyon Tarih Aralığı 16 Ekim-30 Kasım 2023<br>Pilot Geçiş 15 Aralık 2023<br>Üretime Geçiş 22 Ocak 2024|
-|İlk 10 ÖHS dışında 01 Ocak 2024 tarihinden önce FAST Sistemi katılımcısı olanlar** | Sertifikasyon'a Geliş Son Tarih 5 Temmuz 2024<br>Üretime Geçiş Tarih Aralığı 18-21 Temmuz 2024|
-|01 Ocak 2024 tarihi ve sonrasında FAST Sistemi katılımcısı olan ÖHSler**  |Katılımcı olduğu tarihten itibaren en geç 6 ay içinde|
+| Ödeme İsteme Modeli | Katılım Kriteri| Üretime Geçiş Son Tarihi|
+| --- | --- |--- |
+| Sonra Kabul - Sonra Öde <br> Şimdi Kabul - Hemen Öde | Halihazırda FAST Sistemi katılımcısı olup mobil uygulama ile FAST hizmeti sunan tüm Ödeme Hizmeti Sağlayıcıları |18.01.2025 |
+| Sonra Kabul - Sonra Öde <br> Şimdi Kabul - Hemen Öde | 01 Ocak 2025 tarihi öncesinde FAST Sistemi katılımcısı olarak mesaj alışverişine başlayan, mobil uygulama ile FAST hizmeti henüz sunmayan tüm Ödeme Hizmeti Sağlayıcıları*** |30.06.2025’e kadar |
+| Sonra Kabul - Sonra Öde <br> Şimdi Kabul - Hemen Öde | 01 Ocak 2025 tarihinden sonra FAST Sistemi Katılımcısı olacak tüm Ödeme Hizmeti Sağlayıcıları |En geç 6 ay içinde |
+| Sonra Kabul - Hemen Öde | 01 Ocak 2025 tarihi öncesinde FAST Sistemi katılımcısı olarak mesaj alışverişine başlayan, mobil uygulama ile FAST hizmeti henüz sunmayan tüm Ödeme Hizmeti Sağlayıcıları*** | 30.06.2025’e kadar |
+| Sonra Kabul - Hemen Öde | 01 Ocak 2025 tarihinden sonra FAST Sistemi Katılımcısı olacak tüm Ödeme Hizmeti Sağlayıcıları | En geç 6 ay içinde |
 
-**Mobil uygulama ile FAST hizmeti sunmayan katılımcılar muaftır.
+
+***Etkilenecek Katılımcılar: İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş, Birleşik Ödeme Hizmetleri ve Elektronik Para A.Ş, PTT
 
 
 

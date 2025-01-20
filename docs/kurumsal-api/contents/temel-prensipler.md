@@ -155,7 +155,11 @@ RFC 2616'da belirlenmiş olan durum kodları (status code) gönderilen isteğin 
 
 **'Aktif Sürüm'** -> **'Temel Prensipler'** -> **'HTTP Durum Kodları'** menüsünden detaylı bilgiye erişebilirsiniz.
 
-## 3.17. Sıralı Veri Türleri
+## 3.8. Fonksiyonel Olmayan Gereksinimler
+
+BKM Geçit’te katılımcı, API endpointi, çağrım metodu bazında (Path+Method+Katılımcı) 10 saniyede çağırılabilecek işlem sayısı 1000 olarak belirlenmiştir. Bu rakamın üzerinde yapılacak işlemlerde BKM Geçit tarafından HTTP 429 - Too Many Requests hatası dönülecektir.
+
+## 3.9. Sıralı Veri Türleri
 
 **Tablo 6: Sıralı Veri Türleri**
 
