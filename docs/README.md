@@ -18,7 +18,7 @@
 - <h4>Ödeme İste Oluşturma API’si 1 Ay (18 Şubat 2025) desteklenmeye devam etmelidir. Ödeme İste Yanıt API’si ise 4 Ay (18 Mayıs 2025) desteklenmeye devam etmelidir.</h4> 
 [https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi ](https://odemeiste.github.io/v2.0.0/contents/temel-prensipler.html#_3-3-surum-yonetimi)
 
-<h2>SÜRÜM 1.0.0 Geçiş Tarihleri:</h2>
+<br>
 
 | Ödeme İsteme Modeli | Katılım Kriteri| Üretime Geçiş Son Tarihi|
 | --- | --- |--- |
