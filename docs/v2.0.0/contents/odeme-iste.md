@@ -93,8 +93,9 @@ Alacaklı ÖHS, bu API erişim adresinden Borçlu ÖHS’ye yeni bir OdemeIsteTa
 -	**Sonra Kabul Hemen Öde - Sonra Kabul Sonra Öde** akışlarında  Alacaklı ÖHS tarafından iletilecek olan Son Geçerlilik Zamanı (SGZ) min. 3 dakika max. 3 ay olmalıdır. Alacaklı ÖHS tarafından Son Geçerlilik Zamanı 3 aydan fazla ya da 3 dakikadan az iletilirse Borçlu ÖHS tarafından;
 **TR.OIS.Business.InvalidExpireTime** hatası verilmelidir.
 
-- 	TEÖZ gönderildi ise Sonra Kabul - Sonra Öde modeli olarak değerlendirilmelidir. TEÖZ zamanı max. 6 ay olmalıdır. TEÖZ  6 aydan fazla iletilirse Borçlu ÖHS tarafından
-**TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilmelidir.
+- 	TEÖZ gönderildi ise Sonra Kabul - Sonra Öde modeli olarak değerlendirilmelidir.
+    - TEÖZ zamanı SGZ tarihinden büyük veya eşit olmalıdır.  TEÖZ, SGZ tarihinden küçük geldiği durumda **TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilmelidir. 
+    - TEÖZ zamanı ÖİOZ’dan max. 6 ay sonrası olmalıdır. TEÖZ 6 aydan fazla iletilirse Borçlu ÖHS tarafından **TR.OIS.Business.InvalidRequestedPaymentTime** hatası verilmelidir.
 
 - 	Öİ talebi oluşturulurken TEÖZ boş gönderildi (Sonra Kabul/Hemen Öde, Şimdi Kabul/Hemen Öde) ise borçlu ÖHS tarafından aşağıdaki kontrol gerçekleştirilir. 
     - 	erkenOdeme = H ya da odemeErteleme = E ise **TR.OIS.Business.UnsupportedFunction** hatası verilir. 
