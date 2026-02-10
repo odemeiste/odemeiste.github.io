@@ -29,7 +29,4 @@
 | Sonra Kabul - Hemen Öde | 01 Ocak 2025 tarihinden sonra FAST Sistemi Katılımcısı olacak tüm Ödeme Hizmeti Sağlayıcıları | En geç 6 ay içinde |
 
 
-***Etkilenecek Katılımcılar: İyzi Ödeme ve Elektronik Para Hizmetleri A.Ş, Birleşik Ödeme Hizmetleri ve Elektronik Para A.Ş, PTT
-
-
 
