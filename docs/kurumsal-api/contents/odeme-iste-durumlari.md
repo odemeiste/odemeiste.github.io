@@ -21,6 +21,7 @@
 >>**&#8680;'11' : Alacaklı Müşteri Ödeme İste Talebinden Vazgeçti**<br> 
 >>**&#8680;'12' : Alacaklı ÖHS Fraud Nedeniyle İptal Etti**<br> 
 >>**&#8680;'13' : Alacaklı ÖHS Ödeme İste Değerleri Uyuşmaması Nedeniyle İptal Etti**<br>
+>>**&#8680;'14' : Hesabın Kapatılması Sebebiyle İptal Edildi**<br>
 >>**&#8680;'21' : FAST Sistem Hatası**<br>
 >>**&#8680;'22' : FAST Ödeme İste Bilgileri Doğrulanamadı**<br>
 >>**&#8680;'23' : FAST Ödeme İste Zaman Kontrolleri Doğrulanamadı**<br>
